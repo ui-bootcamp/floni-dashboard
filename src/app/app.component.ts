@@ -8,8 +8,8 @@ import { Observable } from 'rxjs';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'dashboard';
-  isDarkTheme$: Observable<boolean>;
+  public title = 'dashboard';
+  public isDarkTheme$: Observable<boolean>;
 
   constructor(private themeService: ThemeService) {
     this.isDarkTheme$ = this.themeService.isDarkTheme$;

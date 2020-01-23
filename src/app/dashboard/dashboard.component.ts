@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ThemeService } from '../shared/services/theme.service';
+import 'hammerjs';
 
 @Component({
   selector: 'db-dashboard',
@@ -9,13 +10,13 @@ import { ThemeService } from '../shared/services/theme.service';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DashboardComponent {
-  isDarkTheme$: Observable<boolean>;
+  public isDarkTheme$: Observable<boolean>;
 
   constructor(private themeService: ThemeService) {
     this.isDarkTheme$ = this.themeService.isDarkTheme$;
   }
 
-  toggleDarkTheme(checked: boolean) {
+  public toggleDarkTheme(checked: boolean): void {
     this.themeService.setDarkTheme(checked);
   }
 }
