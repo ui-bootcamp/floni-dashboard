@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { ThemeService } from './shared/services/theme.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'db-root',
@@ -6,5 +8,10 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'dashboard';
+  public title = 'dashboard';
+  public isDarkTheme$: Observable<boolean>;
+
+  constructor(private themeService: ThemeService) {
+    this.isDarkTheme$ = this.themeService.isDarkTheme$;
+  }
 }
