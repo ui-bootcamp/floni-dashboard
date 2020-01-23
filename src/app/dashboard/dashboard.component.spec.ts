@@ -2,6 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { DashboardComponent } from './dashboard.component';
 import { MatSlideToggleModule } from '@angular/material';
+import { NewsModule } from './news/news.module';
 
 describe('DashboardComponent', () => {
   let component: DashboardComponent;
@@ -10,7 +11,7 @@ describe('DashboardComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [DashboardComponent],
-      imports: [MatSlideToggleModule]
+      imports: [MatSlideToggleModule, NewsModule]
     }).compileComponents();
   }));
 
