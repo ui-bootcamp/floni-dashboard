@@ -1,6 +1,8 @@
-# Dashboard
+# Dashboard 
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.21.
+[![Build Status](https://travis-ci.com/ui-bootcamp/floni-dashboard.svg?token=hNEX2dxBC7WUH8m7rJxW&branch=master)](https://travis-ci.com/ui-bootcamp/floni-dashboard)
+
+This project is a dashboard, that shows media (artists, albums and tracks) and news (articles) items.
 
 ## Development server
 
