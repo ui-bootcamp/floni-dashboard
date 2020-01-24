@@ -1,1 +1,6 @@
-<p>track works!</p>
+<div *ngIf="track && track.title && track.duration">
+  <div class="track">
+    <h5>{{ track.title }}</h5>
+    <p>{{ track.duration }}</p>
+  </div>
+</div>

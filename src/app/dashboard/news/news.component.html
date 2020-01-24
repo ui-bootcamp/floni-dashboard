@@ -1,5 +1,6 @@
-<div>
-  <mat-list *ngFor="let article of articles$ | async">
-    <db-article [article]="article"></db-article>
-  </mat-list>
-</div>
+<mat-list>
+  <db-article
+    *ngFor="let article of articles$ | async"
+    [article]="article"
+  ></db-article>
+</mat-list>

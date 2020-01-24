@@ -7,14 +7,15 @@ import { map, switchMap } from 'rxjs/operators';
 import { Track } from '../models/track.model';
 import { SearchResult } from '../models/search-result.model';
 import { SearchResultType } from '../models/search-result-type.enum';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MediaService {
-  private artistsURL = 'http://localhost:3000/artists/';
-  private albumsURL = 'http://localhost:3000/albums/';
-  private tracksURL = 'http://localhost:3000/tracks/';
+  private artistsURL = `${environment.baseUrl}artists/`;
+  private albumsURL = `${environment.baseUrl}albums/`;
+  private tracksURL = `${environment.baseUrl}tracks/`;
 
   constructor(private http: HttpClient) {}
 
@@ -56,8 +57,8 @@ export class MediaService {
   public getAllAlbumsWith(albumName: string): Observable<SearchResult[]> {
     return this.http.get<Album[]>(this.albumsURL).pipe(
       map(albums =>
-        albums.filter(x =>
-          x.name.toUpperCase().includes(albumName.toUpperCase())
+        albums.filter(album =>
+          album.name.toUpperCase().includes(albumName.toUpperCase())
         )
       ),
       map(albums => {
@@ -80,7 +81,7 @@ export class MediaService {
       map(([results, artists]) => {
         return results.map(result => {
           const foundArtist = artists.find(
-            x => x.id.toString() === result.additionalInformation
+            artist => artist.id.toString() === result.additionalInformation
           );
           if (foundArtist !== undefined) {
             result.additionalInformation = foundArtist.name;
