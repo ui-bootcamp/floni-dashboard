@@ -5,12 +5,13 @@ import { Article } from '../models/article.model';
 import { SearchResult } from '../models/search-result.model';
 import { map } from 'rxjs/operators';
 import { SearchResultType } from '../models/search-result-type.enum';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class NewsService {
-  private URL = 'http://localhost:3000/news';
+  private URL = `${environment.baseUrl}news`;
 
   constructor(private httpClient: HttpClient) {}
 
