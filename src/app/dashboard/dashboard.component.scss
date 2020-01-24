@@ -1,9 +1,26 @@
-mat-slide-toggle {
-  margin-top: 20px;
-  position: absolute;
-  right: 10px;
+.spacer {
+  flex: 1 1 auto;
 }
 
-#header{
-  width: 100%;
+.dashboard {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-column-gap: 1em;
+  grid-row-gap: 1em;
+  grid-auto-rows: minmax(500px, 50vh);
+  padding: 1em;
+}
+
+.dashboard-item {
+  overflow: hidden;
+  border-color: dimgrey;
+  border-style: solid;
+  border-width: 1px;
+}
+
+.dashboard-item-content {
+  padding-left: 0.5em;
+  padding-right: 0.5em;
+  height: 100%;
+  overflow: auto;
 }

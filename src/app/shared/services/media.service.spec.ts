@@ -5,6 +5,7 @@ import {
   HttpClientTestingModule,
   HttpTestingController
 } from '@angular/common/http/testing';
+import { environment } from '../../../environments/environment';
 
 describe('MediaService', () => {
   let injector: TestBed;
@@ -43,14 +44,14 @@ describe('MediaService', () => {
         done();
       });
 
-      const req = httpMock.expectOne(`http://localhost:3000/artists/`);
+      const req = httpMock.expectOne(`${environment.baseUrl}artists/`);
       expect(req.request.method).toBe('GET');
       req.flush(dummyArtists);
     });
   });
 
   describe('#getAlbumsForArtist', () => {
-    it('should only returns album for the requested artis>', done => {
+    it('should only returns album for the requested artist>', done => {
       const dummyAlbums = [
         {
           id: 1,
@@ -83,7 +84,7 @@ describe('MediaService', () => {
         done();
       });
 
-      const req = httpMock.expectOne(`http://localhost:3000/albums/`);
+      const req = httpMock.expectOne(`${environment.baseUrl}albums/`);
       expect(req.request.method).toBe('GET');
       req.flush(dummyAlbums);
     });
@@ -120,7 +121,7 @@ describe('MediaService', () => {
         done();
       });
 
-      const req = httpMock.expectOne(`http://localhost:3000/albums/`);
+      const req = httpMock.expectOne(`${environment.baseUrl}albums/`);
       expect(req.request.method).toBe('GET');
       req.flush(dummyAlbums);
     });
@@ -154,7 +155,7 @@ describe('MediaService', () => {
         done();
       });
 
-      const req = httpMock.expectOne(`http://localhost:3000/tracks/`);
+      const req = httpMock.expectOne(`${environment.baseUrl}tracks/`);
       expect(req.request.method).toBe('GET');
       req.flush(dummyTracks);
     });
@@ -195,7 +196,7 @@ describe('MediaService', () => {
         done();
       });
 
-      const req = httpMock.expectOne(`http://localhost:3000/tracks/`);
+      const req = httpMock.expectOne(`${environment.baseUrl}tracks/`);
       expect(req.request.method).toBe('GET');
       req.flush(dummyTracks);
     });

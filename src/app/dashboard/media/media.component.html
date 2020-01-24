@@ -1,0 +1,4 @@
+<mat-list *ngFor="let artist of artists$ | async">
+  <db-artist [artist]="artist"></db-artist>
+</mat-list>
+<db-fake-player></db-fake-player>
