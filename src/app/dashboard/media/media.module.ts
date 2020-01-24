@@ -4,13 +4,31 @@ import { ArtistComponent } from './artist/artist.component';
 import { FakePlayerComponent } from './fake-player/fake-player.component';
 import { AlbumComponent } from './album/album.component';
 import { TrackComponent } from './track/track.component';
-
-
+import { MediaComponent } from './media.component';
+import {
+  MatCardModule,
+  MatExpansionModule,
+  MatGridListModule,
+  MatListModule,
+  MatTableModule
+} from '@angular/material';
 
 @NgModule({
-  declarations: [ArtistComponent, FakePlayerComponent, AlbumComponent, TrackComponent],
+  declarations: [
+    ArtistComponent,
+    FakePlayerComponent,
+    AlbumComponent,
+    TrackComponent,
+    MediaComponent
+  ],
+  exports: [MediaComponent],
   imports: [
-    CommonModule
+    CommonModule,
+    MatListModule,
+    MatCardModule,
+    MatExpansionModule,
+    MatGridListModule,
+    MatTableModule
   ]
 })
-export class MediaModule { }
+export class MediaModule {}

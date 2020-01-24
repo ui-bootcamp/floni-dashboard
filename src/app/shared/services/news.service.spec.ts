@@ -5,6 +5,7 @@ import {
   HttpClientTestingModule,
   HttpTestingController
 } from '@angular/common/http/testing';
+import { environment } from '../../../environments/environment';
 
 describe('NewsService', () => {
   let injector: TestBed;
@@ -57,7 +58,7 @@ describe('NewsService', () => {
       done();
     });
 
-    const req = httpMock.expectOne(`http://localhost:3000/news`);
+    const req = httpMock.expectOne(`${environment.baseUrl}news`);
     expect(req.request.method).toBe('GET');
     req.flush(dummyArticles);
   });
