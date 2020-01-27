@@ -29,8 +29,16 @@ export class MediaService {
           x.name.toUpperCase().includes(artistName.toUpperCase())
         )
       ),
-      map(v =>
-        v.map(x => new SearchResult(x.id, x.name, '', SearchResultType.Artist))
+      map(artists =>
+        artists.map(
+          artist =>
+            new SearchResult(
+              artist.id,
+              artist.name,
+              '',
+              SearchResultType.Artist
+            )
+        )
       )
     );
   }
@@ -52,13 +60,13 @@ export class MediaService {
           x.name.toUpperCase().includes(albumName.toUpperCase())
         )
       ),
-      map(v => {
-        return v.map(
-          x =>
+      map(albums => {
+        return albums.map(
+          album =>
             new SearchResult(
-              x.id,
-              x.name,
-              x.artistId.toString(),
+              album.id,
+              album.name,
+              album.artistId.toString(),
               SearchResultType.Album
             )
         );
@@ -104,13 +112,13 @@ export class MediaService {
           x.title.toUpperCase().includes(trackName.toUpperCase())
         )
       ),
-      map(v =>
-        v.map(
-          x =>
+      map(tracks =>
+        tracks.map(
+          track =>
             new SearchResult(
-              x.id,
-              x.title,
-              x.albumId.toString(),
+              track.id,
+              track.title,
+              track.albumId.toString(),
               SearchResultType.Track
             )
         )

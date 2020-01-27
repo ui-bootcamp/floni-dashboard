@@ -5,7 +5,7 @@ import { SearchResultType } from '../models/search-result-type.enum';
   name: 'searchResultTypeToIcon'
 })
 export class SearchResultTypeToIconPipe implements PipeTransform {
-  transform(value: any): any {
+  transform(value: SearchResultType): string {
     switch (value) {
       case SearchResultType.Track:
         return 'audiotrack';
