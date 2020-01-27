@@ -11,7 +11,7 @@ import { Observable } from 'rxjs';
   styleUrls: ['./search.component.scss']
 })
 export class SearchComponent implements OnInit {
-  private searchField: FormControl = new FormControl();
+  public searchField: FormControl = new FormControl();
   public searchResults$: Observable<SearchResult[]>;
 
   constructor(private searchService: SearchService) {
