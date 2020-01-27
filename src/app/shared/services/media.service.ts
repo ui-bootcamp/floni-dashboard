@@ -71,13 +71,11 @@ export class MediaService {
       }),
       map(([results, artists]) => {
         return results.map(result => {
-          if (
-            artists.find(x => x.id.toString() === result.additionalInformation)
-          ) {
-            // @ts-ignore
-            result.additionalInformation = artists.find(
-              x => x.id.toString() === result.additionalInformation
-            ).name;
+          const foundArtist = artists.find(
+            x => x.id.toString() === result.additionalInformation
+          );
+          if (foundArtist !== undefined) {
+            result.additionalInformation = foundArtist.name;
           }
           return result;
         });
@@ -125,13 +123,11 @@ export class MediaService {
       }),
       map(([results, albums]) => {
         return results.map(result => {
-          if (
-            albums.find(x => x.id.toString() === result.additionalInformation)
-          ) {
-            // @ts-ignore
-            result.additionalInformation = albums.find(
-              x => x.id.toString() === result.additionalInformation
-            ).name;
+          const foundAlbum = albums.find(
+            x => x.id.toString() === result.additionalInformation
+          );
+          if (foundAlbum !== undefined) {
+            result.additionalInformation = foundAlbum.name;
           }
           return result;
         });
