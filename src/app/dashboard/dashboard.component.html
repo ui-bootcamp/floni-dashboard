@@ -1,9 +1,11 @@
 <div id="dashboard">
+  <div id="header">
   <mat-slide-toggle
     [checked]="isDarkTheme$ | async"
     (change)="toggleDarkTheme($event.checked)"
     >Dark theme
   </mat-slide-toggle>
-  <div>dashboard works!</div>
+  <db-search></db-search>
+  </div>
   <db-news></db-news>
 </div>
