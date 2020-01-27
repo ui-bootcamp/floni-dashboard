@@ -27,13 +27,13 @@ export class NewsService {
             x.description.toUpperCase().includes(searchString.toUpperCase())
         )
       ),
-      map(v =>
-        v.map(
-          x =>
+      map(articles =>
+        articles.map(
+          article =>
             new SearchResult(
-              x.id,
-              x.title,
-              x.description,
+              article.id,
+              article.title,
+              article.description,
               SearchResultType.Article
             )
         )
