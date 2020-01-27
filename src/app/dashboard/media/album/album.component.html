@@ -1,11 +1,3 @@
-<mat-accordion>
-  <mat-expansion-panel *ngIf="album && album.name && album.coverSmall">
-    <mat-expansion-panel-header>
-      <mat-panel-title>
-        <img [src]="album.coverSmall" [alt]="album.name + 'cover'" />
-        <h4>{{ album.name }}</h4>
-      </mat-panel-title>
-    </mat-expansion-panel-header>
-    <db-track *ngFor="let track of tracks$ | async" [track]="track"></db-track>
-  </mat-expansion-panel>
-</mat-accordion>
+<div *ngIf="album && album.name && album.coverSmall">
+  <div>{{ album.name }}</div>
+</div>

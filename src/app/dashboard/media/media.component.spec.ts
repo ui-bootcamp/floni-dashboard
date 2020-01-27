@@ -7,11 +7,14 @@ import { HttpClientModule } from '@angular/common/http';
 import {
   MatCardModule,
   MatExpansionModule,
-  MatListModule
+  MatIconModule,
+  MatListModule,
+  MatProgressBarModule
 } from '@angular/material';
 import { FakePlayerComponent } from './fake-player/fake-player.component';
 import { AlbumComponent } from './album/album.component';
 import { TrackComponent } from './track/track.component';
+import { SecondsToMinutesPipe } from '../../shared/pipes/seconds-to-minutes.pipe';
 
 describe('MediaComponent', () => {
   let component: MediaComponent;
@@ -24,14 +27,17 @@ describe('MediaComponent', () => {
         ArtistComponent,
         AlbumComponent,
         TrackComponent,
-        FakePlayerComponent
+        FakePlayerComponent,
+        SecondsToMinutesPipe
       ],
       imports: [
         CommonModule,
         HttpClientModule,
         MatCardModule,
         MatListModule,
-        MatExpansionModule
+        MatExpansionModule,
+        MatIconModule,
+        MatProgressBarModule
       ]
     }).compileComponents();
   }));
