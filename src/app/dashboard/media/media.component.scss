@@ -1,0 +1,14 @@
+.media-wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  overflow: hidden;
+  height: 70%;
+}
+
+::ng-deep .mat-list-option .mat-pseudo-checkbox {
+  display: none;
+}
+
+mat-selection-list {
+  overflow: auto;
+}

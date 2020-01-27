@@ -1,6 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { FakePlayerComponent } from './fake-player.component';
+import { MatIconModule, MatProgressBarModule } from '@angular/material';
+import { SecondsToMinutesPipe } from '../../../shared/pipes/seconds-to-minutes.pipe';
 
 describe('FakePlayerComponent', () => {
   let component: FakePlayerComponent;
@@ -8,9 +10,9 @@ describe('FakePlayerComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ FakePlayerComponent ]
-    })
-    .compileComponents();
+      declarations: [FakePlayerComponent, SecondsToMinutesPipe],
+      imports: [MatIconModule, MatProgressBarModule]
+    }).compileComponents();
   }));
 
   beforeEach(() => {
