@@ -43,7 +43,7 @@ describe('MediaService', () => {
         done();
       });
 
-      const req = httpMock.expectOne(`http://localhost:3000/artists`);
+      const req = httpMock.expectOne(`http://localhost:3000/artists/`);
       expect(req.request.method).toBe('GET');
       req.flush(dummyArtists);
     });
@@ -83,7 +83,7 @@ describe('MediaService', () => {
         done();
       });
 
-      const req = httpMock.expectOne(`http://localhost:3000/albums`);
+      const req = httpMock.expectOne(`http://localhost:3000/albums/`);
       expect(req.request.method).toBe('GET');
       req.flush(dummyAlbums);
     });
@@ -120,7 +120,7 @@ describe('MediaService', () => {
         done();
       });
 
-      const req = httpMock.expectOne(`http://localhost:3000/albums`);
+      const req = httpMock.expectOne(`http://localhost:3000/albums/`);
       expect(req.request.method).toBe('GET');
       req.flush(dummyAlbums);
     });
@@ -154,7 +154,7 @@ describe('MediaService', () => {
         done();
       });
 
-      const req = httpMock.expectOne(`http://localhost:3000/tracks`);
+      const req = httpMock.expectOne(`http://localhost:3000/tracks/`);
       expect(req.request.method).toBe('GET');
       req.flush(dummyTracks);
     });
@@ -195,7 +195,7 @@ describe('MediaService', () => {
         done();
       });
 
-      const req = httpMock.expectOne(`http://localhost:3000/tracks`);
+      const req = httpMock.expectOne(`http://localhost:3000/tracks/`);
       expect(req.request.method).toBe('GET');
       req.flush(dummyTracks);
     });
