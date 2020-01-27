@@ -1,4 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
+import { SearchService } from '../../shared/services/search.service';
+import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
+import { SearchResult } from '../../shared/models/search-result.model';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'db-search',
@@ -6,10 +11,18 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./search.component.scss']
 })
 export class SearchComponent implements OnInit {
+  private searchField: FormControl = new FormControl();
+  public searchResults$: Observable<SearchResult[]>;
 
-  constructor() { }
-
-  ngOnInit() {
+  constructor(private searchService: SearchService) {
+    this.searchResults$ = new Observable<SearchResult[]>();
   }
 
+  ngOnInit() {
+    this.searchResults$ = this.searchField.valueChanges.pipe(
+      debounceTime(400),
+      distinctUntilChanged(),
+      switchMap(term => this.searchService.search(term))
+    );
+  }
 }

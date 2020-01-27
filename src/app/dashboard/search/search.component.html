@@ -1,1 +1,20 @@
-<p>search works!</p>
+<mat-form-field>
+  <input
+    matInput
+    placeholder="Search"
+    type="text"
+    [formControl]="searchField"
+    [matAutocomplete]="auto"
+  />
+  <mat-autocomplete #auto="matAutocomplete">
+    <mat-option
+      *ngFor="let result of searchResults$ | async"
+      [value]="result.identifier"
+    >
+      <mat-icon>{{
+        result.searchResultType | searchResultTypeToIcon
+      }}</mat-icon>
+      {{ result.title }} <em>{{ result.additionalInformation }}</em>
+    </mat-option>
+  </mat-autocomplete>
+</mat-form-field>
