@@ -1,8 +1,3 @@
-<mat-accordion>
-  <mat-expansion-panel *ngIf="artist && artist.name">
-    <mat-expansion-panel-header>
-      <mat-panel-title>{{ artist.name }} </mat-panel-title>
-    </mat-expansion-panel-header>
-    <db-album *ngFor="let album of albums$ | async" [album]="album"></db-album>
-  </mat-expansion-panel>
-</mat-accordion>
+<div *ngIf="artist && artist.name">
+  {{ artist.name }}
+</div>

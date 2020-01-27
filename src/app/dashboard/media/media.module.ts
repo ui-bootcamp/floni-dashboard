@@ -9,9 +9,14 @@ import {
   MatCardModule,
   MatExpansionModule,
   MatGridListModule,
+  MatIconModule,
   MatListModule,
-  MatTableModule
+  MatProgressBarModule,
+  MatSelectModule,
+  MatTableModule,
+  MatToolbarModule
 } from '@angular/material';
+import { SecondsToMinutesPipe } from '../../shared/pipes/seconds-to-minutes.pipe';
 
 @NgModule({
   declarations: [
@@ -19,7 +24,8 @@ import {
     FakePlayerComponent,
     AlbumComponent,
     TrackComponent,
-    MediaComponent
+    MediaComponent,
+    SecondsToMinutesPipe
   ],
   exports: [MediaComponent],
   imports: [
@@ -28,7 +34,11 @@ import {
     MatCardModule,
     MatExpansionModule,
     MatGridListModule,
-    MatTableModule
+    MatTableModule,
+    MatSelectModule,
+    MatToolbarModule,
+    MatIconModule,
+    MatProgressBarModule
   ]
 })
 export class MediaModule {}
