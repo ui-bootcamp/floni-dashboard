@@ -1,8 +1,12 @@
-.spacer {
-  flex: 1 1 auto;
+.dashboard {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 
-.dashboard {
+.dashboard-main {
+  overflow: auto;
+  flex: 1;
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-column-gap: 1em;
@@ -11,16 +15,8 @@
   padding: 1em;
 }
 
-.dashboard-item {
-  overflow: hidden;
+.dashboard-app {
   border-color: dimgrey;
   border-style: solid;
   border-width: 1px;
-}
-
-.dashboard-item-content {
-  padding-left: 0.5em;
-  padding-right: 0.5em;
-  height: 100%;
-  overflow: auto;
 }

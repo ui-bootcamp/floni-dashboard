@@ -1,5 +1,6 @@
-<div [ngClass]="{ 'dark-theme': isDarkTheme$ | async }">
-  <div class=" mat-app-background full-height">
-    <db-dashboard></db-dashboard>
-  </div>
+<div
+  [ngClass]="{ 'dark-theme': isDarkTheme$ | async }"
+  class="mat-app-background full-height"
+>
+  <router-outlet></router-outlet>
 </div>
