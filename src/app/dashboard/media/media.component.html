@@ -1,29 +1,42 @@
-<div class="media-wrapper">
-  <mat-selection-list
-    dense
-    (selectionChange)="onSelectedArtistChanged($event.option)"
-  >
-    <mat-list-option *ngFor="let artist of artists$ | async" [value]="artist">
-      <db-artist [artist]="artist"></db-artist>
-    </mat-list-option>
-  </mat-selection-list>
+<div class="media">
+  <mat-toolbar class="media-header">
+    <mat-toolbar-row>
+      <span>Media</span>
+      <span class="spacer"></span>
+      <db-search *ngIf="isFullscreen"></db-search>
+      <button mat-button (click)="onToggleFullscreen()">
+        <mat-icon *ngIf="isFullscreen">fullscreen_exit</mat-icon>
+        <mat-icon *ngIf="!isFullscreen">fullscreen</mat-icon>
+      </button>
+    </mat-toolbar-row>
+  </mat-toolbar>
+  <div class="media-main">
+    <mat-selection-list
+      dense
+      (selectionChange)="onSelectedArtistChanged($event.option)"
+    >
+      <mat-list-option *ngFor="let artist of artists$ | async" [value]="artist">
+        <db-artist [artist]="artist"></db-artist>
+      </mat-list-option>
+    </mat-selection-list>
 
-  <mat-selection-list
-    dense
-    (selectionChange)="onSelectedAlbumChanged($event.option)"
-  >
-    <mat-list-option *ngFor="let album of albums$ | async" [value]="album">
-      <db-album [album]="album"></db-album>
-    </mat-list-option>
-  </mat-selection-list>
+    <mat-selection-list
+      dense
+      (selectionChange)="onSelectedAlbumChanged($event.option)"
+    >
+      <mat-list-option *ngFor="let album of albums$ | async" [value]="album">
+        <db-album [album]="album"></db-album>
+      </mat-list-option>
+    </mat-selection-list>
 
-  <mat-selection-list
-    dense
-    (selectionChange)="onSelectedTrackChanged($event.option)"
-  >
-    <mat-list-option *ngFor="let track of tracks$ | async" [value]="track">
-      <db-track [track]="track"></db-track>
-    </mat-list-option>
-  </mat-selection-list>
+    <mat-selection-list
+      dense
+      (selectionChange)="onSelectedTrackChanged($event.option)"
+    >
+      <mat-list-option *ngFor="let track of tracks$ | async" [value]="track">
+        <db-track [track]="track"></db-track>
+      </mat-list-option>
+    </mat-selection-list>
+  </div>
+  <db-fake-player [track]="currentTrack"></db-fake-player>
 </div>
-<db-fake-player [track]="currentTrack"></db-fake-player>

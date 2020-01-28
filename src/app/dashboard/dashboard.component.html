@@ -1,43 +1,19 @@
-<mat-toolbar>
-  <mat-toolbar-row>
-    <span>Dashboard</span>
-    <span class="spacer"></span>
-    <db-search></db-search>
-    <mat-slide-toggle
-      [checked]="isDarkTheme$ | async"
-      (change)="toggleDarkTheme($event.checked)"
-      >Dark theme
-    </mat-slide-toggle>
-  </mat-toolbar-row>
-</mat-toolbar>
-
 <div class="dashboard">
-  <div class="dashboard-item">
-    <mat-toolbar>
-      <mat-toolbar-row>
-        <span>Media</span>
-        <span class="spacer"></span>
-        <button mat-button>
-          <mat-icon aria-hidden="true">fullscreen</mat-icon>
-        </button>
-      </mat-toolbar-row>
-    </mat-toolbar>
-    <div class="dashboard-item-content">
-      <db-media class="dashboard-item-content"></db-media>
-    </div>
-  </div>
-  <div class="dashboard-item">
-    <mat-toolbar>
-      <mat-toolbar-row>
-        <span>News</span>
-        <span class="spacer"></span>
-        <button mat-button>
-          <mat-icon aria-hidden="true">fullscreen</mat-icon>
-        </button>
-      </mat-toolbar-row>
-    </mat-toolbar>
-    <div class="dashboard-item-content">
-      <db-news></db-news>
-    </div>
+  <mat-toolbar>
+    <mat-toolbar-row>
+      <span>Dashboard</span>
+      <mat-slide-toggle
+        [checked]="isDarkTheme$ | async"
+        (change)="toggleDarkTheme($event.checked)"
+        >Dark theme
+      </mat-slide-toggle>
+      <span class="spacer"></span>
+      <db-search></db-search>
+    </mat-toolbar-row>
+  </mat-toolbar>
+
+  <div class="dashboard-main">
+    <db-media class="dashboard-app"></db-media>
+    <db-news class="dashboard-app"></db-news>
   </div>
 </div>

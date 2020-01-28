@@ -12,7 +12,6 @@ $theme: mat-light-theme($primary, $accent, $warn);
 // Our dark theme
 .dark-theme {
   color: $light-primary-text;
-  height: 100%;
   $dark-primary: mat-palette($mat-blue-grey);
   $dark-accent: mat-palette($mat-amber, A200, A100, A400);
   $dark-warn: mat-palette($mat-deep-orange);
