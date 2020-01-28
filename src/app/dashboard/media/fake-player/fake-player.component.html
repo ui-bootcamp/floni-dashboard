@@ -1,11 +1,13 @@
 <div *ngIf="track && track.title && track.duration">
   <hr />
-  <b>{{ track.title }}</b>
-  <br />
-  <div class="fake-player">
-    <mat-icon aria-hidden="true">play_arrow</mat-icon>
-    <div>{{ track.duration * 0.4 | secondsToMinutes }}</div>
-    <mat-progress-bar mode="determinate" value="40"></mat-progress-bar>
-    <div>{{ track.duration | secondsToMinutes }}</div>
+  <div class="fake-player-wrapper">
+    <b>{{ track.title }}</b>
+    <br />
+    <div class="fake-player">
+      <mat-icon aria-hidden="true">play_arrow</mat-icon>
+      <div>{{ track.duration * 0.4 | secondsToMinutes }}</div>
+      <mat-progress-bar mode="determinate" value="40"></mat-progress-bar>
+      <div>{{ track.duration | secondsToMinutes }}</div>
+    </div>
   </div>
 </div>

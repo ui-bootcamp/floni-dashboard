@@ -6,6 +6,7 @@ import { AlbumComponent } from './album/album.component';
 import { TrackComponent } from './track/track.component';
 import { MediaComponent } from './media.component';
 import {
+  MatButtonModule,
   MatCardModule,
   MatExpansionModule,
   MatGridListModule,
@@ -17,6 +18,7 @@ import {
   MatToolbarModule
 } from '@angular/material';
 import { SecondsToMinutesPipe } from '../../shared/pipes/seconds-to-minutes.pipe';
+import { SearchModule } from '../search/search.module';
 
 @NgModule({
   declarations: [
@@ -38,7 +40,9 @@ import { SecondsToMinutesPipe } from '../../shared/pipes/seconds-to-minutes.pipe
     MatSelectModule,
     MatToolbarModule,
     MatIconModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    MatButtonModule,
+    SearchModule
   ]
 })
 export class MediaModule {}

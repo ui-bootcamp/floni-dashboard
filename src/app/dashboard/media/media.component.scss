@@ -1,14 +1,20 @@
-.media-wrapper {
+.media {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.media-main {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   overflow: hidden;
-  height: 70%;
-}
-
-::ng-deep .mat-list-option .mat-pseudo-checkbox {
-  display: none;
+  flex: 1;
 }
 
 mat-selection-list {
   overflow: auto;
+}
+
+::ng-deep .mat-list-option .mat-pseudo-checkbox {
+  display: none;
 }

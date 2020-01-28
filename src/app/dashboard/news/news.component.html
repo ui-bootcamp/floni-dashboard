@@ -1,6 +1,21 @@
-<mat-list>
-  <db-article
-    *ngFor="let article of articles$ | async"
-    [article]="article"
-  ></db-article>
-</mat-list>
+<div class="news">
+  <mat-toolbar>
+    <mat-toolbar-row>
+      <span>News</span>
+      <span class="spacer"></span>
+      <db-search *ngIf="isFullscreen"></db-search>
+      <button mat-button (click)="onToggleFullscreen()">
+        <mat-icon *ngIf="isFullscreen">fullscreen_exit</mat-icon>
+        <mat-icon *ngIf="!isFullscreen">fullscreen</mat-icon>
+      </button>
+    </mat-toolbar-row>
+  </mat-toolbar>
+  <div class="news-main">
+    <mat-list>
+      <db-article
+        *ngFor="let article of articles$ | async"
+        [article]="article"
+      ></db-article>
+    </mat-list>
+  </div>
+</div>

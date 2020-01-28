@@ -9,12 +9,15 @@ import {
   MatExpansionModule,
   MatIconModule,
   MatListModule,
-  MatProgressBarModule
+  MatProgressBarModule,
+  MatToolbarModule
 } from '@angular/material';
 import { FakePlayerComponent } from './fake-player/fake-player.component';
 import { AlbumComponent } from './album/album.component';
 import { TrackComponent } from './track/track.component';
 import { SecondsToMinutesPipe } from '../../shared/pipes/seconds-to-minutes.pipe';
+import { RouterTestingModule } from '@angular/router/testing';
+import { SearchModule } from '../search/search.module';
 
 describe('MediaComponent', () => {
   let component: MediaComponent;
@@ -33,11 +36,14 @@ describe('MediaComponent', () => {
       imports: [
         CommonModule,
         HttpClientModule,
+        RouterTestingModule,
         MatCardModule,
         MatListModule,
         MatExpansionModule,
         MatIconModule,
-        MatProgressBarModule
+        MatToolbarModule,
+        MatProgressBarModule,
+        SearchModule
       ]
     }).compileComponents();
   }));

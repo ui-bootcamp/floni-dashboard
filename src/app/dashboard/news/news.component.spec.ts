@@ -3,8 +3,16 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { NewsComponent } from './news.component';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
-import { MatCardModule, MatListModule, MatMenuModule } from '@angular/material';
+import {
+  MatCardModule,
+  MatIconModule,
+  MatListModule,
+  MatMenuModule,
+  MatToolbarModule
+} from '@angular/material';
 import { ArticleComponent } from './article/article.component';
+import { RouterTestingModule } from '@angular/router/testing';
+import { SearchModule } from '../search/search.module';
 
 describe('NewsComponent', () => {
   let component: NewsComponent;
@@ -16,9 +24,13 @@ describe('NewsComponent', () => {
       imports: [
         CommonModule,
         HttpClientModule,
+        RouterTestingModule,
         MatCardModule,
         MatMenuModule,
-        MatListModule
+        MatListModule,
+        MatIconModule,
+        MatToolbarModule,
+        SearchModule
       ]
     }).compileComponents();
   }));
