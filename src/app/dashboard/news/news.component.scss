@@ -1,0 +1,17 @@
+.news {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.news-main {
+  display: grid;
+  grid-template-columns: 1fr;
+  overflow: hidden;
+  flex: 1;
+}
+
+mat-list {
+  padding-top: 0;
+  overflow: auto;
+}
