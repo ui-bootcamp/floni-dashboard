@@ -12,10 +12,17 @@ import {
   MatToolbarModule
 } from '@angular/material';
 import { SearchModule } from '../search/search.module';
+import { FavoriteDirective } from '../../shared/directives/favorite.directive';
+import { FavoriteIconPipe } from '../../shared/pipes/favorite-icon.pipe';
 
 @NgModule({
-  declarations: [ArticleComponent, NewsComponent],
-  exports: [NewsComponent],
+  declarations: [
+    ArticleComponent,
+    NewsComponent,
+    FavoriteDirective,
+    FavoriteIconPipe
+  ],
+  exports: [NewsComponent, FavoriteDirective, FavoriteIconPipe],
   imports: [
     CommonModule,
     MatCardModule,

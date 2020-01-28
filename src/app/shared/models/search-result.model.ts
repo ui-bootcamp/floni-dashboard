@@ -5,7 +5,8 @@ export class SearchResult {
     private id: number,
     private name: string,
     private context: string,
-    private type: SearchResultType
+    private type: SearchResultType,
+    private favorite: boolean = false
   ) {}
 
   get title() {
@@ -16,11 +17,19 @@ export class SearchResult {
     return this.id;
   }
 
+  get isFavorite() {
+    return this.favorite;
+  }
+
+  set isFavorite(newValue: boolean) {
+    this.favorite = newValue;
+  }
+
   get additionalInformation() {
     return this.context;
   }
 
-  set additionalInformation(newContext) {
+  set additionalInformation(newContext: string) {
     this.context = newContext;
   }
 
