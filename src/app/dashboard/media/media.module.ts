@@ -1,9 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ArtistComponent } from './artist/artist.component';
 import { FakePlayerComponent } from './fake-player/fake-player.component';
-import { AlbumComponent } from './album/album.component';
-import { TrackComponent } from './track/track.component';
 import { MediaComponent } from './media.component';
 import {
   MatButtonModule,
@@ -20,15 +17,14 @@ import {
 import { SecondsToMinutesPipe } from '../../shared/pipes/seconds-to-minutes.pipe';
 import { SearchModule } from '../search/search.module';
 import { CoreModule } from '../../shared/core/core.module';
+import { MediaSelectionComponent } from './media-selection/media-selection.component';
 
 @NgModule({
   declarations: [
-    ArtistComponent,
     FakePlayerComponent,
-    AlbumComponent,
-    TrackComponent,
     MediaComponent,
-    SecondsToMinutesPipe
+    SecondsToMinutesPipe,
+    MediaSelectionComponent
   ],
   exports: [MediaComponent],
   imports: [
