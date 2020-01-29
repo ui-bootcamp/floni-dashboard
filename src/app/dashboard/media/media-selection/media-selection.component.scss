@@ -1,0 +1,16 @@
+.selection-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.favorite-div {
+  display: flex;
+}
+
+mat-selection-list {
+  overflow: auto;
+}
+
+::ng-deep .mat-list-option .mat-pseudo-checkbox {
+  display: none;
+}
