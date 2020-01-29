@@ -1,17 +1,37 @@
-import { Component, Input } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Input,
+  OnChanges
+} from '@angular/core';
 import { Track } from '../../../shared/models/track.model';
+import { Observable } from 'rxjs';
+import { MediaService } from '../../../shared/services/media.service';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'db-fake-player',
   templateUrl: './fake-player.component.html',
-  styleUrls: ['./fake-player.component.scss']
+  styleUrls: ['./fake-player.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class FakePlayerComponent {
+export class FakePlayerComponent implements OnChanges {
   @Input() track: Track | undefined;
   public playPauseIcon = 'play_arrow';
   public volumeIcon = 'volume_up';
-  public cover =
-    'https://e-cdns-images.dzcdn.net/images/cover/f14becbb0d888cd5457d18d3bb670731/56x56-000000-80-0-0.jpg';
+  public albumCover: Observable<string>;
+
+  constructor(private mediaService: MediaService) {
+    this.albumCover = new Observable<string>();
+  }
+
+  public ngOnChanges(): void {
+    if (this.track) {
+      this.albumCover = this.mediaService
+        .getAlbum(this.track.albumId)
+        .pipe(map(album => album.coverSmall));
+    }
+  }
 
   public onPlayPauseClick(): void {
     this.playPauseIcon =

@@ -65,6 +65,11 @@ export class MediaService {
     return this.http.get<Album>(albumURL);
   }
 
+  public getTrack(id: number): Observable<Track> {
+    const tracksURL = `${this.tracksURL}${id}`;
+    return this.http.get<Track>(tracksURL);
+  }
+
   public getAllAlbumsWith(albumName: string): Observable<SearchResult[]> {
     return this.http.get<Album[]>(this.albumsURL).pipe(
       map(albums =>
