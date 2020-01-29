@@ -18,6 +18,7 @@ import { SecondsToMinutesPipe } from '../../shared/pipes/seconds-to-minutes.pipe
 import { SearchModule } from '../search/search.module';
 import { CoreModule } from '../../shared/core/core.module';
 import { MediaSelectionComponent } from './media-selection/media-selection.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { MediaSelectionComponent } from './media-selection/media-selection.compo
     MatProgressBarModule,
     MatButtonModule,
     SearchModule,
-    CoreModule
+    CoreModule,
+    FormsModule
   ]
 })
 export class MediaModule {}

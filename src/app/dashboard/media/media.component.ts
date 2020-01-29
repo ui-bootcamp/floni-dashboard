@@ -1,6 +1,8 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Track } from '../../shared/models/track.model';
+import { Observable } from 'rxjs';
+import { PlaylistService } from '../../shared/services/playlist.service';
 
 @Component({
   selector: 'db-media',
@@ -10,10 +12,14 @@ import { Track } from '../../shared/models/track.model';
 })
 export class MediaComponent {
   public isFullscreen: boolean;
-  public selectedTrack: Track | undefined;
+  public selectedTrack$: Observable<Track> | undefined;
 
-  constructor(private router: Router) {
+  constructor(
+    private router: Router,
+    private playlistService: PlaylistService
+  ) {
     this.isFullscreen = this.router.url.indexOf('/media') !== -1;
+    this.selectedTrack$ = this.playlistService.nextTrack$;
   }
 
   public onToggleFullscreen(): void {
@@ -25,6 +31,6 @@ export class MediaComponent {
   }
 
   public onSelectedTrackChanged(track: Track): void {
-    this.selectedTrack = track;
+    this.playlistService.queueTrack(track);
   }
 }

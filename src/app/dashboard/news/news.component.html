@@ -13,6 +13,7 @@
   <div class="news-main">
     <mat-list>
       <db-article
+        [id]="'article' + article.id"
         *ngFor="let article of articles$ | async"
         [article]="article"
       ></db-article>

@@ -16,7 +16,7 @@
       [value]="searchField.value"
       dbFavorite
       [isFavorite]="result.isFavorite"
-      (onSelectionChange)="onSearchResultSelected()"
+      (onSelectionChange)="onSearchResultSelected(result)"
     >
       <mat-icon>{{
         result.searchResultType | searchResultTypeToIcon

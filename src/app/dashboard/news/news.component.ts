@@ -22,7 +22,6 @@ export class NewsComponent implements OnInit {
   public ngOnInit(): void {
     this.articles$ = this.newsService.getArticles();
   }
-
   public onToggleFullscreen(): void {
     if (this.router.url.indexOf('/news') > -1) {
       this.router.navigate(['dashboard']);
