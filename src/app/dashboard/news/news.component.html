@@ -3,7 +3,7 @@
     <mat-toolbar-row>
       <span>News</span>
       <span class="spacer"></span>
-      <db-search *ngIf="isFullscreen"></db-search>
+      <db-search *ngIf="isFullscreen" searchScope="news"></db-search>
       <button mat-button (click)="onToggleFullscreen()">
         <mat-icon *ngIf="isFullscreen">fullscreen_exit</mat-icon>
         <mat-icon *ngIf="!isFullscreen">fullscreen</mat-icon>

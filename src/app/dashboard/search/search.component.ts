@@ -2,6 +2,7 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
+  Input,
   OnInit
 } from '@angular/core';
 import { FormControl } from '@angular/forms';
@@ -18,6 +19,7 @@ import { UserService } from '../../shared/services/user.service';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SearchComponent implements OnInit {
+  @Input() searchScope = 'global';
   public searchField: FormControl = new FormControl();
   public searchResults$: Observable<SearchResult[]>;
   public lastUserSearches: string;
@@ -36,7 +38,9 @@ export class SearchComponent implements OnInit {
       debounceTime(400),
       distinctUntilChanged(),
       switchMap((term: string) =>
-        term.length > 0 ? this.searchService.search(term) : of([])
+        term.length > 0
+          ? this.searchService.search(term, this.searchScope)
+          : of([])
       )
     );
 
