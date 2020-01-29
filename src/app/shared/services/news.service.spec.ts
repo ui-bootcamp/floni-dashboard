@@ -30,7 +30,8 @@ describe('NewsService', () => {
           'http://www.spiegel.de/wirtschaft/service/gaspreise-sinken-auf-tiefsten-stand-seit-zwoelf-jahren-a-1163414.html#ref=rss',
         createdAt: '2017-08-21T06:20:30.770Z',
         updatedAt: '2017-08-21T06:20:30.770Z',
-        id: 1
+        id: 1,
+        isFavorite: false
       },
       {
         title: 'Ford zahlt 10 Millionen Dollar wegen Diskriminierungsklage',
@@ -39,7 +40,8 @@ describe('NewsService', () => {
           'http://www.spiegel.de/wirtschaft/unternehmen/ford-zahlt-10-millionen-dollar-wegen-diskriminierungsklage-a-1163413.html#ref=rss',
         createdAt: '2017-08-21T06:20:30.772Z',
         updatedAt: '2017-08-21T06:20:30.772Z',
-        id: 2
+        id: 2,
+        isFavorite: false
       },
       {
         title: 'Nachwuchs für US-Sänger: Jetzt kommts Thicke',
@@ -48,13 +50,14 @@ describe('NewsService', () => {
           'http://www.spiegel.de/panorama/leute/robin-thicke-freundin-von-us-saenger-erwartet-ein-kind-a-1163416.html#ref=rss',
         createdAt: '2017-08-21T06:20:30.773Z',
         updatedAt: '2017-08-21T06:20:30.773Z',
-        id: 3
+        id: 3,
+        isFavorite: false
       }
     ];
 
     service.getArticles().subscribe(articles => {
       expect(articles.length).toEqual(3);
-      expect(articles).toBe(dummyArticles);
+      expect(articles).toEqual(dummyArticles);
       done();
     });
 

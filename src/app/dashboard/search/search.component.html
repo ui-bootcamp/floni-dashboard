@@ -7,10 +7,16 @@
     [formControl]="searchField"
     [matAutocomplete]="auto"
   />
+  <mat-hint align="start" *ngIf="lastUserSearches.length > 0"
+    >You searched previously for: {{ lastUserSearches }}</mat-hint
+  >
   <mat-autocomplete #auto="matAutocomplete">
     <mat-option
       *ngFor="let result of searchResults$ | async"
-      [value]="result.identifier"
+      [value]="searchField.value"
+      dbFavorite
+      [isFavorite]="result.isFavorite"
+      (onSelectionChange)="onSearchResultSelected()"
     >
       <mat-icon>{{
         result.searchResultType | searchResultTypeToIcon

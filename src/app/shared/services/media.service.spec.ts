@@ -28,19 +28,21 @@ describe('MediaService', () => {
           name: 'Deichkind',
           id: 2,
           createdAt: '1900-01-01',
-          updatedAt: '1990-01-01'
+          updatedAt: '1990-01-01',
+          isFavorite: false
         },
         {
           name: 'McFitti',
           id: 3,
           createdAt: '1900-01-01',
-          updatedAt: '1990-01-01'
+          updatedAt: '1990-01-01',
+          isFavorite: false
         }
       ];
 
       service.getAllArtists().subscribe(x => {
         expect(x.length).toEqual(2);
-        expect(x).toBe(dummyArtists);
+        expect(x).toEqual(dummyArtists);
         done();
       });
 
@@ -63,7 +65,8 @@ describe('MediaService', () => {
           coverBig: 'cover',
           coverXL: 'cover',
           createdAt: 'cover',
-          updatedAt: 'cover'
+          updatedAt: 'cover',
+          isFavorite: false
         },
         {
           id: 2,
@@ -75,7 +78,8 @@ describe('MediaService', () => {
           coverBig: 'cover',
           coverXL: 'cover',
           createdAt: 'cover',
-          updatedAt: 'cover'
+          updatedAt: 'cover',
+          isFavorite: false
         }
       ];
 
@@ -100,7 +104,8 @@ describe('MediaService', () => {
           coverBig: 'cover',
           coverXL: 'cover',
           createdAt: 'cover',
-          updatedAt: 'cover'
+          updatedAt: 'cover',
+          isFavorite: false
         },
         {
           id: 2,
@@ -112,7 +117,8 @@ describe('MediaService', () => {
           coverBig: 'cover',
           coverXL: 'cover',
           createdAt: 'cover',
-          updatedAt: 'cover'
+          updatedAt: 'cover',
+          isFavorite: false
         }
       ];
 
@@ -137,7 +143,8 @@ describe('MediaService', () => {
           title: 'the Title',
           duration: 100,
           createdAt: '1990-01-01',
-          updatedAt: '1990-01-01'
+          updatedAt: '1990-01-01',
+          isFavorite: false
         },
         {
           id: 2,
@@ -146,7 +153,8 @@ describe('MediaService', () => {
           title: 'the Title2',
           duration: 100,
           createdAt: '1990-01-01',
-          updatedAt: '1990-01-01'
+          updatedAt: '1990-01-01',
+          isFavorite: false
         }
       ];
 
@@ -169,7 +177,8 @@ describe('MediaService', () => {
           title: 'the Title',
           duration: 100,
           createdAt: '1990-01-01',
-          updatedAt: '1990-01-01'
+          updatedAt: '1990-01-01',
+          isFavorite: false
         },
         {
           id: 2,
@@ -178,7 +187,8 @@ describe('MediaService', () => {
           title: 'the Title2',
           duration: 100,
           createdAt: '1990-01-01',
-          updatedAt: '1990-01-01'
+          updatedAt: '1990-01-01',
+          isFavorite: false
         },
         {
           id: 3,
@@ -187,7 +197,8 @@ describe('MediaService', () => {
           title: 'the Title3',
           duration: 100,
           createdAt: '1990-01-01',
-          updatedAt: '1990-01-01'
+          updatedAt: '1990-01-01',
+          isFavorite: false
         }
       ];
 

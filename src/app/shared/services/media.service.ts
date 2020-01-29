@@ -8,6 +8,7 @@ import { Track } from '../models/track.model';
 import { SearchResult } from '../models/search-result.model';
 import { SearchResultType } from '../models/search-result-type.enum';
 import { environment } from '../../../environments/environment';
+import { UserService } from './user.service';
 
 @Injectable({
   providedIn: 'root'
@@ -17,10 +18,20 @@ export class MediaService {
   private albumsURL = `${environment.baseUrl}albums/`;
   private tracksURL = `${environment.baseUrl}tracks/`;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private userService: UserService) {}
 
   public getAllArtists(): Observable<Artist[]> {
-    return this.http.get<Artist[]>(this.artistsURL);
+    return this.http.get<Artist[]>(this.artistsURL).pipe(
+      map(artists => {
+        return artists.map(artist => {
+          artist.isFavorite = this.userService.isFavorite(
+            artist.id,
+            SearchResultType.Artist
+          );
+          return artist;
+        });
+      })
+    );
   }
 
   public getAllArtistsWith(artistName: string): Observable<SearchResult[]> {
@@ -93,17 +104,33 @@ export class MediaService {
   }
 
   public getAlbumsForArtist(artistId: number): Observable<Album[]> {
-    return this.http
-      .get<Album[]>(this.albumsURL)
-      .pipe(
-        map(resultArray => resultArray.filter(x => x.artistId === artistId))
-      );
+    return this.http.get<Album[]>(this.albumsURL).pipe(
+      map(resultArray => resultArray.filter(x => x.artistId === artistId)),
+      map(albums => {
+        return albums.map(album => {
+          album.isFavorite = this.userService.isFavorite(
+            album.id,
+            SearchResultType.Album
+          );
+          return album;
+        });
+      })
+    );
   }
 
   public getTracksForAlbum(albumId: number): Observable<Track[]> {
-    return this.http
-      .get<Track[]>(this.tracksURL)
-      .pipe(map(resultArray => resultArray.filter(x => x.albumId === albumId)));
+    return this.http.get<Track[]>(this.tracksURL).pipe(
+      map(resultArray => resultArray.filter(x => x.albumId === albumId)),
+      map(tracks => {
+        return tracks.map(track => {
+          track.isFavorite = this.userService.isFavorite(
+            track.id,
+            SearchResultType.Track
+          );
+          return track;
+        });
+      })
+    );
   }
 
   public getAllTracksWith(trackName: string): Observable<SearchResult[]> {

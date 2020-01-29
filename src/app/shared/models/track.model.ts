@@ -6,4 +6,5 @@ export interface Track {
   duration: number;
   createdAt: string;
   updatedAt: string;
+  isFavorite: boolean;
 }
