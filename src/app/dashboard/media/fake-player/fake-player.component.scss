@@ -1,8 +1,16 @@
+.fake-player {
+  display: flex;
+  border-top-style: solid;
+  border-top-color: dimgrey;
+  border-top-width: 1px;
+}
+
 .fake-player-wrapper {
+  width: 100%;
   padding: 5px;
 }
 
-.fake-player {
+.fake-player-controls {
   padding-top: 5px;
   display: flex;
   align-items: center;
@@ -12,4 +20,8 @@
 mat-progress-bar {
   margin-right: 5px;
   margin-left: 5px;
+}
+
+mat-icon {
+  cursor: pointer;
 }
