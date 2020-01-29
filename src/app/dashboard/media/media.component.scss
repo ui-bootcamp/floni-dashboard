@@ -11,6 +11,10 @@
   flex: 1;
 }
 
+.favorite-div {
+  display: flex;
+}
+
 mat-selection-list {
   overflow: auto;
 }

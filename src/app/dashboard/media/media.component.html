@@ -15,8 +15,17 @@
       dense
       (selectionChange)="onSelectedArtistChanged($event.option)"
     >
-      <mat-list-option *ngFor="let artist of artists$ | async" [value]="artist">
-        <db-artist [artist]="artist"></db-artist>
+      <mat-list-option
+        *ngFor="let artist of artists$ | async"
+        [value]="artist"
+        (dblclick)="toggleFavoriteArtist(artist)"
+        dbFavorite
+        [isFavorite]="artist.isFavorite"
+      >
+        <div class="favorite-div">
+          <db-artist [artist]="artist"></db-artist>
+          <mat-icon [innerHTML]="artist.isFavorite | favoriteIcon"></mat-icon>
+        </div>
       </mat-list-option>
     </mat-selection-list>
 
@@ -24,8 +33,17 @@
       dense
       (selectionChange)="onSelectedAlbumChanged($event.option)"
     >
-      <mat-list-option *ngFor="let album of albums$ | async" [value]="album">
-        <db-album [album]="album"></db-album>
+      <mat-list-option
+        *ngFor="let album of albums$ | async"
+        [value]="album"
+        (dblclick)="toggleFavoriteAlbum(album)"
+        dbFavorite
+        [isFavorite]="album.isFavorite"
+      >
+        <div class="favorite-div">
+          <db-album [album]="album"></db-album>
+          <mat-icon [innerHTML]="album.isFavorite | favoriteIcon"></mat-icon>
+        </div>
       </mat-list-option>
     </mat-selection-list>
 
@@ -33,8 +51,17 @@
       dense
       (selectionChange)="onSelectedTrackChanged($event.option)"
     >
-      <mat-list-option *ngFor="let track of tracks$ | async" [value]="track">
-        <db-track [track]="track"></db-track>
+      <mat-list-option
+        *ngFor="let track of tracks$ | async"
+        [value]="track"
+        (dblclick)="toggleFavoriteTrack(track)"
+        dbFavorite
+        [isFavorite]="track.isFavorite"
+      >
+        <div class="favorite-div">
+          <db-track [track]="track"></db-track>
+          <mat-icon [innerHTML]="track.isFavorite | favoriteIcon"></mat-icon>
+        </div>
       </mat-list-option>
     </mat-selection-list>
   </div>

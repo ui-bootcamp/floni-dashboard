@@ -1,9 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { AlbumComponent } from './album.component';
-import { MatExpansionModule } from '@angular/material';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { TrackComponent } from '../track/track.component';
 
 describe('AlbumComponent', () => {
   let component: AlbumComponent;
@@ -11,8 +8,7 @@ describe('AlbumComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [AlbumComponent, TrackComponent],
-      imports: [MatExpansionModule, HttpClientTestingModule]
+      declarations: [AlbumComponent]
     }).compileComponents();
   }));
 

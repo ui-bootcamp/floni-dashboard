@@ -1,11 +1,16 @@
 <mat-card
-  *ngIf="article && article.title && article.description && article.link"
+  dbFavorite
+  [isFavorite]="article.isFavorite"
+  (dblclick)="toggleArticleFavorite(article)"
 >
-  <mat-card-title>{{ article.title }}</mat-card-title>
+  <mat-card-title [innerText]="article.title"></mat-card-title>
   <mat-card-subtitle>
-    <a [href]="article.link" mat-menu-item>{{
-      (article.link | slice: 0:30) + '...'
-    }}</a>
+    <a
+      [href]="article.link"
+      mat-menu-item
+      [innerText]="(article.link | slice: 0:30) + '...'"
+    ></a>
+    <mat-icon [innerHTML]="article.isFavorite | favoriteIcon"></mat-icon>
   </mat-card-subtitle>
   <mat-card-content [innerHTML]="article.description"></mat-card-content>
 </mat-card>

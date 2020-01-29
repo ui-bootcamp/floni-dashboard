@@ -5,6 +5,7 @@ export class Article {
     public description: string,
     public link: string,
     public createdAt: string,
-    public updatedAt: string
+    public updatedAt: string,
+    public isFavorite: boolean
   ) {}
 }
