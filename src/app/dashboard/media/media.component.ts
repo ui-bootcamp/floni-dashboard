@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Artist } from '../../shared/models/artist.model';
 import { MediaService } from '../../shared/services/media.service';
@@ -6,11 +6,14 @@ import { MatListOption } from '@angular/material';
 import { Album } from '../../shared/models/album.model';
 import { Track } from '../../shared/models/track.model';
 import { Router } from '@angular/router';
+import { UserService } from '../../shared/services/user.service';
+import { SearchResultType } from '../../shared/models/search-result-type.enum';
 
 @Component({
   selector: 'db-media',
   templateUrl: './media.component.html',
-  styleUrls: ['./media.component.scss']
+  styleUrls: ['./media.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MediaComponent implements OnInit {
   public artists$: Observable<Artist[]>;
@@ -19,7 +22,11 @@ export class MediaComponent implements OnInit {
   public currentTrack: Track | undefined;
   public isFullscreen: boolean;
 
-  constructor(private mediaService: MediaService, private router: Router) {
+  constructor(
+    private mediaService: MediaService,
+    private router: Router,
+    private userService: UserService
+  ) {
     this.artists$ = new Observable<Artist[]>();
     this.albums$ = new Observable<Album[]>();
     this.tracks$ = new Observable<Track[]>();
@@ -54,5 +61,20 @@ export class MediaComponent implements OnInit {
     } else {
       this.router.navigate(['media']);
     }
+  }
+
+  public toggleFavoriteArtist(artist: Artist): void {
+    this.userService.toggleFavorite(artist.id, SearchResultType.Artist);
+    artist.isFavorite = !artist.isFavorite;
+  }
+
+  public toggleFavoriteAlbum(album: Album): void {
+    this.userService.toggleFavorite(album.id, SearchResultType.Album);
+    album.isFavorite = !album.isFavorite;
+  }
+
+  public toggleFavoriteTrack(track: Track): void {
+    this.userService.toggleFavorite(track.id, SearchResultType.Track);
+    track.isFavorite = !track.isFavorite;
   }
 }

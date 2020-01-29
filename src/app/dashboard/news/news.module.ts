@@ -12,17 +12,11 @@ import {
   MatToolbarModule
 } from '@angular/material';
 import { SearchModule } from '../search/search.module';
-import { FavoriteDirective } from '../../shared/directives/favorite.directive';
-import { FavoriteIconPipe } from '../../shared/pipes/favorite-icon.pipe';
+import { CoreModule } from '../../shared/core/core.module';
 
 @NgModule({
-  declarations: [
-    ArticleComponent,
-    NewsComponent,
-    FavoriteDirective,
-    FavoriteIconPipe
-  ],
-  exports: [NewsComponent, FavoriteDirective, FavoriteIconPipe],
+  declarations: [ArticleComponent, NewsComponent],
+  exports: [NewsComponent],
   imports: [
     CommonModule,
     MatCardModule,
@@ -32,7 +26,8 @@ import { FavoriteIconPipe } from '../../shared/pipes/favorite-icon.pipe';
     MatIconModule,
     MatToolbarModule,
     MatButtonModule,
-    SearchModule
+    SearchModule,
+    CoreModule
   ]
 })
 export class NewsModule {}

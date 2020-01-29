@@ -1,4 +1,8 @@
-<mat-card dbFavorite [isFavorite]="isFavorite">
+<mat-card
+  dbFavorite
+  [isFavorite]="article.isFavorite"
+  (dblclick)="toggleArticleFavorite(article)"
+>
   <mat-card-title [innerText]="article.title"></mat-card-title>
   <mat-card-subtitle>
     <a
@@ -6,9 +10,7 @@
       mat-menu-item
       [innerText]="(article.link | slice: 0:30) + '...'"
     ></a>
-    <button mat-icon-button (click)="toggleArticleFavorite(article.id)">
-      <mat-icon [innerHTML]="isFavorite | favoriteIcon"></mat-icon>
-    </button>
+    <mat-icon [innerHTML]="article.isFavorite | favoriteIcon"></mat-icon>
   </mat-card-subtitle>
   <mat-card-content [innerHTML]="article.description"></mat-card-content>
 </mat-card>

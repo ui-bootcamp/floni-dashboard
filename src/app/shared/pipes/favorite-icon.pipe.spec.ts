@@ -1,8 +1,8 @@
 import { FavoriteIconPipe } from './favorite-icon.pipe';
 
 describe('FavoriteIconPipe', () => {
-  it('for favorite return empty heart', () => {
+  it('for favorite return heart', () => {
     const pipe = new FavoriteIconPipe();
-    expect(pipe.transform(true)).toEqual('favorite_border');
+    expect(pipe.transform(true)).toEqual('favorite');
   });
 });

@@ -13,8 +13,7 @@ import {
 import { ArticleComponent } from './article/article.component';
 import { RouterTestingModule } from '@angular/router/testing';
 import { SearchModule } from '../search/search.module';
-import { FavoriteDirective } from '../../shared/directives/favorite.directive';
-import { FavoriteIconPipe } from '../../shared/pipes/favorite-icon.pipe';
+import { CoreModule } from '../../shared/core/core.module';
 
 describe('NewsComponent', () => {
   let component: NewsComponent;
@@ -22,12 +21,7 @@ describe('NewsComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [
-        NewsComponent,
-        ArticleComponent,
-        FavoriteDirective,
-        FavoriteIconPipe
-      ],
+      declarations: [NewsComponent, ArticleComponent],
       imports: [
         CommonModule,
         HttpClientModule,
@@ -37,7 +31,8 @@ describe('NewsComponent', () => {
         MatListModule,
         MatIconModule,
         MatToolbarModule,
-        SearchModule
+        SearchModule,
+        CoreModule
       ]
     }).compileComponents();
   }));

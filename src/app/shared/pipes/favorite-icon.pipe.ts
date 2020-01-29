@@ -6,9 +6,9 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class FavoriteIconPipe implements PipeTransform {
   transform(favorite: boolean): string {
     if (favorite) {
-      return 'favorite_border';
-    } else {
       return 'favorite';
+    } else {
+      return '';
     }
   }
 }

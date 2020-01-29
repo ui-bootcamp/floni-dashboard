@@ -18,6 +18,7 @@ import { TrackComponent } from './track/track.component';
 import { SecondsToMinutesPipe } from '../../shared/pipes/seconds-to-minutes.pipe';
 import { RouterTestingModule } from '@angular/router/testing';
 import { SearchModule } from '../search/search.module';
+import { CoreModule } from '../../shared/core/core.module';
 
 describe('MediaComponent', () => {
   let component: MediaComponent;
@@ -43,7 +44,8 @@ describe('MediaComponent', () => {
         MatIconModule,
         MatToolbarModule,
         MatProgressBarModule,
-        SearchModule
+        SearchModule,
+        CoreModule
       ]
     }).compileComponents();
   }));
