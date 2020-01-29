@@ -16,23 +16,30 @@ export class SearchService {
     private userService: UserService
   ) {}
 
-  public search(searchString: string): Observable<SearchResult[]> {
-    return combineLatest(
-      this.mediaService.getAllAlbumsWith(searchString),
-      this.mediaService.getAllArtistsWith(searchString),
-      this.mediaService.getAllTracksWith(searchString),
-      this.newsService.getArticlesWith(searchString)
-    ).pipe(
-      map(([albums, artists, tracks, articles]) => {
-        return [...albums, ...artists, ...tracks, ...articles];
+  public search(searchTerm: string, scope: string): Observable<SearchResult[]> {
+    const sources: Observable<unknown>[] = [];
+    if (scope === 'media' || scope === 'global') {
+      sources.push(
+        this.mediaService.getAllAlbumsWith(searchTerm),
+        this.mediaService.getAllArtistsWith(searchTerm),
+        this.mediaService.getAllTracksWith(searchTerm)
+      );
+    }
+    if (scope === 'news' || scope === 'global') {
+      sources.push(this.newsService.getArticlesWith(searchTerm));
+    }
+
+    return combineLatest(...sources).pipe(
+      map(arrays => {
+        return [].concat.apply([], arrays);
       }),
       map(searchResults => {
-        return searchResults.map(singleResult => {
-          singleResult.isFavorite = this.userService.isFavorite(
-            singleResult.identifier,
-            singleResult.searchResultType
+        return searchResults.map((result: SearchResult) => {
+          result.isFavorite = this.userService.isFavorite(
+            result.identifier,
+            result.searchResultType
           );
-          return singleResult;
+          return result;
         });
       })
     );
