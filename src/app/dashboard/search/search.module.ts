@@ -8,6 +8,7 @@ import {
   MatInputModule
 } from '@angular/material';
 import { SearchComponent } from './search.component';
+import { CoreModule } from '../../shared/core/core.module';
 
 @NgModule({
   declarations: [SearchComponent, SearchResultTypeToIconPipe],
@@ -16,7 +17,8 @@ import { SearchComponent } from './search.component';
     ReactiveFormsModule,
     MatAutocompleteModule,
     MatIconModule,
-    MatInputModule
+    MatInputModule,
+    CoreModule
   ],
   exports: [SearchComponent]
 })

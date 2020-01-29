@@ -19,6 +19,7 @@ import {
 } from '@angular/material';
 import { SecondsToMinutesPipe } from '../../shared/pipes/seconds-to-minutes.pipe';
 import { SearchModule } from '../search/search.module';
+import { CoreModule } from '../../shared/core/core.module';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { SearchModule } from '../search/search.module';
     MatIconModule,
     MatProgressBarModule,
     MatButtonModule,
-    SearchModule
+    SearchModule,
+    CoreModule
   ]
 })
 export class MediaModule {}

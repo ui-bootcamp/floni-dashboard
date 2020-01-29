@@ -3,4 +3,5 @@ export interface Artist {
   name: string;
   createdAt: string;
   updatedAt: string;
+  isFavorite: boolean;
 }

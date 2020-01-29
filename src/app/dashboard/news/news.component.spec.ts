@@ -13,6 +13,7 @@ import {
 import { ArticleComponent } from './article/article.component';
 import { RouterTestingModule } from '@angular/router/testing';
 import { SearchModule } from '../search/search.module';
+import { CoreModule } from '../../shared/core/core.module';
 
 describe('NewsComponent', () => {
   let component: NewsComponent;
@@ -30,7 +31,8 @@ describe('NewsComponent', () => {
         MatListModule,
         MatIconModule,
         MatToolbarModule,
-        SearchModule
+        SearchModule,
+        CoreModule
       ]
     }).compileComponents();
   }));

@@ -9,4 +9,5 @@ export interface Album {
   coverXL: string;
   createdAt: string;
   updatedAt: string;
+  isFavorite: boolean;
 }

@@ -13,3 +13,11 @@ body {
 .spacer {
   flex: 1 1 auto;
 }
+
+.highlight-favorite {
+  background-color: mat-color($primary, lighter);
+}
+
+.dark-theme .highlight-favorite {
+  background-color: mat-color($dark-primary, 700);
+}

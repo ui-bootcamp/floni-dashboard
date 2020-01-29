@@ -12,6 +12,7 @@ import {
   MatToolbarModule
 } from '@angular/material';
 import { SearchModule } from '../search/search.module';
+import { CoreModule } from '../../shared/core/core.module';
 
 @NgModule({
   declarations: [ArticleComponent, NewsComponent],
@@ -25,7 +26,8 @@ import { SearchModule } from '../search/search.module';
     MatIconModule,
     MatToolbarModule,
     MatButtonModule,
-    SearchModule
+    SearchModule,
+    CoreModule
   ]
 })
 export class NewsModule {}

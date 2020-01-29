@@ -6,6 +6,7 @@ import { SearchResult } from '../models/search-result.model';
 import { map } from 'rxjs/operators';
 import { SearchResultType } from '../models/search-result-type.enum';
 import { environment } from '../../../environments/environment';
+import { UserService } from './user.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,10 +14,23 @@ import { environment } from '../../../environments/environment';
 export class NewsService {
   private URL = `${environment.baseUrl}news`;
 
-  constructor(private httpClient: HttpClient) {}
+  constructor(
+    private httpClient: HttpClient,
+    private userService: UserService
+  ) {}
 
   public getArticles(): Observable<Article[]> {
-    return this.httpClient.get<Article[]>(this.URL);
+    return this.httpClient.get<Article[]>(this.URL).pipe(
+      map(articles => {
+        return articles.map(article => {
+          article.isFavorite = this.userService.isFavorite(
+            article.id,
+            SearchResultType.Article
+          );
+          return article;
+        });
+      })
+    );
   }
 
   public getArticlesWith(searchString: string): Observable<SearchResult[]> {
