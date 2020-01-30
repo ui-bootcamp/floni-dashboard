@@ -5,4 +5,9 @@ describe('FavoriteIconPipe', () => {
     const pipe = new FavoriteIconPipe();
     expect(pipe.transform(true)).toEqual('favorite');
   });
+
+  it('should return nothing for non favorite', () => {
+    const pipe = new FavoriteIconPipe();
+    expect(pipe.transform(false)).toEqual('');
+  });
 });

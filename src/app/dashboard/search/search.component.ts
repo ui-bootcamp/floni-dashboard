@@ -91,7 +91,7 @@ export class SearchComponent implements OnInit {
         break;
       case SearchResultType.Artist:
         this.mediaService
-          .getAnyTrackfromArtist(result.identifier)
+          .getAnyTrackFromArtist(result.identifier)
           .subscribe((res: Track[]) => {
             this.playlistService.queueTrack(res[0]);
           });
