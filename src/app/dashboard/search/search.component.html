@@ -18,9 +18,12 @@
       [isFavorite]="result.isFavorite"
       (onSelectionChange)="onSearchResultSelected(result)"
     >
-      <mat-icon>{{
+      <mat-icon *ngIf="result.imageUrl === ''; else image">{{
         result.searchResultType | searchResultTypeToIcon
       }}</mat-icon>
+      <ng-template #image>
+        <img src="{{ result.imageUrl }}" />
+      </ng-template>
       {{ result.title }} <em>{{ result.additionalInformation }}</em>
     </mat-option>
   </mat-autocomplete>

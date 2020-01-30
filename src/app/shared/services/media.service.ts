@@ -91,7 +91,9 @@ export class MediaService {
               album.id,
               album.name,
               album.artistId.toString(),
-              SearchResultType.Album
+              SearchResultType.Album,
+              false,
+              album.coverSmall
             )
         );
       }),
