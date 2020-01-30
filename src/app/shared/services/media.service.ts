@@ -71,7 +71,7 @@ export class MediaService {
     return this.http.get<Track[]>(tracksURL).pipe(map(tracks => tracks[0]));
   }
 
-  public getAnyTrackfromArtist(id: number): Observable<Track[]> {
+  public getAnyTrackFromArtist(id: number): Observable<Track[]> {
     return this.http
       .get<Track[]>(this.tracksURL)
       .pipe(map(tracks => tracks.filter(x => x.artistId === id)));
