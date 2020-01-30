@@ -10,7 +10,8 @@ import {
   debounceTime,
   distinctUntilChanged,
   map,
-  switchMap
+  switchMap,
+  tap
 } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
 import { SearchResult } from '../../shared/models/search-result.model';
@@ -73,8 +74,8 @@ export class SearchComponent implements OnInit {
       case SearchResultType.Track:
         this.mediaService
           .getTrack(result.identifier)
-          .subscribe((track: Track[]) => {
-            this.playlistService.queueTrack(track[0]);
+          .subscribe((track: Track) => {
+            this.playlistService.queueTrack(track);
           });
         break;
       case SearchResultType.Album:

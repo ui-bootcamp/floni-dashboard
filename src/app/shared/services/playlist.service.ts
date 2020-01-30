@@ -7,7 +7,7 @@ import { Track } from '../models/track.model';
 })
 export class PlaylistService {
   private nextTrack$$ = new Subject<Track>();
-  public nextTrack$ = this.nextTrack$$.asObservable();
+  public nextTrack$ = this.nextTrack$$;
 
   constructor() {}
 
