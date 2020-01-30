@@ -6,7 +6,8 @@ export class SearchResult {
     private name: string,
     private context: string,
     private type: SearchResultType,
-    private favorite: boolean = false
+    private favorite: boolean = false,
+    public imageUrl: string = ''
   ) {}
 
   get title() {
