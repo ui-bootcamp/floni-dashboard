@@ -21,3 +21,8 @@ body {
 .dark-theme .highlight-favorite {
   background-color: mat-color($dark-primary, 700);
 }
+
+.toolbar {
+  height: 90px;
+  justify-content: center;
+}
