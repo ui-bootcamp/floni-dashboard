@@ -1,6 +1,11 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Input,
+  Output
+} from '@angular/core';
 import { Article } from '../../../shared/models/article.model';
-import { UserService } from '../../../shared/services/user.service';
 import { SearchResultType } from '../../../shared/models/search-result-type.enum';
 
 @Component({
@@ -11,11 +16,12 @@ import { SearchResultType } from '../../../shared/models/search-result-type.enum
 })
 export class ArticleComponent {
   @Input() public article!: Article;
+  @Output() public readonly toggleArticleFavorite = new EventEmitter<Article>();
   public type = SearchResultType.Article;
-  constructor(private userService: UserService) {}
 
-  public toggleArticleFavorite(article: Article): void {
-    this.userService.toggleFavorite(article.id, this.type);
-    article.isFavorite = !article.isFavorite;
+  constructor() {}
+
+  public dblClickArticle(article: Article): void {
+    this.toggleArticleFavorite.emit(article);
   }
 }
