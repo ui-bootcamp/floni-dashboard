@@ -9,6 +9,7 @@ import { SearchResult } from '../models/search-result.model';
 import { SearchResultType } from '../models/search-result-type.enum';
 import { environment } from '../../../environments/environment';
 import { UserService } from './user.service';
+import { AlbumWithTracks } from '../models/album-with-tracks.model';
 
 @Injectable({
   providedIn: 'root'
@@ -60,14 +61,20 @@ export class MediaService {
     return this.http.get<Artist>(artistURL);
   }
 
-  public getAlbum(id: number): Observable<Album> {
+  public getAlbum(id: number): Observable<AlbumWithTracks> {
     const albumURL = `${this.albumsURL}${id}`;
-    return this.http.get<Album>(albumURL);
+    return this.http.get<AlbumWithTracks>(albumURL);
   }
 
   public getTrack(id: number): Observable<Track> {
     const tracksURL = `${this.tracksURL}${id}`;
-    return this.http.get<Track>(tracksURL);
+    return this.http.get<Track[]>(tracksURL).pipe(map(tracks => tracks[0]));
+  }
+
+  public getAnyTrackfromArtist(id: number): Observable<Track[]> {
+    return this.http
+      .get<Track[]>(this.tracksURL)
+      .pipe(map(tracks => tracks.filter(x => x.artistId === id)));
   }
 
   public getAllAlbumsWith(albumName: string): Observable<SearchResult[]> {
