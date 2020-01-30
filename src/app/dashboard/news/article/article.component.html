@@ -1,7 +1,7 @@
 <mat-card
   dbFavorite
   [isFavorite]="article.isFavorite"
-  (dblclick)="toggleArticleFavorite(article)"
+  (dblclick)="dblClickArticle(article)"
 >
   <mat-card-title [innerText]="article.title"></mat-card-title>
   <mat-card-subtitle>

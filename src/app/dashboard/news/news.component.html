@@ -16,6 +16,7 @@
         [id]="'article' + article.id"
         *ngFor="let article of articles$ | async"
         [article]="article"
+        (toggleArticleFavorite)="onToggleArticleFavorite($event)"
       ></db-article>
     </mat-list>
   </div>
