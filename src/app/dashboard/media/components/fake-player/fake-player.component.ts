@@ -1,12 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  Input,
-  OnChanges
-} from '@angular/core';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { MediaService } from '../../shared/media.service';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { Track } from '../../models/track.model';
 
 @Component({
@@ -15,23 +7,11 @@ import { Track } from '../../models/track.model';
   styleUrls: ['./fake-player.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class FakePlayerComponent implements OnChanges {
+export class FakePlayerComponent {
   @Input() track: Track | undefined;
+  @Input() albumCover = '';
   public playPauseIcon = 'play_arrow';
   public volumeIcon = 'volume_up';
-  public albumCover: Observable<string>;
-
-  constructor(private mediaService: MediaService) {
-    this.albumCover = new Observable<string>();
-  }
-
-  public ngOnChanges(): void {
-    if (this.track) {
-      this.albumCover = this.mediaService
-        .getAlbum(this.track.albumId)
-        .pipe(map(album => album.coverSmall));
-    }
-  }
 
   public onPlayPauseClick(): void {
     this.playPauseIcon =
