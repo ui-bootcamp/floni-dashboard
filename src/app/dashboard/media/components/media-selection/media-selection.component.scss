@@ -15,3 +15,7 @@ mat-selection-list {
 ::ng-deep .mat-list-option .mat-pseudo-checkbox {
   display: none;
 }
+
+mat-icon {
+  user-select: none;
+}

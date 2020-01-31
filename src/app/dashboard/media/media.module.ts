@@ -20,6 +20,7 @@ import { CoreModule } from '../shared/core/core.module';
 import { MediaSelectionComponent } from './components/media-selection/media-selection.component';
 import { FormsModule } from '@angular/forms';
 import { FakePlayerHostComponent } from './components/fake-player-host/fake-player-host.component';
+import { MediaSelectionHostComponent } from './components/media-selection-host/media-selection-host.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { FakePlayerHostComponent } from './components/fake-player-host/fake-play
     FakePlayerHostComponent,
     MediaComponent,
     SecondsToMinutesPipe,
-    MediaSelectionComponent
+    MediaSelectionComponent,
+    MediaSelectionHostComponent
   ],
   exports: [MediaComponent],
   imports: [

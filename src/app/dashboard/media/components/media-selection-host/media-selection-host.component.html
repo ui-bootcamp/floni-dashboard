@@ -1,0 +1,11 @@
+<db-media-selection
+  [artists]="artists$ | async"
+  [albums]="albums$ | async"
+  [tracks]="tracks$ | async"
+  (selectedArtistChanged)="onSelectedArtistChanged($event)"
+  (selectedAlbumChanged)="onSelectedAlbumChanged($event)"
+  (selectedTrackChanged)="onSelectedTrackChanged($event)"
+  (favoriteArtistsChanged)="onFavoriteArtistsChanged($event)"
+  (favoriteAlbumsChanged)="onFavoriteAlbumsChanged($event)"
+  (favoriteTracksChanged)="onFavoriteTracksChanged($event)"
+></db-media-selection>
