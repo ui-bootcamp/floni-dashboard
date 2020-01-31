@@ -4,7 +4,7 @@
     (selectionChange)="onSelectedArtistChanged($event.option)"
   >
     <mat-list-option
-      *ngFor="let artist of artists$ | async"
+      *ngFor="let artist of artists"
       [value]="artist"
       (dblclick)="toggleFavoriteArtist(artist)"
       dbFavorite
@@ -22,7 +22,7 @@
     (selectionChange)="onSelectedAlbumChanged($event.option)"
   >
     <mat-list-option
-      *ngFor="let album of albums$ | async"
+      *ngFor="let album of albums"
       [value]="album"
       (dblclick)="toggleFavoriteAlbum(album)"
       dbFavorite
@@ -40,7 +40,7 @@
     (selectionChange)="onSelectedTrackChanged($event.option)"
   >
     <mat-list-option
-      *ngFor="let track of tracks$ | async"
+      *ngFor="let track of tracks"
       [value]="track"
       (dblclick)="toggleFavoriteTrack(track)"
       dbFavorite

@@ -11,9 +11,7 @@
     </mat-toolbar-row>
   </mat-toolbar>
   <div class="media-main">
-    <db-media-selection
-      (selectedTrack$$)="onSelectedTrackChanged($event)"
-    ></db-media-selection>
+    <db-media-selection-host></db-media-selection-host>
   </div>
   <db-fake-player-host></db-fake-player-host>
 </div>
