@@ -1,4 +1,4 @@
-import { getTestBed, TestBed } from '@angular/core/testing';
+import { fakeAsync, getTestBed, TestBed, tick } from '@angular/core/testing';
 
 import { MediaService } from './media.service';
 import {
@@ -99,63 +99,53 @@ describe('MediaService', () => {
   });
 
   describe('getAllArtists', () => {
-    it('returning all artists', done => {
+    test('returning all artists', fakeAsync(() => {
       service.getAllArtists().subscribe(x => {
-        expect(x.length).toEqual(2);
         expect(x).toEqual(dummyArtists);
-        done();
       });
-
       const req = httpMock.expectOne(`${environment.baseUrl}artists/`);
-      expect(req.request.method).toBe('GET');
       req.flush(dummyArtists);
-    });
+      tick();
+    }));
   });
 
-  describe('#getAlbumsForArtist', () => {
-    it('should only returns album for the requested artist>', done => {
+  describe('getAlbumsForArtist', () => {
+    test('should only returns album for the requested artist>', fakeAsync(() => {
       service.getAlbumsForArtist(2).subscribe(x => {
         expect(x.length).toEqual(1);
-        done();
       });
-
       const req = httpMock.expectOne(`${environment.baseUrl}albums/`);
-      expect(req.request.method).toBe('GET');
       req.flush(dummyAlbums);
-    });
-    it('should returns nothing, if no entry was found>', done => {
+      tick();
+    }));
+
+    test('should returns nothing, if no entry was found>', fakeAsync(() => {
       service.getAlbumsForArtist(3).subscribe(x => {
         expect(x.length).toEqual(0);
-        done();
       });
-
       const req = httpMock.expectOne(`${environment.baseUrl}albums/`);
-      expect(req.request.method).toBe('GET');
       req.flush(dummyAlbums);
-    });
+      tick();
+    }));
   });
 
-  describe('#getTracksForAlbum ', () => {
-    it('returns nothing, if no entry was found', done => {
+  describe('getTracksForAlbum ', () => {
+    test('returns nothing, if no entry was found', fakeAsync(() => {
       service.getTracksForAlbum(3).subscribe(x => {
         expect(x.length).toEqual(0);
-        done();
       });
-
       const req = httpMock.expectOne(`${environment.baseUrl}tracks/`);
-      expect(req.request.method).toBe('GET');
       req.flush(dummyTracks);
-    });
+      tick();
+    }));
 
-    it('returns only entries for the required album', done => {
+    test('returns only entries for the required album', fakeAsync(() => {
       service.getTracksForAlbum(77).subscribe(x => {
         expect(x.length).toEqual(2);
-        done();
       });
-
       const req = httpMock.expectOne(`${environment.baseUrl}tracks/`);
-      expect(req.request.method).toBe('GET');
       req.flush(dummyTracks);
-    });
+      tick();
+    }));
   });
 });

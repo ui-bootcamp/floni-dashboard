@@ -27,16 +27,16 @@ describe('FavoriteDirective', () => {
     );
   });
 
-  it('should have 2 favorite elements', () => {
+  test('should have 2 favorite elements', () => {
     expect(debugElements.length).toBe(2);
   });
 
-  it('should add highlight-favorite to favorites ', () => {
+  test('should add highlight-favorite class to element isFavorite is true ', () => {
     const classes = debugElements[0].nativeElement.classList;
     expect(classes).toContain('highlight-favorite');
   });
 
-  it('should not add highlight-favorite to non-favorites', () => {
+  test('should not add highlight-favorite class to elements if isFavorite is false', () => {
     const classes = debugElements[1].nativeElement.classList;
     expect(classes).not.toContain('highlight-favorite');
   });

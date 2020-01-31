@@ -1,4 +1,4 @@
-import { getTestBed, TestBed } from '@angular/core/testing';
+import { fakeAsync, getTestBed, TestBed, tick } from '@angular/core/testing';
 
 import { NewsService } from './news.service';
 import {
@@ -54,37 +54,34 @@ describe('NewsService', () => {
     httpMock = injector.get(HttpTestingController);
   });
 
-  it('should return all articles', done => {
-    service.getArticles().subscribe(articles => {
-      expect(articles.length).toEqual(3);
-      expect(articles).toEqual(dummyArticles);
-      done();
-    });
-
-    const req = httpMock.expectOne(`${environment.baseUrl}news`);
-    expect(req.request.method).toBe('GET');
-    req.flush(dummyArticles);
+  describe('getArticles', () => {
+    test('should return all articles', fakeAsync(() => {
+      service.getArticles().subscribe(articles => {
+        expect(articles).toEqual(dummyArticles);
+      });
+      const req = httpMock.expectOne(`${environment.baseUrl}news`);
+      req.flush(dummyArticles);
+      tick();
+    }));
   });
 
-  it('should only return entries which match the search', done => {
-    service.getArticlesWith('thick').subscribe(articles => {
-      expect(articles.length).toEqual(1);
-      done();
-    });
+  describe('getArticlesWith', () => {
+    test('should only return entries which match the search', fakeAsync(() => {
+      service.getArticlesWith('thick').subscribe(articles => {
+        expect(articles.length).toEqual(1);
+      });
+      const req = httpMock.expectOne(`${environment.baseUrl}news`);
+      req.flush(dummyArticles);
+      tick();
+    }));
 
-    const req = httpMock.expectOne(`${environment.baseUrl}news`);
-    expect(req.request.method).toBe('GET');
-    req.flush(dummyArticles);
-  });
-
-  test('should return empty array if there are no hits', done => {
-    service.getArticlesWith('thickkkkk').subscribe(articles => {
-      expect(articles.length).toEqual(0);
-      done();
-    });
-
-    const req = httpMock.expectOne(`${environment.baseUrl}news`);
-    expect(req.request.method).toBe('GET');
-    req.flush(dummyArticles);
+    test('should return empty array if there are no hits', fakeAsync(() => {
+      service.getArticlesWith('thickkkkk').subscribe(articles => {
+        expect(articles.length).toEqual(0);
+      });
+      const req = httpMock.expectOne(`${environment.baseUrl}news`);
+      req.flush(dummyArticles);
+      tick();
+    }));
   });
 });
