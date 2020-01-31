@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ArticleComponent } from './article/article.component';
+import { ArticleComponent } from './components/article/article.component';
 import { NewsComponent } from './news.component';
 import {
   MatButtonModule,
@@ -11,8 +11,8 @@ import {
   MatMenuModule,
   MatToolbarModule
 } from '@angular/material';
-import { SearchModule } from '../search/search.module';
-import { CoreModule } from '../../shared/core/core.module';
+import { SearchModule } from '../shared/search/search.module';
+import { CoreModule } from '../shared/core/core.module';
 
 @NgModule({
   declarations: [ArticleComponent, NewsComponent],

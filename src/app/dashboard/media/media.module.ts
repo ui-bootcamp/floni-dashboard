@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FakePlayerComponent } from './fake-player/fake-player.component';
+import { FakePlayerComponent } from './components/fake-player/fake-player.component';
 import { MediaComponent } from './media.component';
 import {
   MatButtonModule,
@@ -14,10 +14,10 @@ import {
   MatTableModule,
   MatToolbarModule
 } from '@angular/material';
-import { SecondsToMinutesPipe } from '../../shared/pipes/seconds-to-minutes.pipe';
-import { SearchModule } from '../search/search.module';
-import { CoreModule } from '../../shared/core/core.module';
-import { MediaSelectionComponent } from './media-selection/media-selection.component';
+import { SecondsToMinutesPipe } from './components/fake-player/pipes/seconds-to-minutes.pipe';
+import { SearchModule } from '../shared/search/search.module';
+import { CoreModule } from '../shared/core/core.module';
+import { MediaSelectionComponent } from './components/media-selection/media-selection.component';
 import { FormsModule } from '@angular/forms';
 
 @NgModule({

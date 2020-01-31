@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ThemeService } from './shared/services/theme.service';
+import { ThemeService } from './dashboard/shared/services/theme.service';
 import { Observable } from 'rxjs';
 import { OverlayContainer } from '@angular/cdk/overlay';
 

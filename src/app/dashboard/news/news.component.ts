@@ -1,10 +1,10 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { Article } from '../../shared/models/article.model';
-import { NewsService } from '../../shared/services/news.service';
+import { Article } from './models/article.model';
+import { NewsService } from './shared/news.service';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
-import { UserService } from '../../shared/services/user.service';
-import { SearchResultType } from '../../shared/models/search-result-type.enum';
+import { UserService } from '../shared/services/user.service';
+import { SearchResultType } from '../shared/search/models/search-result-type.enum';
 
 @Component({
   selector: 'db-news',

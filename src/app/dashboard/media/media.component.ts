@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { Track } from '../../shared/models/track.model';
+import { Track } from './models/track.model';
 import { Observable } from 'rxjs';
-import { PlaylistService } from '../../shared/services/playlist.service';
+import { PlaylistService } from '../shared/services/playlist.service';
 
 @Component({
   selector: 'db-media',
