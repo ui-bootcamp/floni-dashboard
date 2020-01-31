@@ -32,7 +32,7 @@ describe('UserService', () => {
   });
 
   describe('getLastQueries', () => {
-    it('should retrieve data from the localStorage', () => {
+    test('should retrieve data from the localStorage', () => {
       localStorage.setItem(
         'lastDashboardQuery',
         JSON.stringify(Array.of('token'))
@@ -43,7 +43,7 @@ describe('UserService', () => {
   });
 
   describe('saveLastQuery', () => {
-    it('should save the first initial query', () => {
+    test('should save the given string to the local storage', () => {
       service.saveLastQuery('banana');
       // @ts-ignore
       expect(JSON.parse(localStorage.getItem('lastDashboardQuery'))).toEqual([
@@ -51,7 +51,7 @@ describe('UserService', () => {
       ]);
     });
 
-    it('should save the 3 queries', () => {
+    test('should extend the local storage if called multiple times', () => {
       service.saveLastQuery('banana');
       service.saveLastQuery('red');
       service.saveLastQuery('carpet');
@@ -63,7 +63,7 @@ describe('UserService', () => {
       ]);
     });
 
-    it('should save only the last 5 queries', () => {
+    test('should save only the last 5 queries', () => {
       service.saveLastQuery('banana');
       service.saveLastQuery('red');
       service.saveLastQuery('carpet');
@@ -81,25 +81,24 @@ describe('UserService', () => {
     });
 
     describe('isFavorite', () => {
-      it('should return true if it is a favorite', () => {
+      beforeEach(() => {
         localStorage.setItem(
           'DashboardFavorites',
           JSON.stringify(Array.of({ type: 1, id: 2 }))
         );
+      });
+
+      test('should return true if parameters exist in the local storage', () => {
         expect(service.isFavorite(2, 1)).toEqual(true);
       });
 
-      it('should return false if it is not favorite', () => {
-        localStorage.setItem(
-          'DashboardFavorites',
-          JSON.stringify(Array.of({ type: 1, id: 6 }))
-        );
-        expect(service.isFavorite(2, 1)).toEqual(false);
+      test('should return false if parameters do not exist in the local storage', () => {
+        expect(service.isFavorite(3, 1)).toEqual(false);
       });
     });
 
     describe('toggleFavorite', () => {
-      it('should add first value', () => {
+      test('should store the given parameters to the local storage', () => {
         service.toggleFavorite(1, 3);
         // @ts-ignore
         expect(JSON.parse(localStorage.getItem('DashboardFavorites'))).toEqual([
@@ -107,7 +106,7 @@ describe('UserService', () => {
         ]);
       });
 
-      it('should append more values', () => {
+      test('should append the values in the local storage if it is called multiple times', () => {
         service.toggleFavorite(1, 3);
         service.toggleFavorite(3, 3);
         service.toggleFavorite(2, 4);
@@ -119,7 +118,7 @@ describe('UserService', () => {
         ]);
       });
 
-      it('should remove an entry if it already exists in the local storage', () => {
+      test('should remove an entry from the local storage if it already exists', () => {
         localStorage.setItem(
           'DashboardFavorites',
           JSON.stringify([
