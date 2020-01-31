@@ -99,7 +99,7 @@ describe('MediaService', () => {
   });
 
   describe('getAllArtists', () => {
-    test('returning all artists', fakeAsync(() => {
+    test('should return all artists', fakeAsync(() => {
       service.getAllArtists().subscribe(x => {
         expect(x).toEqual(dummyArtists);
       });
@@ -119,7 +119,7 @@ describe('MediaService', () => {
       tick();
     }));
 
-    test('should returns nothing, if no entry was found>', fakeAsync(() => {
+    test('should return nothing, if no entry was found>', fakeAsync(() => {
       service.getAlbumsForArtist(3).subscribe(x => {
         expect(x.length).toEqual(0);
       });
@@ -130,7 +130,7 @@ describe('MediaService', () => {
   });
 
   describe('getTracksForAlbum ', () => {
-    test('returns nothing, if no entry was found', fakeAsync(() => {
+    test('should return nothing, if no entry was found', fakeAsync(() => {
       service.getTracksForAlbum(3).subscribe(x => {
         expect(x.length).toEqual(0);
       });
@@ -139,7 +139,7 @@ describe('MediaService', () => {
       tick();
     }));
 
-    test('returns only entries for the required album', fakeAsync(() => {
+    test('should return only entries for the required album', fakeAsync(() => {
       service.getTracksForAlbum(77).subscribe(x => {
         expect(x.length).toEqual(2);
       });
