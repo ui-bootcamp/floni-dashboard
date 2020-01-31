@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { Observable } from 'rxjs';
-import { ThemeService } from '../shared/services/theme.service';
+import { ThemeService } from './shared/services/theme.service';
 import 'hammerjs';
 
 @Component({
