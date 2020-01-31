@@ -11,7 +11,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { DashboardComponent } from './dashboard.component';
 import { NewsModule } from './news/news.module';
 import { MediaModule } from './media/media.module';
-import { SearchModule } from './search/search.module';
+import { SearchModule } from './shared/search/search.module';
 
 @NgModule({
   declarations: [DashboardComponent],
