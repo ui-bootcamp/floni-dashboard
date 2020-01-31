@@ -8,7 +8,7 @@ import { Track } from '../models/track.model';
 import { SearchResult } from '../../shared/search/models/search-result.model';
 import { SearchResultType } from '../../shared/search/models/search-result-type.enum';
 import { environment } from '../../../../environments/environment';
-import { UserService } from '../../shared/services/user.service';
+import { StorageService } from '../../shared/services/storage.service';
 import { AlbumWithTracks } from '../models/album-with-tracks.model';
 
 @Injectable({
@@ -19,7 +19,7 @@ export class MediaService {
   private albumsURL = `${environment.baseUrl}albums/`;
   private tracksURL = `${environment.baseUrl}tracks/`;
 
-  constructor(private http: HttpClient, private userService: UserService) {}
+  constructor(private http: HttpClient, private userService: StorageService) {}
 
   public getAllArtists(): Observable<Artist[]> {
     return this.http.get<Artist[]>(this.artistsURL).pipe(
@@ -35,7 +35,9 @@ export class MediaService {
     );
   }
 
-  public getAllArtistsWith(artistName: string): Observable<SearchResult[]> {
+  public getAllArtistsWhichContain(
+    artistName: string
+  ): Observable<SearchResult[]> {
     return this.http.get<Artist[]>(this.artistsURL).pipe(
       map(artists =>
         artists.filter(x =>
@@ -71,13 +73,15 @@ export class MediaService {
     return this.http.get<Track[]>(tracksURL).pipe(map(tracks => tracks[0]));
   }
 
-  public getAnyTrackFromArtist(id: number): Observable<Track[]> {
+  public getFirstTrackFromArtist(id: number): Observable<Track[]> {
     return this.http
       .get<Track[]>(this.tracksURL)
       .pipe(map(tracks => tracks.filter(x => x.artistId === id)));
   }
 
-  public getAllAlbumsWith(albumName: string): Observable<SearchResult[]> {
+  public getAllAlbumsWhichContain(
+    albumName: string
+  ): Observable<SearchResult[]> {
     return this.http.get<Album[]>(this.albumsURL).pipe(
       map(albums =>
         albums.filter(album =>
@@ -106,10 +110,10 @@ export class MediaService {
       map(([results, artists]) => {
         return results.map(result => {
           const foundArtist = artists.find(
-            artist => artist.id.toString() === result.additionalInformation
+            artist => artist.id.toString() === result.metaInformations
           );
           if (foundArtist !== undefined) {
-            result.additionalInformation = foundArtist.name;
+            result.metaInformations = foundArtist.name;
           }
           return result;
         });
@@ -117,7 +121,7 @@ export class MediaService {
     );
   }
 
-  public getAlbumsForArtist(artistId: number): Observable<Album[]> {
+  public getAlbumsOfArtist(artistId: number): Observable<Album[]> {
     return this.http.get<Album[]>(this.albumsURL).pipe(
       map(resultArray => resultArray.filter(x => x.artistId === artistId)),
       map(albums => {
@@ -132,7 +136,7 @@ export class MediaService {
     );
   }
 
-  public getTracksForAlbum(albumId: number): Observable<Track[]> {
+  public getTracksInAlbum(albumId: number): Observable<Track[]> {
     return this.http.get<Track[]>(this.tracksURL).pipe(
       map(resultArray => resultArray.filter(x => x.albumId === albumId)),
       map(tracks => {
@@ -147,7 +151,9 @@ export class MediaService {
     );
   }
 
-  public getAllTracksWith(trackName: string): Observable<SearchResult[]> {
+  public getAllTracksWhichContain(
+    trackName: string
+  ): Observable<SearchResult[]> {
     return this.http.get<Track[]>(this.tracksURL).pipe(
       map(tracks =>
         tracks.filter(x =>
@@ -174,10 +180,10 @@ export class MediaService {
       map(([results, albums]) => {
         return results.map(result => {
           const foundAlbum = albums.find(
-            x => x.id.toString() === result.additionalInformation
+            x => x.id.toString() === result.metaInformations
           );
           if (foundAlbum !== undefined) {
-            result.additionalInformation = foundAlbum.name;
+            result.metaInformations = foundAlbum.name;
           }
           return result;
         });

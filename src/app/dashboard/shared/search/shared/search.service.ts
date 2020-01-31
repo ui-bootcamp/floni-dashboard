@@ -4,7 +4,7 @@ import { SearchResult } from '../models/search-result.model';
 import { map } from 'rxjs/operators';
 import { MediaService } from '../../../media/shared/media.service';
 import { NewsService } from '../../../news/shared/news.service';
-import { UserService } from '../../services/user.service';
+import { StorageService } from '../../services/storage.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,16 +13,16 @@ export class SearchService {
   constructor(
     private mediaService: MediaService,
     private newsService: NewsService,
-    private userService: UserService
+    private userService: StorageService
   ) {}
 
   public search(searchTerm: string, scope: string): Observable<SearchResult[]> {
     const sources: Observable<unknown>[] = [];
     if (scope === 'media' || scope === 'global') {
       sources.push(
-        this.mediaService.getAllAlbumsWith(searchTerm),
-        this.mediaService.getAllArtistsWith(searchTerm),
-        this.mediaService.getAllTracksWith(searchTerm)
+        this.mediaService.getAllAlbumsWhichContain(searchTerm),
+        this.mediaService.getAllArtistsWhichContain(searchTerm),
+        this.mediaService.getAllTracksWhichContain(searchTerm)
       );
     }
     if (scope === 'news' || scope === 'global') {
@@ -35,10 +35,7 @@ export class SearchService {
       }),
       map(searchResults => {
         return searchResults.map((result: SearchResult) => {
-          result.isFavorite = this.userService.isFavorite(
-            result.identifier,
-            result.searchResultType
-          );
+          result.favorite = this.userService.isFavorite(result.id, result.type);
           return result;
         });
       })
