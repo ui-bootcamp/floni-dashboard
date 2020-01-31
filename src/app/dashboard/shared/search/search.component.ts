@@ -1,26 +1,14 @@
-import {
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
-  Component,
-  Input,
-  OnDestroy,
-  OnInit
-} from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { SearchService } from './shared/search.service';
-import {
-  debounceTime,
-  distinctUntilChanged,
-  map,
-  switchMap
-} from 'rxjs/operators';
 import { Observable, of, Subscription } from 'rxjs';
-import { SearchResult } from './models/search-result.model';
-import { StorageService } from '../services/storage.service';
-import { SearchResultType } from './models/search-result-type.enum';
+import { debounceTime, distinctUntilChanged, map, switchMap } from 'rxjs/operators';
+import { Track } from '../../media/models/track.model';
 import { MediaService } from '../../media/shared/media.service';
 import { PlaylistService } from '../services/playlist.service';
-import { Track } from '../../media/models/track.model';
+import { StorageService } from '../services/storage.service';
+import { SearchResultType } from './models/search-result-type.enum';
+import { SearchResult } from './models/search-result.model';
+import { SearchService } from './shared/search.service';
 
 @Component({
   selector: 'db-search',
@@ -50,11 +38,7 @@ export class SearchComponent implements OnInit, OnDestroy {
     this.searchResults$ = this.searchField.valueChanges.pipe(
       debounceTime(400),
       distinctUntilChanged(),
-      switchMap((term: string) =>
-        term.length > 0
-          ? this.searchService.search(term, this.searchScope)
-          : of([])
-      )
+      switchMap((term: string) => (term.length > 0 ? this.searchService.search(term, this.searchScope) : of([])))
     );
 
     this.lastUserSearches = this.userService.getLastQueries().join(' | ');
@@ -72,7 +56,7 @@ export class SearchComponent implements OnInit, OnDestroy {
     this.displaySearchResult(result);
   }
 
-  private displaySearchResult(result: SearchResult) {
+  private displaySearchResult(result: SearchResult): void {
     switch (result.type) {
       case SearchResultType.Article:
         const element = document.getElementById('article' + result.type);
@@ -99,11 +83,9 @@ export class SearchComponent implements OnInit, OnDestroy {
         break;
       case SearchResultType.Artist:
         this.subscriptions.push(
-          this.mediaService
-            .getFirstTrackFromArtist(result.id)
-            .subscribe((res: Track[]) => {
-              this.playlistService.queueTrack(res[0]);
-            })
+          this.mediaService.getFirstTrackFromArtist(result.id).subscribe((res: Track[]) => {
+            this.playlistService.queueTrack(res[0]);
+          })
         );
         break;
     }
