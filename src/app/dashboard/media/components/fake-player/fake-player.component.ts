@@ -9,12 +9,9 @@ import { Track } from '../../models/track.model';
 })
 export class FakePlayerComponent {
   @Input() track: Track | undefined;
-  // @ts-ignore
-  @Input() albumCover: string;
+  @Input() albumCover = '';
   public playPauseIcon = 'play_arrow';
   public volumeIcon = 'volume_up';
-
-  constructor() {}
 
   public onPlayPauseClick(): void {
     this.playPauseIcon =
