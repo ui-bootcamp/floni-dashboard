@@ -31,20 +31,17 @@ import { Track } from '../../media/models/track.model';
 export class SearchComponent implements OnInit, OnDestroy {
   @Input() searchScope = 'global';
   public searchField: FormControl = new FormControl();
-  public searchResults$: Observable<SearchResult[]>;
-  public lastUserSearches: string;
+  public searchResults$ = new Observable<SearchResult[]>();
+  public lastUserSearches = '';
   private subscriptions: Subscription[] = [];
 
   constructor(
     private searchService: SearchService,
-    private userService: StorageService,
+    private storageService: StorageService,
     private cd: ChangeDetectorRef,
     private mediaService: MediaService,
     private playlistService: PlaylistService
-  ) {
-    this.searchResults$ = new Observable<SearchResult[]>();
-    this.lastUserSearches = '';
-  }
+  ) {}
 
   public ngOnInit(): void {
     this.searchResults$ = this.searchField.valueChanges.pipe(
@@ -57,7 +54,7 @@ export class SearchComponent implements OnInit, OnDestroy {
       )
     );
 
-    this.lastUserSearches = this.userService.getLastQueries().join(' | ');
+    this.lastUserSearches = this.storageService.getLastQueries().join(' | ');
   }
 
   public ngOnDestroy(): void {
@@ -65,14 +62,14 @@ export class SearchComponent implements OnInit, OnDestroy {
   }
 
   public onSearchResultSelected(result: SearchResult): void {
-    this.userService.saveLastQuery(this.searchField.value);
-    this.lastUserSearches = this.userService.getLastQueries().join(' | ');
+    this.storageService.saveLastQuery(this.searchField.value);
+    this.lastUserSearches = this.storageService.getLastQueries().join(' | ');
     this.cd.detectChanges();
     this.searchField.setValue('');
     this.displaySearchResult(result);
   }
 
-  private displaySearchResult(result: SearchResult) {
+  private displaySearchResult(result: SearchResult): void {
     switch (result.type) {
       case SearchResultType.Article:
         const element = document.getElementById('article' + result.type);

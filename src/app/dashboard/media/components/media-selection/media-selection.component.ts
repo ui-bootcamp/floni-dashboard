@@ -31,7 +31,6 @@ export class MediaSelectionComponent {
   public onSelectedArtistChanged(option: MatListOption): void {
     option.selectionList.deselectAll();
     option.selected = true;
-    console.log(option);
     this.selectedArtistChanged.emit(option.value);
   }
 
