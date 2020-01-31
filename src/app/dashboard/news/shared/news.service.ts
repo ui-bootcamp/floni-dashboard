@@ -27,7 +27,15 @@ export class NewsService {
             article.id,
             SearchResultType.Article
           );
-          return article;
+          return new Article(
+            article.id,
+            article.title,
+            article.description,
+            article.link,
+            article.createdAt,
+            article.updatedAt,
+            article.isFavorite
+          );
         });
       })
     );

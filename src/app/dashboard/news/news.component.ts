@@ -4,7 +4,6 @@ import { NewsService } from './shared/news.service';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { StorageService } from '../shared/services/storage.service';
-import { SearchResultType } from '../shared/search/models/search-result-type.enum';
 
 @Component({
   selector: 'db-news',
@@ -39,7 +38,7 @@ export class NewsComponent implements OnInit {
   }
 
   public onToggleArticleFavorite(article: Article): void {
-    this.userService.toggleFavorite(article.id, SearchResultType.Article);
+    this.userService.toggleFavorite(article);
     article.isFavorite = !article.isFavorite;
   }
 }

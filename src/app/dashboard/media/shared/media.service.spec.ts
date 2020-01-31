@@ -6,86 +6,52 @@ import {
   HttpTestingController
 } from '@angular/common/http/testing';
 import { environment } from '../../../../environments/environment';
+import { Track } from '../models/track.model';
+import { Artist } from '../models/artist.model';
+import { Album } from '../models/album.model';
 
 describe('MediaService', () => {
   let injector: TestBed;
   let httpMock: HttpTestingController;
   let service: MediaService;
   const dummyTracks = [
-    {
-      id: 1,
-      albumId: 2,
-      artistId: 3,
-      title: 'the Title',
-      duration: 100,
-      createdAt: '1990-01-01',
-      updatedAt: '1990-01-01',
-      isFavorite: false
-    },
-    {
-      id: 2,
-      albumId: 77,
-      artistId: 3,
-      title: 'the Title2',
-      duration: 100,
-      createdAt: '1990-01-01',
-      updatedAt: '1990-01-01',
-      isFavorite: false
-    },
-    {
-      id: 3,
-      albumId: 77,
-      artistId: 3,
-      title: 'the Title3',
-      duration: 100,
-      createdAt: '1990-01-01',
-      updatedAt: '1990-01-01',
-      isFavorite: false
-    }
+    new Track(1, 2, 3, 'the Title', 100, '1990-01-01', '1990-01-01', false),
+    new Track(2, 77, 3, 'the Title2', 100, '1990-01-01', '1990-01-01', false),
+    new Track(3, 77, 3, 'the Title3', 100, '1990-01-01', '1990-01-01', false)
   ];
   const dummyArtists = [
-    {
-      name: 'Deichkind',
-      id: 2,
-      createdAt: '1900-01-01',
-      updatedAt: '1990-01-01',
-      isFavorite: false
-    },
-    {
-      name: 'McFitti',
-      id: 3,
-      createdAt: '1900-01-01',
-      updatedAt: '1990-01-01',
-      isFavorite: false
-    }
+    new Artist(2, 'Deichkind', '1900-01-01', '1990-01-01', false),
+
+    new Artist(3, 'McFitti', '1900-01-01', '1990-01-01', false)
   ];
   const dummyAlbums = [
-    {
-      id: 1,
-      artistId: 1,
-      name: 'Album1',
-      cover: 'cover',
-      coverSmall: 'cover',
-      coverMedium: 'cover',
-      coverBig: 'cover',
-      coverXL: 'cover',
-      createdAt: 'cover',
-      updatedAt: 'cover',
-      isFavorite: false
-    },
-    {
-      id: 2,
-      artistId: 2,
-      name: 'Album2',
-      cover: 'cover',
-      coverSmall: 'cover',
-      coverMedium: 'cover',
-      coverBig: 'cover',
-      coverXL: 'cover',
-      createdAt: 'cover',
-      updatedAt: 'cover',
-      isFavorite: false
-    }
+    new Album(
+      1,
+      1,
+      'Album1',
+      'cover',
+      'cover',
+      'cover',
+      'cover',
+      'cover',
+      'cover',
+      'cover',
+      false
+    ),
+
+    new Album(
+      2,
+      2,
+      'Album2',
+      'cover',
+      'cover',
+      'cover',
+      'cover',
+      'cover',
+      'cover',
+      'cover',
+      false
+    )
   ];
 
   beforeEach(() => {

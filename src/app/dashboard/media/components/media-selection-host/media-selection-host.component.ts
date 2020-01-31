@@ -5,7 +5,6 @@ import { Artist } from '../../models/artist.model';
 import { Album } from '../../models/album.model';
 import { MediaService } from '../../shared/media.service';
 import { StorageService } from '../../../shared/services/storage.service';
-import { SearchResultType } from '../../../shared/search/models/search-result-type.enum';
 import { PlaylistService } from '../../../shared/services/playlist.service';
 
 @Component({
@@ -41,15 +40,7 @@ export class MediaSelectionHostComponent implements OnInit {
     this.playlistService.queueTrack(track);
   }
 
-  public onFavoriteArtistsChanged(artist: Artist): void {
-    this.storageService.toggleFavorite(artist.id, SearchResultType.Artist);
-  }
-
-  public onFavoriteAlbumsChanged(album: Album): void {
-    this.storageService.toggleFavorite(album.id, SearchResultType.Album);
-  }
-
-  public onFavoriteTracksChanged(track: Track): void {
-    this.storageService.toggleFavorite(track.id, SearchResultType.Track);
+  public onFavoritesChanged(element: Artist | Album | Track): void {
+    this.storageService.toggleFavorite(element);
   }
 }

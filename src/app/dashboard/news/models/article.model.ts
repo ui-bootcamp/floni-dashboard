@@ -1,3 +1,5 @@
+import { SearchResultType } from '../../shared/search/models/search-result-type.enum';
+
 export class Article {
   constructor(
     public id: number,
@@ -6,6 +8,7 @@ export class Article {
     public link: string,
     public createdAt: string,
     public updatedAt: string,
-    public isFavorite: boolean
+    public isFavorite: boolean,
+    public type: SearchResultType = SearchResultType.Article
   ) {}
 }

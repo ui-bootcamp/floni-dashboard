@@ -6,7 +6,7 @@
     <mat-list-option
       *ngFor="let artist of artists"
       [value]="artist"
-      (dblclick)="toggleFavoriteArtist(artist)"
+      (dblclick)="toggleFavorite(artist)"
       dbFavorite
       [isFavorite]="artist.isFavorite"
     >
@@ -24,7 +24,7 @@
     <mat-list-option
       *ngFor="let album of albums"
       [value]="album"
-      (dblclick)="toggleFavoriteAlbum(album)"
+      (dblclick)="toggleFavorite(album)"
       dbFavorite
       [isFavorite]="album.isFavorite"
     >
@@ -42,7 +42,7 @@
     <mat-list-option
       *ngFor="let track of tracks"
       [value]="track"
-      (dblclick)="toggleFavoriteTrack(track)"
+      (dblclick)="toggleFavorite(track)"
       dbFavorite
       [isFavorite]="track.isFavorite"
     >

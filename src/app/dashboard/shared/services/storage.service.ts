@@ -1,5 +1,9 @@
 import { Injectable } from '@angular/core';
 import { SearchResultType } from '../search/models/search-result-type.enum';
+import { Album } from '../../media/models/album.model';
+import { Artist } from '../../media/models/artist.model';
+import { Track } from '../../media/models/track.model';
+import { Article } from '../../news/models/article.model';
 
 @Injectable({
   providedIn: 'root'
@@ -8,10 +12,8 @@ export class StorageService {
   private queryKey = 'lastDashboardQuery';
   private favoritesKey = 'DashboardFavorites';
 
-  constructor() {}
-
-  public toggleFavorite(favId: number, favType: SearchResultType): void {
-    const valueToToggle = { type: favType, id: favId };
+  public toggleFavorite(element: Artist | Album | Track | Article): void {
+    const valueToToggle = { type: element.type, id: element.id };
     let valuesFromStorage = localStorage.getItem(this.favoritesKey);
 
     if (valuesFromStorage !== null) {
@@ -19,13 +21,13 @@ export class StorageService {
       if (
         parsedFavorites.findIndex(
           (favorite: { id: number; type: SearchResultType }) =>
-            favorite.id === favId && favorite.type === favType
+            favorite.id === element.id && favorite.type === element.type
         ) > -1
       ) {
         parsedFavorites.splice(
           parsedFavorites.findIndex(
             (favorite: { id: number; type: SearchResultType }) =>
-              favorite.id === favId && favorite.type === favType
+              favorite.id === element.id && favorite.type === element.type
           ),
           1
         );

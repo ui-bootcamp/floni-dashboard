@@ -1,6 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 
 import { StorageService } from './storage.service';
+import { Artist } from '../../media/models/artist.model';
 
 describe('UserService', () => {
   let service: StorageService;
@@ -98,23 +99,31 @@ describe('UserService', () => {
     });
 
     describe('toggleFavorite', () => {
+      let artist1: Artist;
+      let artist2: Artist;
+      let artist3: Artist;
+      beforeEach(() => {
+        artist1 = new Artist(1, 'artist1', 'now', 'never', true);
+        artist2 = new Artist(2, 'artist2', 'now', 'never', true);
+        artist3 = new Artist(3, 'artist3', 'now', 'never', true);
+      });
       test('should store the given parameters to the local storage', () => {
-        service.toggleFavorite(1, 3);
+        service.toggleFavorite(artist1);
         // @ts-ignore
         expect(JSON.parse(localStorage.getItem('DashboardFavorites'))).toEqual([
-          { type: 3, id: 1 }
+          { type: artist1.type, id: artist1.id }
         ]);
       });
 
       test('should append the values in the local storage if it is called multiple times', () => {
-        service.toggleFavorite(1, 3);
-        service.toggleFavorite(3, 3);
-        service.toggleFavorite(2, 4);
+        service.toggleFavorite(artist1);
+        service.toggleFavorite(artist2);
+        service.toggleFavorite(artist3);
         // @ts-ignore
         expect(JSON.parse(localStorage.getItem('DashboardFavorites'))).toEqual([
-          { type: 3, id: 1 },
-          { type: 3, id: 3 },
-          { type: 4, id: 2 }
+          { type: artist1.type, id: artist1.id },
+          { type: artist2.type, id: artist2.id },
+          { type: artist3.type, id: artist3.id }
         ]);
       });
 
@@ -122,16 +131,16 @@ describe('UserService', () => {
         localStorage.setItem(
           'DashboardFavorites',
           JSON.stringify([
-            { type: 3, id: 1 },
-            { type: 3, id: 2 },
-            { type: 3, id: 7 }
+            { type: artist1.type, id: artist1.id },
+            { type: artist2.type, id: artist2.id },
+            { type: artist3.type, id: artist3.id }
           ])
         );
-        service.toggleFavorite(2, 3);
+        service.toggleFavorite(artist2);
         // @ts-ignore
         expect(JSON.parse(localStorage.getItem('DashboardFavorites'))).toEqual([
-          { type: 3, id: 1 },
-          { type: 3, id: 7 }
+          { type: artist1.type, id: artist1.id },
+          { type: artist3.type, id: artist3.id }
         ]);
       });
     });
