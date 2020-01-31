@@ -5,7 +5,7 @@ import {
   HttpClientTestingModule,
   HttpTestingController
 } from '@angular/common/http/testing';
-import { environment } from '../../../environments/environment';
+import { environment } from '../../../../environments/environment';
 
 describe('MediaService', () => {
   let injector: TestBed;
@@ -111,7 +111,7 @@ describe('MediaService', () => {
 
   describe('getAlbumsForArtist', () => {
     test('should only returns album for the requested artist>', fakeAsync(() => {
-      service.getAlbumsForArtist(2).subscribe(x => {
+      service.getAlbumsOfArtist(2).subscribe(x => {
         expect(x.length).toEqual(1);
       });
       const req = httpMock.expectOne(`${environment.baseUrl}albums/`);
@@ -120,7 +120,7 @@ describe('MediaService', () => {
     }));
 
     test('should return nothing, if no entry was found>', fakeAsync(() => {
-      service.getAlbumsForArtist(3).subscribe(x => {
+      service.getAlbumsOfArtist(3).subscribe(x => {
         expect(x.length).toEqual(0);
       });
       const req = httpMock.expectOne(`${environment.baseUrl}albums/`);
@@ -131,7 +131,7 @@ describe('MediaService', () => {
 
   describe('getTracksForAlbum ', () => {
     test('should return nothing, if no entry was found', fakeAsync(() => {
-      service.getTracksForAlbum(3).subscribe(x => {
+      service.getTracksInAlbum(3).subscribe(x => {
         expect(x.length).toEqual(0);
       });
       const req = httpMock.expectOne(`${environment.baseUrl}tracks/`);
@@ -140,7 +140,7 @@ describe('MediaService', () => {
     }));
 
     test('should return only entries for the required album', fakeAsync(() => {
-      service.getTracksForAlbum(77).subscribe(x => {
+      service.getTracksInAlbum(77).subscribe(x => {
         expect(x.length).toEqual(2);
       });
       const req = httpMock.expectOne(`${environment.baseUrl}tracks/`);

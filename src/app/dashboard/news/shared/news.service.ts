@@ -6,7 +6,7 @@ import { SearchResult } from '../../shared/search/models/search-result.model';
 import { map } from 'rxjs/operators';
 import { SearchResultType } from '../../shared/search/models/search-result-type.enum';
 import { environment } from '../../../../environments/environment';
-import { UserService } from '../../shared/services/user.service';
+import { StorageService } from '../../shared/services/storage.service';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +16,7 @@ export class NewsService {
 
   constructor(
     private httpClient: HttpClient,
-    private userService: UserService
+    private userService: StorageService
   ) {}
 
   public getArticles(): Observable<Article[]> {
@@ -48,7 +48,7 @@ export class NewsService {
             new SearchResult(
               article.id,
               article.title,
-              article.description,
+              '',
               SearchResultType.Article
             )
         )

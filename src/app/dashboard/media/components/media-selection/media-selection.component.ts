@@ -11,7 +11,7 @@ import { Artist } from '../../models/artist.model';
 import { Album } from '../../models/album.model';
 import { Track } from '../../models/track.model';
 import { SearchResultType } from '../../../shared/search/models/search-result-type.enum';
-import { UserService } from '../../../shared/services/user.service';
+import { StorageService } from '../../../shared/services/storage.service';
 import { MediaService } from '../../shared/media.service';
 
 @Component({
@@ -28,7 +28,7 @@ export class MediaSelectionComponent implements OnInit {
 
   constructor(
     private mediaService: MediaService,
-    private userService: UserService
+    private userService: StorageService
   ) {
     this.artists$ = new Observable<Artist[]>();
     this.albums$ = new Observable<Album[]>();
@@ -43,13 +43,13 @@ export class MediaSelectionComponent implements OnInit {
   public onSelectedArtistChanged(option: MatListOption): void {
     option.selectionList.deselectAll();
     option.selected = true;
-    this.albums$ = this.mediaService.getAlbumsForArtist(option.value.id);
+    this.albums$ = this.mediaService.getAlbumsOfArtist(option.value.id);
   }
 
   public onSelectedAlbumChanged(option: MatListOption): void {
     option.selectionList.deselectAll();
     option.selected = true;
-    this.tracks$ = this.mediaService.getTracksForAlbum(option.value.id);
+    this.tracks$ = this.mediaService.getTracksInAlbum(option.value.id);
   }
 
   public onSelectedTrackChanged(option: MatListOption): void {

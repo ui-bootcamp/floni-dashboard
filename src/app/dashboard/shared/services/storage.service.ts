@@ -4,7 +4,7 @@ import { SearchResultType } from '../search/models/search-result-type.enum';
 @Injectable({
   providedIn: 'root'
 })
-export class UserService {
+export class StorageService {
   private queryKey = 'lastDashboardQuery';
   private favoritesKey = 'DashboardFavorites';
 
