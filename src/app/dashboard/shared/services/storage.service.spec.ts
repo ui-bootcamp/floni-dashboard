@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { UserService } from './user.service';
+import { StorageService } from './storage.service';
 
 describe('UserService', () => {
-  let service: UserService;
+  let service: StorageService;
   beforeEach(() => {
     TestBed.configureTestingModule({});
 
-    service = TestBed.get(UserService);
+    service = TestBed.get(StorageService);
 
     let store: any = {};
     const mockLocalStorage: any = {

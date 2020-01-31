@@ -3,6 +3,7 @@ import {
   ChangeDetectorRef,
   Component,
   Input,
+  OnDestroy,
   OnInit
 } from '@angular/core';
 import { FormControl } from '@angular/forms';
@@ -13,9 +14,9 @@ import {
   map,
   switchMap
 } from 'rxjs/operators';
-import { Observable, of } from 'rxjs';
+import { Observable, of, Subscription } from 'rxjs';
 import { SearchResult } from './models/search-result.model';
-import { UserService } from '../services/user.service';
+import { StorageService } from '../services/storage.service';
 import { SearchResultType } from './models/search-result-type.enum';
 import { MediaService } from '../../media/shared/media.service';
 import { PlaylistService } from '../services/playlist.service';
@@ -27,15 +28,16 @@ import { Track } from '../../media/models/track.model';
   styleUrls: ['./search.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SearchComponent implements OnInit {
+export class SearchComponent implements OnInit, OnDestroy {
   @Input() searchScope = 'global';
   public searchField: FormControl = new FormControl();
   public searchResults$: Observable<SearchResult[]>;
   public lastUserSearches: string;
+  private subscriptions: Subscription[] = [];
 
   constructor(
     private searchService: SearchService,
-    private userService: UserService,
+    private userService: StorageService,
     private cd: ChangeDetectorRef,
     private mediaService: MediaService,
     private playlistService: PlaylistService
@@ -44,7 +46,7 @@ export class SearchComponent implements OnInit {
     this.lastUserSearches = '';
   }
 
-  ngOnInit() {
+  public ngOnInit(): void {
     this.searchResults$ = this.searchField.valueChanges.pipe(
       debounceTime(400),
       distinctUntilChanged(),
@@ -58,6 +60,10 @@ export class SearchComponent implements OnInit {
     this.lastUserSearches = this.userService.getLastQueries().join(' | ');
   }
 
+  public ngOnDestroy(): void {
+    this.subscriptions.forEach(subscription => subscription.unsubscribe());
+  }
+
   public onSearchResultSelected(result: SearchResult): void {
     this.userService.saveLastQuery(this.searchField.value);
     this.lastUserSearches = this.userService.getLastQueries().join(' | ');
@@ -67,34 +73,38 @@ export class SearchComponent implements OnInit {
   }
 
   private displaySearchResult(result: SearchResult) {
-    switch (result.searchResultType) {
+    switch (result.type) {
       case SearchResultType.Article:
-        const element = document.getElementById('article' + result.identifier);
+        const element = document.getElementById('article' + result.type);
         if (element) {
           element.scrollIntoView();
         }
         break;
       case SearchResultType.Track:
-        this.mediaService
-          .getTrack(result.identifier)
-          .subscribe((track: Track) => {
+        this.subscriptions.push(
+          this.mediaService.getTrack(result.id).subscribe((track: Track) => {
             this.playlistService.queueTrack(track);
-          });
+          })
+        );
         break;
       case SearchResultType.Album:
-        this.mediaService
-          .getAlbum(result.identifier)
-          .pipe(map(album => album.tracks[0]))
-          .subscribe((res: Track) => {
-            this.playlistService.queueTrack(res);
-          });
+        this.subscriptions.push(
+          this.mediaService
+            .getAlbum(result.id)
+            .pipe(map(album => album.tracks[0]))
+            .subscribe((res: Track) => {
+              this.playlistService.queueTrack(res);
+            })
+        );
         break;
       case SearchResultType.Artist:
-        this.mediaService
-          .getAnyTrackFromArtist(result.identifier)
-          .subscribe((res: Track[]) => {
-            this.playlistService.queueTrack(res[0]);
-          });
+        this.subscriptions.push(
+          this.mediaService
+            .getFirstTrackFromArtist(result.id)
+            .subscribe((res: Track[]) => {
+              this.playlistService.queueTrack(res[0]);
+            })
+        );
         break;
     }
   }

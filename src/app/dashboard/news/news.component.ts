@@ -3,7 +3,7 @@ import { Article } from './models/article.model';
 import { NewsService } from './shared/news.service';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
-import { UserService } from '../shared/services/user.service';
+import { StorageService } from '../shared/services/storage.service';
 import { SearchResultType } from '../shared/search/models/search-result-type.enum';
 
 @Component({
@@ -19,7 +19,7 @@ export class NewsComponent implements OnInit {
   constructor(
     private newsService: NewsService,
     private router: Router,
-    private userService: UserService
+    private userService: StorageService
   ) {
     this.articles$ = new Observable<Article[]>();
     this.isFullscreen = this.router.url.indexOf('/news') !== -1;
