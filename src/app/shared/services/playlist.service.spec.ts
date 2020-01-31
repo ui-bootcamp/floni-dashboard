@@ -20,7 +20,7 @@ describe('PlaylistService', () => {
     };
   });
 
-  test('queue next track should work', fakeAsync(() => {
+  test('should queue the next track', fakeAsync(() => {
     playlistService.nextTrack$.subscribe((value: Track) => {
       expect(value.title).toEqual('gangnam-style');
     });

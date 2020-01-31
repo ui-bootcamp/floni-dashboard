@@ -31,7 +31,7 @@ describe('FavoriteDirective', () => {
     expect(debugElements.length).toBe(2);
   });
 
-  test('should add highlight-favorite class to element isFavorite is true ', () => {
+  test('should add highlight-favorite class to element if isFavorite is true ', () => {
     const classes = debugElements[0].nativeElement.classList;
     expect(classes).toContain('highlight-favorite');
   });

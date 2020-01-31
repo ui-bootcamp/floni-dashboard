@@ -1,7 +1,7 @@
 import { FavoriteIconPipe } from './favorite-icon.pipe';
 
 describe('FavoriteIconPipe', () => {
-  test('for favorite return heart', () => {
+  test('should return heart for favorite', () => {
     const pipe = new FavoriteIconPipe();
     expect(pipe.transform(true)).toEqual('favorite');
   });
