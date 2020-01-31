@@ -21,9 +21,9 @@ export class MediaSelectionComponent {
   @Output() public selectedArtistChanged = new EventEmitter<Artist>();
   @Output() public selectedAlbumChanged = new EventEmitter<Album>();
   @Output() public selectedTrackChanged = new EventEmitter<Track>();
-  @Output() public favoriteArtistsChanged = new EventEmitter<Artist>();
-  @Output() public favoriteAlbumsChanged = new EventEmitter<Album>();
-  @Output() public favoriteTracksChanged = new EventEmitter<Track>();
+  @Output() public favoritesChanged = new EventEmitter<
+    Artist | Album | Track
+  >();
   @Input() public artists: Artist[] = [];
   @Input() public albums: Album[] = [];
   @Input() public tracks: Track[] = [];
@@ -46,18 +46,8 @@ export class MediaSelectionComponent {
     this.selectedTrackChanged.emit(option.value);
   }
 
-  public toggleFavoriteArtist(artist: Artist): void {
-    artist.isFavorite = !artist.isFavorite;
-    this.favoriteArtistsChanged.emit(artist);
-  }
-
-  public toggleFavoriteAlbum(album: Album): void {
-    album.isFavorite = !album.isFavorite;
-    this.favoriteAlbumsChanged.emit(album);
-  }
-
-  public toggleFavoriteTrack(track: Track): void {
-    track.isFavorite = !track.isFavorite;
-    this.favoriteTracksChanged.emit(track);
+  public toggleFavorite(element: Artist | Album | Track): void {
+    element.isFavorite = !element.isFavorite;
+    this.favoritesChanged.emit(element);
   }
 }

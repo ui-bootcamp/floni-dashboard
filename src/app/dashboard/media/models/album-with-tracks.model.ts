@@ -1,4 +1,5 @@
 import { Track } from './track.model';
+import { SearchResultType } from '../../shared/search/models/search-result-type.enum';
 
 export interface AlbumWithTracks {
   id: number;
@@ -12,4 +13,5 @@ export interface AlbumWithTracks {
   createdAt: string;
   updatedAt: string;
   tracks: Track[];
+  type: SearchResultType;
 }

@@ -19,17 +19,26 @@ export class MediaService {
   private albumsURL = `${environment.baseUrl}albums/`;
   private tracksURL = `${environment.baseUrl}tracks/`;
 
-  constructor(private http: HttpClient, private userService: StorageService) {}
+  constructor(
+    private http: HttpClient,
+    private storageService: StorageService
+  ) {}
 
   public getAllArtists(): Observable<Artist[]> {
     return this.http.get<Artist[]>(this.artistsURL).pipe(
       map(artists => {
         return artists.map(artist => {
-          artist.isFavorite = this.userService.isFavorite(
+          artist.isFavorite = this.storageService.isFavorite(
             artist.id,
             SearchResultType.Artist
           );
-          return artist;
+          return new Artist(
+            artist.id,
+            artist.name,
+            artist.createdAt,
+            artist.updatedAt,
+            artist.isFavorite
+          );
         });
       })
     );
@@ -126,11 +135,23 @@ export class MediaService {
       map(resultArray => resultArray.filter(x => x.artistId === artistId)),
       map(albums => {
         return albums.map(album => {
-          album.isFavorite = this.userService.isFavorite(
+          album.isFavorite = this.storageService.isFavorite(
             album.id,
             SearchResultType.Album
           );
-          return album;
+          return new Album(
+            album.id,
+            album.artistId,
+            album.name,
+            album.cover,
+            album.coverSmall,
+            album.coverMedium,
+            album.coverBig,
+            album.coverXL,
+            album.createdAt,
+            album.updatedAt,
+            album.isFavorite
+          );
         });
       })
     );
@@ -141,11 +162,20 @@ export class MediaService {
       map(resultArray => resultArray.filter(x => x.albumId === albumId)),
       map(tracks => {
         return tracks.map(track => {
-          track.isFavorite = this.userService.isFavorite(
+          track.isFavorite = this.storageService.isFavorite(
             track.id,
             SearchResultType.Track
           );
-          return track;
+          return new Track(
+            track.id,
+            track.albumId,
+            track.artistId,
+            track.title,
+            track.duration,
+            track.createdAt,
+            track.updatedAt,
+            track.isFavorite
+          );
         });
       })
     );
