@@ -1,18 +1,14 @@
-import { TestBed } from '@angular/core/testing';
-
 import { PlaylistService } from './playlist.service';
 import { Track } from '../models/track.model';
+import { fakeAsync, tick } from '@angular/core/testing';
 
 describe('PlaylistService', () => {
-  beforeEach(() => TestBed.configureTestingModule({}));
+  let playlistService: PlaylistService;
+  let dummyTrack: Track;
 
-  it('queue next track should work', done => {
-    const service: PlaylistService = TestBed.get(PlaylistService);
-    service.nextTrack$.subscribe((value: Track) => {
-      expect(value.title).toEqual('gangnam-style');
-      done();
-    });
-    service.queueTrack({
+  beforeEach(() => {
+    playlistService = new PlaylistService();
+    dummyTrack = {
       id: 1,
       title: 'gangnam-style',
       artistId: 2,
@@ -21,6 +17,15 @@ describe('PlaylistService', () => {
       duration: 4120,
       isFavorite: false,
       updatedAt: ''
-    });
+    };
   });
+
+  test('queue next track should work', fakeAsync(() => {
+    playlistService.nextTrack$.subscribe((value: Track) => {
+      expect(value.title).toEqual('gangnam-style');
+    });
+    playlistService.queueTrack(dummyTrack);
+
+    tick();
+  }));
 });
