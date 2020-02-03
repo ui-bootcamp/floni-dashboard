@@ -4,7 +4,6 @@ import { Album } from '../../media/models/album.model';
 import { Artist } from '../../media/models/artist.model';
 import { Track } from '../../media/models/track.model';
 import { Article } from '../../news/models/article.model';
-import { SearchResult } from '../search/models/search-result.model';
 
 @Injectable({
   providedIn: 'root'
@@ -48,9 +47,7 @@ export class StorageService {
     }
   }
 
-  public isFavorite(
-    element: Artist | Album | Track | Article | SearchResult
-  ): boolean {
+  public isFavorite(element: Artist | Album | Track | Article): boolean {
     const savedFavorites = localStorage.getItem(this.favoritesKey);
     if (savedFavorites !== null) {
       const parsedFavorites = JSON.parse(savedFavorites);

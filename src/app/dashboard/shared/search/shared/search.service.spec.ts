@@ -3,10 +3,13 @@ import { MediaService } from '../../../media/shared/media.service';
 import { NewsService } from '../../../news/shared/news.service';
 import { SearchService } from './search.service';
 import { StorageService } from '../../services/storage.service';
-import { SearchResult } from '../models/search-result.model';
 import { of } from 'rxjs';
 import { fakeAsync, tick } from '@angular/core/testing';
 import { SearchResultType } from '../models/search-result-type.enum';
+import { Track } from '../../../media/models/track.model';
+import { Album } from '../../../media/models/album.model';
+import { Artist } from '../../../media/models/artist.model';
+import { Article } from '../../../news/models/article.model';
 
 describe('SearchService', () => {
   let mockMediaService: MediaService;
@@ -19,16 +22,16 @@ describe('SearchService', () => {
     mockNewsService = mock(NewsService);
     mockUserService = mock(StorageService);
     when(mockMediaService.getAllTracksWhichContain(anything())).thenReturn(
-      of([new SearchResult(9, 'THE TRACK', '', SearchResultType.Track)])
+      of([new Track(9, 9, 9, 'THE TRACK', 123, '', '', false)])
     );
     when(mockMediaService.getAllAlbumsWhichContain(anything())).thenReturn(
-      of([new SearchResult(10, 'THE ALBUM', '', SearchResultType.Album)])
+      of([new Album(10, 10, 'THE ALBUM', '', '', '', '', '', '', '', false)])
     );
     when(mockMediaService.getAllArtistsWhichContain(anything())).thenReturn(
-      of([new SearchResult(11, 'THE ARTIST', '', SearchResultType.Artist)])
+      of([new Artist(11, 'THE ARTIST', '', '', false)])
     );
-    when(mockNewsService.getArticlesWith(anything())).thenReturn(
-      of([new SearchResult(12, 'THE ARTICLE', '', SearchResultType.Article)])
+    when(mockNewsService.getArticlesWhichContain(anything())).thenReturn(
+      of([new Article(12, 'THE ARTICLE', '', '', '', '', false)])
     );
     when(mockUserService.isFavorite(anything())).thenReturn(false);
     service = new SearchService(
@@ -38,17 +41,17 @@ describe('SearchService', () => {
     );
   });
 
-  test('should call getAllTracksWith from media service and getArticlesWith from news service with scope global', fakeAsync(() => {
+  test('should call getAllTracksWith from media service and getArticlesWhichContain from news service with scope global', fakeAsync(() => {
     service.search('xxxxxxxx', 'global').subscribe();
     tick();
     verify(mockMediaService.getAllTracksWhichContain(anything())).once();
-    verify(mockNewsService.getArticlesWith(anything())).once();
+    verify(mockNewsService.getArticlesWhichContain(anything())).once();
   }));
 
-  test('should not call getArticlesWith from news service with scope media', fakeAsync(() => {
+  test('should not call getArticlesWhichContain from news service with scope media', fakeAsync(() => {
     service.search('xxxxxxxx', 'media').subscribe();
     tick();
-    verify(mockNewsService.getArticlesWith(anything())).never();
+    verify(mockNewsService.getArticlesWhichContain(anything())).never();
   }));
 
   test('should not call getAllTracksWith from media service with scope news', fakeAsync(() => {

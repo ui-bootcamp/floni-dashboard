@@ -15,12 +15,14 @@ import {
   switchMap
 } from 'rxjs/operators';
 import { Observable, of, Subscription } from 'rxjs';
-import { SearchResult } from './models/search-result.model';
 import { StorageService } from '../services/storage.service';
 import { SearchResultType } from './models/search-result-type.enum';
 import { MediaService } from '../../media/shared/media.service';
 import { PlaylistService } from '../services/playlist.service';
 import { Track } from '../../media/models/track.model';
+import { Artist } from '../../media/models/artist.model';
+import { Album } from '../../media/models/album.model';
+import { Article } from '../../news/models/article.model';
 
 @Component({
   selector: 'db-search',
@@ -31,8 +33,11 @@ import { Track } from '../../media/models/track.model';
 export class SearchComponent implements OnInit, OnDestroy {
   @Input() searchScope = 'global';
   public searchField: FormControl = new FormControl();
-  public searchResults$ = new Observable<SearchResult[]>();
+  public searchResults$ = new Observable<
+    (Artist | Album | Track | Article)[]
+  >();
   public lastUserSearches = '';
+  public type = SearchResultType;
   private subscriptions: Subscription[] = [];
 
   constructor(
@@ -61,7 +66,9 @@ export class SearchComponent implements OnInit, OnDestroy {
     this.subscriptions.forEach(subscription => subscription.unsubscribe());
   }
 
-  public onSearchResultSelected(result: SearchResult): void {
+  public onSearchResultSelected(
+    result: Artist | Album | Track | Article
+  ): void {
     this.storageService.saveLastQuery(this.searchField.value);
     this.lastUserSearches = this.storageService.getLastQueries().join(' | ');
     this.cd.detectChanges();
@@ -69,7 +76,7 @@ export class SearchComponent implements OnInit, OnDestroy {
     this.displaySearchResult(result);
   }
 
-  private displaySearchResult(result: SearchResult): void {
+  private displaySearchResult(result: Artist | Album | Track | Article): void {
     switch (result.type) {
       case SearchResultType.Article:
         const element = document.getElementById('article' + result.type);

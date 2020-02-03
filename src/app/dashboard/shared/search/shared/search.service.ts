@@ -1,10 +1,13 @@
 import { Injectable } from '@angular/core';
 import { combineLatest, Observable } from 'rxjs';
-import { SearchResult } from '../models/search-result.model';
 import { map } from 'rxjs/operators';
 import { MediaService } from '../../../media/shared/media.service';
 import { NewsService } from '../../../news/shared/news.service';
 import { StorageService } from '../../services/storage.service';
+import { Artist } from '../../../media/models/artist.model';
+import { Album } from '../../../media/models/album.model';
+import { Track } from '../../../media/models/track.model';
+import { Article } from '../../../news/models/article.model';
 
 @Injectable({
   providedIn: 'root'
@@ -16,8 +19,11 @@ export class SearchService {
     private userService: StorageService
   ) {}
 
-  public search(searchTerm: string, scope: string): Observable<SearchResult[]> {
-    const sources: Observable<unknown>[] = [];
+  public search(
+    searchTerm: string,
+    scope: string
+  ): Observable<(Artist | Album | Track | Article)[]> {
+    const sources: Observable<Artist[] | Album[] | Track[] | Article[]>[] = [];
     if (scope === 'media' || scope === 'global') {
       sources.push(
         this.mediaService.getAllAlbumsWhichContain(searchTerm),
@@ -26,7 +32,7 @@ export class SearchService {
       );
     }
     if (scope === 'news' || scope === 'global') {
-      sources.push(this.newsService.getArticlesWith(searchTerm));
+      sources.push(this.newsService.getArticlesWhichContain(searchTerm));
     }
 
     return combineLatest(...sources).pipe(
@@ -34,8 +40,8 @@ export class SearchService {
         return [].concat.apply([], arrays);
       }),
       map(searchResults => {
-        return searchResults.map((result: SearchResult) => {
-          result.favorite = this.userService.isFavorite(result);
+        return searchResults.map((result: Artist | Album | Track | Article) => {
+          result.isFavorite = this.userService.isFavorite(result);
           return result;
         });
       })

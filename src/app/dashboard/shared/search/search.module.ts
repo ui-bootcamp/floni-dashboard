@@ -9,9 +9,10 @@ import {
 } from '@angular/material';
 import { SearchComponent } from './search.component';
 import { CoreModule } from '../core/core.module';
+import { IdToArtistPipe } from './pipes/id-to-artist.pipe';
 
 @NgModule({
-  declarations: [SearchComponent, SearchResultTypeToIconPipe],
+  declarations: [SearchComponent, SearchResultTypeToIconPipe, IdToArtistPipe],
   imports: [
     CommonModule,
     ReactiveFormsModule,
