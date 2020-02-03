@@ -16,7 +16,7 @@ export class SearchService {
   constructor(
     private mediaService: MediaService,
     private newsService: NewsService,
-    private userService: StorageService
+    private storageService: StorageService
   ) {}
 
   public search(
@@ -41,7 +41,7 @@ export class SearchService {
       }),
       map(searchResults => {
         return searchResults.map((result: Artist | Album | Track | Article) => {
-          result.isFavorite = this.userService.isFavorite(result);
+          result.isFavorite = this.storageService.isFavorite(result);
           return result;
         });
       })

@@ -6,6 +6,7 @@ import { Album } from '../../models/album.model';
 import { MediaService } from '../../shared/media.service';
 import { StorageService } from '../../../shared/services/storage.service';
 import { PlaylistService } from '../../../shared/services/playlist.service';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'db-media-selection-host',
@@ -29,11 +30,15 @@ export class MediaSelectionHostComponent implements OnInit {
   }
 
   public onSelectedArtistChanged(artist: Artist): void {
-    this.albums$ = this.mediaService.getAlbumsOfArtist(artist.id);
+    this.albums$ = this.mediaService
+      .getArtist(artist.id)
+      .pipe(map(x => x.albums));
   }
 
   public onSelectedAlbumChanged(album: Album): void {
-    this.tracks$ = this.mediaService.getTracksInAlbum(album.id);
+    this.tracks$ = this.mediaService
+      .getAlbum(album.id)
+      .pipe(map(x => x.tracks));
   }
 
   public onSelectedTrackChanged(track: Track): void {

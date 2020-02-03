@@ -14,15 +14,11 @@ describe('MediaService', () => {
   let injector: TestBed;
   let httpMock: HttpTestingController;
   let service: MediaService;
-  const dummyTracks = [
-    new Track(1, 2, 3, 'the Title', 100, '1990-01-01', '1990-01-01', false),
-    new Track(2, 77, 3, 'the Title2', 100, '1990-01-01', '1990-01-01', false),
-    new Track(3, 77, 3, 'the Title3', 100, '1990-01-01', '1990-01-01', false)
-  ];
-  const dummyArtists = [
-    new Artist(2, 'Deichkind', '1900-01-01', '1990-01-01', false),
 
-    new Artist(3, 'McFitti', '1900-01-01', '1990-01-01', false)
+  const dummyArtists = [
+    new Artist(2, 'Deichkind', '1900-01-01', '1990-01-01'),
+
+    new Artist(3, 'McFitti', '1900-01-01', '1990-01-01')
   ];
   const dummyAlbums = [
     new Album(
@@ -35,8 +31,7 @@ describe('MediaService', () => {
       'cover',
       'cover',
       'cover',
-      'cover',
-      false
+      'cover'
     ),
 
     new Album(
@@ -49,9 +44,13 @@ describe('MediaService', () => {
       'cover',
       'cover',
       'cover',
-      'cover',
-      false
+      'cover'
     )
+  ];
+  const dummyTracks = [
+    new Track(1, 2, 3, 'the Title', 100, '1990-01-01', '1990-01-01'),
+    new Track(2, 77, 3, 'the Title2', 100, '1990-01-01', '1990-01-01'),
+    new Track(3, 77, 3, 'the Title3', 100, '1990-01-01', '1990-01-01')
   ];
 
   beforeEach(() => {
@@ -75,19 +74,10 @@ describe('MediaService', () => {
     }));
   });
 
-  describe('getAlbumsForArtist', () => {
-    test('should only returns album for the requested artist>', fakeAsync(() => {
-      service.getAlbumsOfArtist(2).subscribe(x => {
-        expect(x.length).toEqual(1);
-      });
-      const req = httpMock.expectOne(`${environment.baseUrl}albums/`);
-      req.flush(dummyAlbums);
-      tick();
-    }));
-
-    test('should return nothing, if no entry was found>', fakeAsync(() => {
-      service.getAlbumsOfArtist(3).subscribe(x => {
-        expect(x.length).toEqual(0);
+  describe('getAllAlbums', () => {
+    test('should return all albums', fakeAsync(() => {
+      service.getAllAlbums().subscribe(x => {
+        expect(x).toEqual(dummyAlbums);
       });
       const req = httpMock.expectOne(`${environment.baseUrl}albums/`);
       req.flush(dummyAlbums);
@@ -95,19 +85,10 @@ describe('MediaService', () => {
     }));
   });
 
-  describe('getTracksForAlbum ', () => {
-    test('should return nothing, if no entry was found', fakeAsync(() => {
-      service.getTracksInAlbum(3).subscribe(x => {
-        expect(x.length).toEqual(0);
-      });
-      const req = httpMock.expectOne(`${environment.baseUrl}tracks/`);
-      req.flush(dummyTracks);
-      tick();
-    }));
-
-    test('should return only entries for the required album', fakeAsync(() => {
-      service.getTracksInAlbum(77).subscribe(x => {
-        expect(x.length).toEqual(2);
+  describe('getAllTracks', () => {
+    test('should return all tracks', fakeAsync(() => {
+      service.getAllTracks().subscribe(x => {
+        expect(x).toEqual(dummyTracks);
       });
       const req = httpMock.expectOne(`${environment.baseUrl}tracks/`);
       req.flush(dummyTracks);

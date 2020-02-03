@@ -7,7 +7,6 @@ import { map } from 'rxjs/operators';
 import { Track } from '../models/track.model';
 import { environment } from '../../../../environments/environment';
 import { StorageService } from '../../shared/services/storage.service';
-import { AlbumWithTracks } from '../models/album-with-tracks.model';
 
 @Injectable({
   providedIn: 'root'
@@ -24,30 +23,47 @@ export class MediaService {
 
   public getArtist(id: number): Observable<Artist> {
     const artistURL = `${this.artistsURL}${id}`;
-    return this.http.get<Artist>(artistURL);
+    return this.http.get<Artist>(artistURL).pipe(
+      map(artist => {
+        artist.isFavorite = this.storageService.isFavorite(artist);
+        artist.albums.forEach(
+          album => (album.isFavorite = this.storageService.isFavorite(album))
+        );
+        return artist;
+      })
+    );
   }
 
-  public getAlbum(id: number): Observable<AlbumWithTracks> {
+  public getAlbum(id: number): Observable<Album> {
     const albumURL = `${this.albumsURL}${id}`;
-    return this.http.get<AlbumWithTracks>(albumURL);
+    return this.http.get<Album>(albumURL).pipe(
+      map(album => {
+        album.isFavorite = this.storageService.isFavorite(album);
+        album.tracks.forEach(
+          track => (track.isFavorite = this.storageService.isFavorite(track))
+        );
+        return album;
+      })
+    );
   }
 
   public getTrack(id: number): Observable<Track> {
     const tracksURL = `${this.tracksURL}${id}`;
-    return this.http.get<Track[]>(tracksURL).pipe(map(tracks => tracks[0]));
+    return this.http.get<Track[]>(tracksURL).pipe(
+      map(tracks => tracks[0]),
+      map(track => {
+        track.isFavorite = this.storageService.isFavorite(track);
+        return track;
+      })
+    );
   }
 
   public getAllArtists(): Observable<Artist[]> {
     return this.http.get<Artist[]>(this.artistsURL).pipe(
       map(artists => {
         return artists.map(artist => {
-          return new Artist(
-            artist.id,
-            artist.name,
-            artist.createdAt,
-            artist.updatedAt,
-            this.storageService.isFavorite(artist)
-          );
+          artist.isFavorite = this.storageService.isFavorite(artist);
+          return artist;
         });
       })
     );
@@ -57,19 +73,8 @@ export class MediaService {
     return this.http.get<Album[]>(this.albumsURL).pipe(
       map(albums => {
         return albums.map(album => {
-          return new Album(
-            album.id,
-            album.artistId,
-            album.name,
-            album.cover,
-            album.coverSmall,
-            album.coverMedium,
-            album.coverBig,
-            album.coverXL,
-            album.createdAt,
-            album.updatedAt,
-            this.storageService.isFavorite(album)
-          );
+          album.isFavorite = this.storageService.isFavorite(album);
+          return album;
         });
       })
     );
@@ -79,16 +84,8 @@ export class MediaService {
     return this.http.get<Track[]>(this.tracksURL).pipe(
       map(tracks => {
         return tracks.map(track => {
-          return new Track(
-            track.id,
-            track.albumId,
-            track.artistId,
-            track.title,
-            track.duration,
-            track.createdAt,
-            track.updatedAt,
-            this.storageService.isFavorite(track)
-          );
+          track.isFavorite = this.storageService.isFavorite(track);
+          return track;
         });
       })
     );
@@ -121,55 +118,6 @@ export class MediaService {
           x.title.toUpperCase().includes(trackName.toUpperCase())
         )
       )
-    );
-  }
-
-  public getFirstTrackFromArtist(id: number): Observable<Track[]> {
-    return this.http
-      .get<Track[]>(this.tracksURL)
-      .pipe(map(tracks => tracks.filter(x => x.artistId === id)));
-  }
-
-  public getAlbumsOfArtist(artistId: number): Observable<Album[]> {
-    return this.http.get<Album[]>(this.albumsURL).pipe(
-      map(resultArray => resultArray.filter(x => x.artistId === artistId)),
-      map(albums => {
-        return albums.map(album => {
-          return new Album(
-            album.id,
-            album.artistId,
-            album.name,
-            album.cover,
-            album.coverSmall,
-            album.coverMedium,
-            album.coverBig,
-            album.coverXL,
-            album.createdAt,
-            album.updatedAt,
-            this.storageService.isFavorite(album)
-          );
-        });
-      })
-    );
-  }
-
-  public getTracksInAlbum(albumId: number): Observable<Track[]> {
-    return this.http.get<Track[]>(this.tracksURL).pipe(
-      map(resultArray => resultArray.filter(x => x.albumId === albumId)),
-      map(tracks => {
-        return tracks.map(track => {
-          return new Track(
-            track.id,
-            track.albumId,
-            track.artistId,
-            track.title,
-            track.duration,
-            track.createdAt,
-            track.updatedAt,
-            this.storageService.isFavorite(track)
-          );
-        });
-      })
     );
   }
 }
