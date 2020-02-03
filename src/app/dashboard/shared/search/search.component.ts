@@ -16,7 +16,6 @@ import {
 } from 'rxjs/operators';
 import { Observable, of, Subscription } from 'rxjs';
 import { StorageService } from '../services/storage.service';
-import { SearchResultType } from './models/search-result-type.enum';
 import { MediaService } from '../../media/shared/media.service';
 import { PlaylistService } from '../services/playlist.service';
 import { Track } from '../../media/models/track.model';
@@ -37,7 +36,6 @@ export class SearchComponent implements OnInit, OnDestroy {
     (Artist | Album | Track | Article)[]
   >();
   public lastUserSearches = '';
-  public type = SearchResultType;
   private subscriptions: Subscription[] = [];
 
   constructor(
@@ -77,39 +75,32 @@ export class SearchComponent implements OnInit, OnDestroy {
   }
 
   private displaySearchResult(result: Artist | Album | Track | Article): void {
-    switch (result.type) {
-      case SearchResultType.Article:
-        const element = document.getElementById('article' + result.type);
-        if (element) {
-          element.scrollIntoView();
-        }
-        break;
-      case SearchResultType.Track:
-        this.subscriptions.push(
-          this.mediaService.getTrack(result.id).subscribe((track: Track) => {
-            this.playlistService.queueTrack(track);
-          })
-        );
-        break;
-      case SearchResultType.Album:
-        this.subscriptions.push(
-          this.mediaService
-            .getAlbum(result.id)
-            .pipe(map(album => album.tracks[0]))
-            .subscribe((res: Track) => {
-              this.playlistService.queueTrack(res);
-            })
-        );
-        break;
-      case SearchResultType.Artist:
-        this.subscriptions.push(
-          this.mediaService
-            .getFirstTrackFromArtist(result.id)
-            .subscribe((res: Track[]) => {
-              this.playlistService.queueTrack(res[0]);
-            })
-        );
-        break;
+    if (Article.isArticle(result)) {
+      const element = document.getElementById('article' + result.id);
+      if (element) {
+        element.scrollIntoView();
+      }
+    } else if (Track.isTrack(result)) {
+      this.subscriptions.push(
+        this.mediaService
+          .getTrack(result.id)
+          .subscribe((track: Track) => this.playlistService.queueTrack(track))
+      );
+    } else if (Album.isAlbum(result)) {
+      this.subscriptions.push(
+        this.mediaService
+          .getAlbum(result.id)
+          .pipe(map(album => album.tracks[0]))
+          .subscribe((res: Track) => this.playlistService.queueTrack(res))
+      );
+    } else if (Artist.isArtist(result)) {
+      this.subscriptions.push(
+        this.mediaService
+          .getArtist(result.id)
+          .subscribe((artist: Artist) =>
+            this.playlistService.queueTrack(artist.albums[0].tracks[0])
+          )
+      );
     }
   }
 }
