@@ -4,6 +4,7 @@ import { Album } from '../../media/models/album.model';
 import { Artist } from '../../media/models/artist.model';
 import { Track } from '../../media/models/track.model';
 import { Article } from '../../news/models/article.model';
+import { SearchResult } from '../search/models/search-result.model';
 
 @Injectable({
   providedIn: 'root'
@@ -47,14 +48,16 @@ export class StorageService {
     }
   }
 
-  public isFavorite(favId: number, favType: SearchResultType): boolean {
+  public isFavorite(
+    element: Artist | Album | Track | Article | SearchResult
+  ): boolean {
     const savedFavorites = localStorage.getItem(this.favoritesKey);
     if (savedFavorites !== null) {
       const parsedFavorites = JSON.parse(savedFavorites);
       return (
         parsedFavorites.findIndex(
           (favorite: { id: number; type: SearchResultType }) =>
-            favorite.id === favId && favorite.type === favType
+            favorite.id === element.id && favorite.type === element.type
         ) > -1
       );
     } else {

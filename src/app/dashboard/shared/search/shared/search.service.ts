@@ -35,7 +35,7 @@ export class SearchService {
       }),
       map(searchResults => {
         return searchResults.map((result: SearchResult) => {
-          result.favorite = this.userService.isFavorite(result.id, result.type);
+          result.favorite = this.userService.isFavorite(result);
           return result;
         });
       })
