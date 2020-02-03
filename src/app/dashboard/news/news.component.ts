@@ -18,7 +18,7 @@ export class NewsComponent implements OnInit {
   constructor(
     private newsService: NewsService,
     private router: Router,
-    private userService: StorageService
+    private storageService: StorageService
   ) {
     this.articles$ = new Observable<Article[]>();
     this.isFullscreen = this.router.url.indexOf('/news') !== -1;
@@ -38,7 +38,7 @@ export class NewsComponent implements OnInit {
   }
 
   public onToggleArticleFavorite(article: Article): void {
-    this.userService.toggleFavorite(article);
+    this.storageService.toggleFavorite(article);
     article.isFavorite = !article.isFavorite;
   }
 }

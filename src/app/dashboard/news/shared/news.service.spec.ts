@@ -19,8 +19,7 @@ describe('NewsService', () => {
       'Der Gasmarkt hat sich grundlegend gewandelt.',
       'http://www.spiegel.de/wirtschaft/service/gaspreise-sinken-auf-tiefsten-stand-seit-zwoelf-jahren-a-1163414.html#ref=rss',
       '2017-08-21T06:20:30.770Z',
-      '2017-08-21T06:20:30.770Z',
-      false
+      '2017-08-21T06:20:30.770Z'
     ),
     new Article(
       2,
@@ -28,8 +27,7 @@ describe('NewsService', () => {
       'In Ford-Werken in Chicago wurden Mitarbeiter belästigt ',
       'http://www.spiegel.de/wirtschaft/unternehmen/ford-zahlt-10-millionen-dollar-wegen-diskriminierungsklage-a-1163413.html#ref=rss',
       '2017-08-21T06:20:30.772Z',
-      '2017-08-21T06:20:30.772Z',
-      false
+      '2017-08-21T06:20:30.772Z'
     ),
     new Article(
       3,
@@ -37,8 +35,7 @@ describe('NewsService', () => {
       'Es ist nicht lange her, da verlor Robin Thicke ...',
       'http://www.spiegel.de/panorama/leute/robin-thicke-freundin-von-us-saenger-erwartet-ein-kind-a-1163416.html#ref=rss',
       '2017-08-21T06:20:30.773Z',
-      '2017-08-21T06:20:30.773Z',
-      false
+      '2017-08-21T06:20:30.773Z'
     )
   ];
 
