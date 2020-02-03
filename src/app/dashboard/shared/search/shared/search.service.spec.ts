@@ -5,7 +5,6 @@ import { SearchService } from './search.service';
 import { StorageService } from '../../services/storage.service';
 import { of } from 'rxjs';
 import { fakeAsync, tick } from '@angular/core/testing';
-import { SearchResultType } from '../models/search-result-type.enum';
 import { Track } from '../../../media/models/track.model';
 import { Album } from '../../../media/models/album.model';
 import { Artist } from '../../../media/models/artist.model';
@@ -14,30 +13,30 @@ import { Article } from '../../../news/models/article.model';
 describe('SearchService', () => {
   let mockMediaService: MediaService;
   let mockNewsService: NewsService;
-  let mockUserService: StorageService;
+  let mockStorageService: StorageService;
   let service: SearchService;
 
   beforeEach(() => {
     mockMediaService = mock(MediaService);
     mockNewsService = mock(NewsService);
-    mockUserService = mock(StorageService);
+    mockStorageService = mock(StorageService);
     when(mockMediaService.getAllTracksWhichContain(anything())).thenReturn(
-      of([new Track(9, 9, 9, 'THE TRACK', 123, '', '', false)])
+      of([new Track(9, 9, 9, 'THE TRACK', 123, '', '')])
     );
     when(mockMediaService.getAllAlbumsWhichContain(anything())).thenReturn(
-      of([new Album(10, 10, 'THE ALBUM', '', '', '', '', '', '', '', false)])
+      of([new Album(10, 10, 'THE ALBUM', '', '', '', '', '', '', '')])
     );
     when(mockMediaService.getAllArtistsWhichContain(anything())).thenReturn(
-      of([new Artist(11, 'THE ARTIST', '', '', false)])
+      of([new Artist(11, 'THE ARTIST', '', '')])
     );
     when(mockNewsService.getArticlesWhichContain(anything())).thenReturn(
-      of([new Article(12, 'THE ARTICLE', '', '', '', '', false)])
+      of([new Article(12, 'THE ARTICLE', '', '', '', '')])
     );
-    when(mockUserService.isFavorite(anything())).thenReturn(false);
+    when(mockStorageService.isFavorite(anything())).thenReturn(false);
     service = new SearchService(
       instance(mockMediaService),
       instance(mockNewsService),
-      instance(mockUserService)
+      instance(mockStorageService)
     );
   });
 
@@ -70,9 +69,6 @@ describe('SearchService', () => {
   test('should only return results from media service with scope media', fakeAsync(() => {
     service.search('the', 'media').subscribe(res => {
       expect(res.length).toBe(3);
-      expect(
-        res.findIndex(x => x.type === SearchResultType.Article)
-      ).toBeLessThan(0);
     });
     tick();
   }));

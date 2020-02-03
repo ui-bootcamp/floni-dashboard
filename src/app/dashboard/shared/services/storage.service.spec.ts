@@ -3,7 +3,7 @@ import { TestBed } from '@angular/core/testing';
 import { StorageService } from './storage.service';
 import { Artist } from '../../media/models/artist.model';
 
-describe('UserService', () => {
+describe('StorageService', () => {
   let service: StorageService;
   beforeEach(() => {
     TestBed.configureTestingModule({});
@@ -84,19 +84,19 @@ describe('UserService', () => {
     describe('isFavorite', () => {
       let artist: Artist;
       beforeEach(() => {
-        artist = new Artist(1, 'artist1', 'now', 'never', true);
+        artist = new Artist(1, 'artist1', 'now', 'never');
         localStorage.setItem(
-          'DashboardFavorites',
-          JSON.stringify(Array.of({ type: artist.type, id: artist.id }))
+          'ArtistFavorites',
+          JSON.stringify(Array.of(artist.id))
         );
       });
 
-      test('should return true if type and id exist in the local storage', () => {
+      test('should return true if id exist in the local storage', () => {
         expect(service.isFavorite(artist)).toEqual(true);
       });
 
-      test('should return false if type and id do not exist in the local storage', () => {
-        const otherArtist = new Artist(3, 'otherArtist', 'now', 'never', true);
+      test('should return false if id does not exist in the local storage', () => {
+        const otherArtist = new Artist(3, 'otherArtist', 'now', 'never');
         expect(service.isFavorite(otherArtist)).toEqual(false);
       });
     });
@@ -106,15 +106,15 @@ describe('UserService', () => {
       let artist2: Artist;
       let artist3: Artist;
       beforeEach(() => {
-        artist1 = new Artist(1, 'artist1', 'now', 'never', true);
-        artist2 = new Artist(2, 'artist2', 'now', 'never', true);
-        artist3 = new Artist(3, 'artist3', 'now', 'never', true);
+        artist1 = new Artist(1, 'artist1', 'now', 'never');
+        artist2 = new Artist(2, 'artist2', 'now', 'never');
+        artist3 = new Artist(3, 'artist3', 'now', 'never');
       });
       test('should store the given parameters to the local storage', () => {
         service.toggleFavorite(artist1);
         // @ts-ignore
-        expect(JSON.parse(localStorage.getItem('DashboardFavorites'))).toEqual([
-          { type: artist1.type, id: artist1.id }
+        expect(JSON.parse(localStorage.getItem('ArtistFavorites'))).toEqual([
+          artist1.id
         ]);
       });
 
@@ -123,27 +123,23 @@ describe('UserService', () => {
         service.toggleFavorite(artist2);
         service.toggleFavorite(artist3);
         // @ts-ignore
-        expect(JSON.parse(localStorage.getItem('DashboardFavorites'))).toEqual([
-          { type: artist1.type, id: artist1.id },
-          { type: artist2.type, id: artist2.id },
-          { type: artist3.type, id: artist3.id }
+        expect(JSON.parse(localStorage.getItem('ArtistFavorites'))).toEqual([
+          artist1.id,
+          artist2.id,
+          artist3.id
         ]);
       });
 
       test('should remove an entry from the local storage if it already exists', () => {
         localStorage.setItem(
-          'DashboardFavorites',
-          JSON.stringify([
-            { type: artist1.type, id: artist1.id },
-            { type: artist2.type, id: artist2.id },
-            { type: artist3.type, id: artist3.id }
-          ])
+          'ArtistFavorites',
+          JSON.stringify([artist1.id, artist2.id, artist3.id])
         );
         service.toggleFavorite(artist2);
         // @ts-ignore
-        expect(JSON.parse(localStorage.getItem('DashboardFavorites'))).toEqual([
-          { type: artist1.type, id: artist1.id },
-          { type: artist3.type, id: artist3.id }
+        expect(JSON.parse(localStorage.getItem('ArtistFavorites'))).toEqual([
+          artist1.id,
+          artist3.id
         ]);
       });
     });

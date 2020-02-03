@@ -18,14 +18,14 @@
       [isFavorite]="result.isFavorite"
       (onSelectionChange)="onSearchResultSelected(result)"
     >
-      <mat-icon *ngIf="result.type !== type.Album; else image">{{
-        result.type | searchResultTypeToIcon
+      <mat-icon *ngIf="!result.tracks; else image">{{
+        result | resultToIcon
       }}</mat-icon>
       <ng-template #image>
         <img src="{{ result.coverSmall }}" alt="Album cover" />
       </ng-template>
       {{ result.name }} {{ result.title }}
-      <em *ngIf="result.type === type.Track">{{
+      <em *ngIf="result.artistId">{{
         result.artistId | idToArtist | async
       }}</em>
     </mat-option>

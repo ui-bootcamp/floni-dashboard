@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SearchResultTypeToIconPipe } from './pipes/search-result-type-to-icon.pipe';
+import { ResultToIconPipe } from './pipes/result-to-icon.pipe';
 import { ReactiveFormsModule } from '@angular/forms';
 import {
   MatAutocompleteModule,
@@ -12,7 +12,7 @@ import { CoreModule } from '../core/core.module';
 import { IdToArtistPipe } from './pipes/id-to-artist.pipe';
 
 @NgModule({
-  declarations: [SearchComponent, SearchResultTypeToIconPipe, IdToArtistPipe],
+  declarations: [SearchComponent, ResultToIconPipe, IdToArtistPipe],
   imports: [
     CommonModule,
     ReactiveFormsModule,

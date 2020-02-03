@@ -1,4 +1,6 @@
-import { SearchResultType } from '../../shared/search/models/search-result-type.enum';
+import { Artist } from './artist.model';
+import { Album } from './album.model';
+import { Article } from '../../news/models/article.model';
 
 export class Track {
   constructor(
@@ -9,7 +11,10 @@ export class Track {
     public duration: number,
     public createdAt: string,
     public updatedAt: string,
-    public isFavorite: boolean,
-    public type: SearchResultType = SearchResultType.Track
+    public isFavorite: boolean = false
   ) {}
+
+  static isTrack(element: Artist | Album | Track | Article): element is Track {
+    return (element as Track).duration !== undefined;
+  }
 }

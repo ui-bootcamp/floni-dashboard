@@ -14,22 +14,15 @@ export class NewsService {
 
   constructor(
     private httpClient: HttpClient,
-    private userService: StorageService
+    private storageService: StorageService
   ) {}
 
   public getAllArticles(): Observable<Article[]> {
     return this.httpClient.get<Article[]>(this.URL).pipe(
       map(articles => {
         return articles.map(article => {
-          return new Article(
-            article.id,
-            article.title,
-            article.description,
-            article.link,
-            article.createdAt,
-            article.updatedAt,
-            this.userService.isFavorite(article)
-          );
+          article.isFavorite = this.storageService.isFavorite(article);
+          return article;
         });
       })
     );

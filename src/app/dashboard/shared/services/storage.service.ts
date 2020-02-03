@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { SearchResultType } from '../search/models/search-result-type.enum';
 import { Album } from '../../media/models/album.model';
 import { Artist } from '../../media/models/artist.model';
 import { Track } from '../../media/models/track.model';
@@ -10,53 +9,32 @@ import { Article } from '../../news/models/article.model';
 })
 export class StorageService {
   private queryKey = 'lastDashboardQuery';
-  private favoritesKey = 'DashboardFavorites';
 
   public toggleFavorite(element: Artist | Album | Track | Article): void {
-    const valueToToggle = { type: element.type, id: element.id };
-    let valuesFromStorage = localStorage.getItem(this.favoritesKey);
+    const key: string = this.getStorageKey(element);
+    const valuesFromStorage = localStorage.getItem(key);
 
     if (valuesFromStorage !== null) {
-      const parsedFavorites = JSON.parse(valuesFromStorage);
-      if (
-        parsedFavorites.findIndex(
-          (favorite: { id: number; type: SearchResultType }) =>
-            favorite.id === element.id && favorite.type === element.type
-        ) > -1
-      ) {
-        parsedFavorites.splice(
-          parsedFavorites.findIndex(
-            (favorite: { id: number; type: SearchResultType }) =>
-              favorite.id === element.id && favorite.type === element.type
-          ),
-          1
-        );
+      const favorites = JSON.parse(valuesFromStorage);
+      const index = favorites.indexOf(element.id);
+
+      if (index > -1) {
+        favorites.splice(index, 1);
       } else {
-        parsedFavorites.push(valueToToggle);
+        favorites.push(element.id);
       }
-      valuesFromStorage = parsedFavorites;
-      localStorage.setItem(
-        this.favoritesKey,
-        JSON.stringify(valuesFromStorage)
-      );
+      localStorage.setItem(key, JSON.stringify(favorites));
     } else {
-      localStorage.setItem(
-        this.favoritesKey,
-        JSON.stringify(Array.of(valueToToggle))
-      );
+      localStorage.setItem(key, JSON.stringify(Array.of(element.id)));
     }
   }
 
   public isFavorite(element: Artist | Album | Track | Article): boolean {
-    const savedFavorites = localStorage.getItem(this.favoritesKey);
+    const key: string = this.getStorageKey(element);
+    const savedFavorites = localStorage.getItem(key);
     if (savedFavorites !== null) {
       const parsedFavorites = JSON.parse(savedFavorites);
-      return (
-        parsedFavorites.findIndex(
-          (favorite: { id: number; type: SearchResultType }) =>
-            favorite.id === element.id && favorite.type === element.type
-        ) > -1
-      );
+      return parsedFavorites.indexOf(element.id) > -1;
     } else {
       return false;
     }
@@ -86,5 +64,21 @@ export class StorageService {
     } else {
       return [];
     }
+  }
+
+  private getStorageKey(element: Artist | Album | Track | Article): string {
+    if (Artist.isArtist(element)) {
+      return 'ArtistFavorites';
+    }
+    if (Album.isAlbum(element)) {
+      return 'AlbumFavorites';
+    }
+    if (Track.isTrack(element)) {
+      return 'TrackFavorites';
+    }
+    if (Article.isArticle(element)) {
+      return 'ArticleFavorites';
+    }
+    return '';
   }
 }
