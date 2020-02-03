@@ -15,16 +15,19 @@
       *ngFor="let result of searchResults$ | async"
       [value]="searchField.value"
       dbFavorite
-      [isFavorite]="result.favorite"
+      [isFavorite]="result.isFavorite"
       (onSelectionChange)="onSearchResultSelected(result)"
     >
-      <mat-icon *ngIf="result.imageUrl === ''; else image">{{
+      <mat-icon *ngIf="result.type !== type.Album; else image">{{
         result.type | searchResultTypeToIcon
       }}</mat-icon>
       <ng-template #image>
-        <img src="{{ result.imageUrl }}" />
+        <img src="{{ result.coverSmall }}" alt="Album cover" />
       </ng-template>
-      {{ result.name }} <em>{{ result.metaInformations }}</em>
+      {{ result.name }} {{ result.title }}
+      <em *ngIf="result.type === type.Track">{{
+        result.artistId | idToArtist | async
+      }}</em>
     </mat-option>
   </mat-autocomplete>
 </mat-form-field>
