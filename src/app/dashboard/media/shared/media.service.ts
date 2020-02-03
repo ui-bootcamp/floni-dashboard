@@ -28,16 +28,12 @@ export class MediaService {
     return this.http.get<Artist[]>(this.artistsURL).pipe(
       map(artists => {
         return artists.map(artist => {
-          artist.isFavorite = this.storageService.isFavorite(
-            artist.id,
-            SearchResultType.Artist
-          );
           return new Artist(
             artist.id,
             artist.name,
             artist.createdAt,
             artist.updatedAt,
-            artist.isFavorite
+            this.storageService.isFavorite(artist)
           );
         });
       })
@@ -135,10 +131,6 @@ export class MediaService {
       map(resultArray => resultArray.filter(x => x.artistId === artistId)),
       map(albums => {
         return albums.map(album => {
-          album.isFavorite = this.storageService.isFavorite(
-            album.id,
-            SearchResultType.Album
-          );
           return new Album(
             album.id,
             album.artistId,
@@ -150,7 +142,7 @@ export class MediaService {
             album.coverXL,
             album.createdAt,
             album.updatedAt,
-            album.isFavorite
+            this.storageService.isFavorite(album)
           );
         });
       })
@@ -162,10 +154,6 @@ export class MediaService {
       map(resultArray => resultArray.filter(x => x.albumId === albumId)),
       map(tracks => {
         return tracks.map(track => {
-          track.isFavorite = this.storageService.isFavorite(
-            track.id,
-            SearchResultType.Track
-          );
           return new Track(
             track.id,
             track.albumId,
@@ -174,7 +162,7 @@ export class MediaService {
             track.duration,
             track.createdAt,
             track.updatedAt,
-            track.isFavorite
+            this.storageService.isFavorite(track)
           );
         });
       })

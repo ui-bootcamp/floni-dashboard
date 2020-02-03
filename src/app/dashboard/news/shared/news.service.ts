@@ -23,10 +23,6 @@ export class NewsService {
     return this.httpClient.get<Article[]>(this.URL).pipe(
       map(articles => {
         return articles.map(article => {
-          article.isFavorite = this.userService.isFavorite(
-            article.id,
-            SearchResultType.Article
-          );
           return new Article(
             article.id,
             article.title,
@@ -34,7 +30,7 @@ export class NewsService {
             article.link,
             article.createdAt,
             article.updatedAt,
-            article.isFavorite
+            this.userService.isFavorite(article)
           );
         });
       })

@@ -82,19 +82,22 @@ describe('UserService', () => {
     });
 
     describe('isFavorite', () => {
+      let artist: Artist;
       beforeEach(() => {
+        artist = new Artist(1, 'artist1', 'now', 'never', true);
         localStorage.setItem(
           'DashboardFavorites',
-          JSON.stringify(Array.of({ type: 1, id: 2 }))
+          JSON.stringify(Array.of({ type: artist.type, id: artist.id }))
         );
       });
 
-      test('should return true if parameters exist in the local storage', () => {
-        expect(service.isFavorite(2, 1)).toEqual(true);
+      test('should return true if type and id exist in the local storage', () => {
+        expect(service.isFavorite(artist)).toEqual(true);
       });
 
-      test('should return false if parameters do not exist in the local storage', () => {
-        expect(service.isFavorite(3, 1)).toEqual(false);
+      test('should return false if type and id do not exist in the local storage', () => {
+        const otherArtist = new Artist(3, 'otherArtist', 'now', 'never', true);
+        expect(service.isFavorite(otherArtist)).toEqual(false);
       });
     });
 

@@ -30,7 +30,7 @@ describe('SearchService', () => {
     when(mockNewsService.getArticlesWith(anything())).thenReturn(
       of([new SearchResult(12, 'THE ARTICLE', '', SearchResultType.Article)])
     );
-    when(mockUserService.isFavorite(anything(), anything())).thenReturn(false);
+    when(mockUserService.isFavorite(anything())).thenReturn(false);
     service = new SearchService(
       instance(mockMediaService),
       instance(mockNewsService),
