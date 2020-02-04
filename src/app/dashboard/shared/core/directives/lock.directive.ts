@@ -2,7 +2,6 @@ import {
   AfterContentChecked,
   Directive,
   ElementRef,
-  HostBinding,
   Renderer2
 } from '@angular/core';
 import { LockService } from '../../services/lock.service';
@@ -12,9 +11,6 @@ import { StorageService } from '../../services/storage.service';
   selector: '[dbLock]'
 })
 export class LockDirective implements AfterContentChecked {
-  // @ts-ignore
-  @HostBinding('attr.disabled') private isLocked = false;
-
   constructor(
     private el: ElementRef,
     private lockService: LockService,
@@ -37,11 +33,11 @@ export class LockDirective implements AfterContentChecked {
         this.renderer.addClass(this.el.nativeElement, 'lock-hide');
       }
       this.renderer.addClass(this.el.nativeElement, 'lock');
-      this.isLocked = true;
+      this.renderer.setAttribute(this.el.nativeElement, 'disabled', 'true');
     } else {
       this.renderer.removeClass(this.el.nativeElement, 'lock');
       this.renderer.removeClass(this.el.nativeElement, 'lock-hide');
-      this.isLocked = false;
+      this.renderer.removeAttribute(this.el.nativeElement, 'disabled');
     }
   }
 }
