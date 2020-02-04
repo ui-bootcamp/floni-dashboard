@@ -11,7 +11,7 @@
     </mat-toolbar-row>
   </mat-toolbar>
   <div class="news-main">
-    <mat-list>
+    <mat-list dbLock>
       <db-article
         [id]="'article' + article.id"
         *ngFor="let article of articles$ | async"

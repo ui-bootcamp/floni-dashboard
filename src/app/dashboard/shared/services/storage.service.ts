@@ -9,6 +9,7 @@ import { Article } from '../../news/models/article.model';
 })
 export class StorageService {
   private queryKey = 'lastDashboardQuery';
+  private lockKey = 'lockMode';
 
   public toggleFavorite(element: Artist | Album | Track | Article): void {
     const key: string = this.getStorageKey(element);
@@ -64,6 +65,19 @@ export class StorageService {
     } else {
       return [];
     }
+  }
+
+  public setLockMode(value: boolean): void {
+    localStorage.setItem(this.lockKey, JSON.stringify(value));
+  }
+
+  public getLockMode(): boolean {
+    const valueFromStorage = localStorage.getItem(this.lockKey);
+    if (valueFromStorage) {
+      return JSON.parse(valueFromStorage);
+    }
+
+    return false;
   }
 
   private getStorageKey(element: Artist | Album | Track | Article): string {

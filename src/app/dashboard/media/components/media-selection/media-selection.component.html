@@ -1,6 +1,7 @@
 <div class="selection-container">
   <mat-selection-list
     dense
+    dbLock
     (selectionChange)="onSelectedArtistChanged($event.option)"
   >
     <mat-list-option
@@ -19,6 +20,7 @@
 
   <mat-selection-list
     dense
+    dbLock
     (selectionChange)="onSelectedAlbumChanged($event.option)"
   >
     <mat-list-option
@@ -37,6 +39,7 @@
 
   <mat-selection-list
     dense
+    dbLock
     (selectionChange)="onSelectedTrackChanged($event.option)"
   >
     <mat-list-option

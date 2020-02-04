@@ -1,16 +1,24 @@
 <div class="fake-player" *ngIf="track && track.title && track.duration">
-  <img [src]="albumCover" alt="Album Cover" />
+  <img [src]="albumCover" alt="Album Cover" dbLock />
   <div class="fake-player-wrapper">
     <b>{{ track.title }}</b>
     <br />
     <div class="fake-player-controls">
-      <mat-icon>skip_previous</mat-icon>
-      <mat-icon (click)="onPlayPauseClick()">{{ playPauseIcon }}</mat-icon>
-      <mat-icon>skip_next</mat-icon>
+      <button mat-icon-button dbLock>
+        <mat-icon>skip_previous</mat-icon>
+      </button>
+      <button mat-icon-button dbLock (click)="onPlayPauseClick()">
+        <mat-icon>{{ playPauseIcon }}</mat-icon>
+      </button>
+      <button mat-icon-button dbLock>
+        <mat-icon>skip_next</mat-icon>
+      </button>
       <div>{{ track.duration * 0.4 | secondsToMinutes }}</div>
       <mat-progress-bar mode="determinate" value="40"></mat-progress-bar>
       <div>{{ track.duration | secondsToMinutes }}</div>
-      <mat-icon (click)="onVolumeClick()">{{ volumeIcon }}</mat-icon>
+      <button mat-icon-button dbLock (click)="onVolumeClick()">
+        <mat-icon>{{ volumeIcon }}</mat-icon>
+      </button>
     </div>
   </div>
 </div>
