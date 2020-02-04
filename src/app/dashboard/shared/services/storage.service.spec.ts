@@ -101,7 +101,7 @@ describe('StorageService', () => {
       });
     });
 
-    describe('toggleFavorite', () => {
+    describe('onLongPress', () => {
       let artist1: Artist;
       let artist2: Artist;
       let artist3: Artist;
