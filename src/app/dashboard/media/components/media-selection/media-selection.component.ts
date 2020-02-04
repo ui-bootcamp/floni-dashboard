@@ -46,7 +46,7 @@ export class MediaSelectionComponent {
     this.selectedTrackChanged.emit(option.value);
   }
 
-  public toggleFavorite(element: Artist | Album | Track): void {
+  public onLongPress(element: Artist | Album | Track): void {
     element.isFavorite = !element.isFavorite;
     this.favoritesChanged.emit(element);
   }

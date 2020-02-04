@@ -17,7 +17,7 @@ export class ArticleComponent {
   @Input() public article!: Article;
   @Output() public readonly toggleArticleFavorite = new EventEmitter<Article>();
 
-  public dblClickArticle(article: Article): void {
+  public onLongPress(article: Article): void {
     this.toggleArticleFavorite.emit(article);
   }
 }

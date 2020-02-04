@@ -2,7 +2,8 @@
   dbLock
   dbFavorite
   [isFavorite]="article.isFavorite"
-  (dblclick)="dblClickArticle(article)"
+  dbLongPress
+  (longPress)="onLongPress(article)"
 >
   <mat-card-title [innerText]="article.title"></mat-card-title>
   <mat-card-subtitle>
