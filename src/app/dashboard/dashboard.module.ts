@@ -2,7 +2,8 @@ import {
   MatIconModule,
   MatSlideToggleModule,
   MatButtonModule,
-  MatToolbarModule
+  MatToolbarModule,
+  MatSelectModule
 } from '@angular/material';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -12,6 +13,7 @@ import { DashboardComponent } from './dashboard.component';
 import { NewsModule } from './news/news.module';
 import { MediaModule } from './media/media.module';
 import { SearchModule } from './shared/search/search.module';
+import { CoreModule } from './shared/core/core.module';
 
 @NgModule({
   declarations: [DashboardComponent],
@@ -24,7 +26,9 @@ import { SearchModule } from './shared/search/search.module';
     MatButtonModule,
     NewsModule,
     MediaModule,
-    SearchModule
+    SearchModule,
+    MatSelectModule,
+    CoreModule
   ],
   exports: [DashboardComponent]
 })

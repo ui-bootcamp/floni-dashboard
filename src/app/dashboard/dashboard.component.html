@@ -2,11 +2,19 @@
   <mat-toolbar class="toolbar">
     <mat-toolbar-row>
       <span>Dashboard</span>
+      <mat-label class="pipe">|</mat-label>
       <mat-slide-toggle
+        dbLock
         [checked]="isDarkTheme$ | async"
         (change)="toggleDarkTheme($event.checked)"
         >Dark theme
       </mat-slide-toggle>
+      <mat-label class="pipe">|</mat-label>
+      <mat-slide-toggle
+        [checked]="isLockActive"
+        (change)="toggleLock($event.checked)"
+        >Enable Lock</mat-slide-toggle
+      >
       <span class="spacer"></span>
       <db-search></db-search>
     </mat-toolbar-row>
