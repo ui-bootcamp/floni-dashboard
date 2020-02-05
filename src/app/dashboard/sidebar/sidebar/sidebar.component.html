@@ -2,13 +2,14 @@
   <mat-toolbar>
     <div *ngIf="track && track.title; else showHint">{{ track.title }}</div>
     <img
+      class="non-selectable"
       *ngIf="albumCover !== ''"
       [src]="albumCover"
       alt="Album Cover"
       dbLock
     />
     <ng-template #showHint>Please play a track.</ng-template>
-    <div id="dashboardSidebarContainer" class="sidebar-button">
+    <div id="dashboardSidebarContainer" class="sidebar-button non-selectable">
       <mat-icon>settings_ethernet</mat-icon>
     </div>
   </mat-toolbar>
