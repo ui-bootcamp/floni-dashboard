@@ -4,39 +4,40 @@ import {
   Component,
   OnDestroy
 } from '@angular/core';
+import { PlaylistService } from '../../shared/services/playlist.service';
 import { Observable, Subscription } from 'rxjs';
+import { Track } from '../../media/models/track.model';
 import { map } from 'rxjs/operators';
-import { MediaService } from '../../shared/media.service';
-import { Track } from '../../models/track.model';
-import { PlaylistService } from '../../../shared/services/playlist.service';
+import { MediaService } from '../../media/shared/media.service';
 
 @Component({
-  selector: 'db-fake-player-host',
-  templateUrl: './fake-player-host.component.html',
-  styleUrls: ['./fake-player-host.component.scss'],
+  selector: 'db-sidebar-host',
+  templateUrl: './sidebar-host.component.html',
+  styleUrls: ['./sidebar-host.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class FakePlayerHostComponent implements OnDestroy {
-  public track: Track | undefined;
+export class SidebarHostComponent implements OnDestroy {
+  // @ts-ignore
+  public currentTrack: Track;
   public albumCover$: Observable<string>;
-  private subscription: Subscription;
+  public subscription: Subscription;
 
   constructor(
-    private mediaService: MediaService,
     private playlistService: PlaylistService,
+    private mediaService: MediaService,
     private cd: ChangeDetectorRef
   ) {
     this.albumCover$ = new Observable<string>();
     this.subscription = this.playlistService.nextTrack$.subscribe(nextTrack => {
-      this.track = nextTrack;
+      this.currentTrack = nextTrack;
       this.albumCover$ = this.mediaService
         .getAlbum(nextTrack.albumId)
-        .pipe(map(album => album.coverSmall));
+        .pipe(map(album => album.coverBig));
       this.cd.detectChanges();
     });
   }
 
-  public ngOnDestroy(): void {
+  ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }
 }
