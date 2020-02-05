@@ -44,6 +44,7 @@ body {
   width: 0px;
   right: 0;
   position: fixed;
+  touch-action: none;
   mat-toolbar {
     height: 95%;
     flex-direction: column;
@@ -55,4 +56,3 @@ body {
 .sidebar-animation {
   transition: all 0.5s ease-out;
 }
-
