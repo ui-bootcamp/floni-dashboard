@@ -17,6 +17,7 @@ import { CoreModule } from './shared/core/core.module';
 import { SidebarComponent } from './sidebar/sidebar/sidebar.component';
 import { SidebarHostComponent } from './sidebar/sidebar-host/sidebar-host.component';
 
+
 @NgModule({
   declarations: [DashboardComponent, SidebarComponent, SidebarHostComponent],
   imports: [
