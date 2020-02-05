@@ -38,3 +38,20 @@ body {
 .lock-hide {
   display: none;
 }
+
+.sidebar {
+  height: 100%;
+  width: 0px;
+  right: 0;
+  position: fixed;
+  mat-toolbar {
+    height: 95%;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+}
+
+.sidebar-animation {
+  transition: all 0.5s ease-out;
+}
