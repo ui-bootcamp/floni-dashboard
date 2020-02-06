@@ -21,6 +21,7 @@ import { MediaSelectionComponent } from './components/media-selection/media-sele
 import { FormsModule } from '@angular/forms';
 import { FakePlayerHostComponent } from './components/fake-player-host/fake-player-host.component';
 import { MediaSelectionHostComponent } from './components/media-selection-host/media-selection-host.component';
+import { TimeBarComponent } from './components/fake-player/time-bar/time-bar.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { MediaSelectionHostComponent } from './components/media-selection-host/m
     MediaComponent,
     SecondsToMinutesPipe,
     MediaSelectionComponent,
-    MediaSelectionHostComponent
+    MediaSelectionHostComponent,
+    TimeBarComponent
   ],
   exports: [MediaComponent],
   imports: [
