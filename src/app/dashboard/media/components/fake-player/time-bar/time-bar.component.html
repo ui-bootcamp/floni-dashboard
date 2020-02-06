@@ -1,0 +1,9 @@
+<div
+  #timeBar
+  class="timeBar"
+  (pointerdown)="onPointerDown($event)"
+  (pointerup)="onPointerUp($event)"
+>
+  <div #progressBar class="progressBar" [style.width.%]="progress"></div>
+  <div #handle class="handle"></div>
+</div>

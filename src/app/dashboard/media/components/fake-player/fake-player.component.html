@@ -12,9 +12,15 @@
       <button mat-icon-button dbLock>
         <mat-icon>skip_next</mat-icon>
       </button>
-      <div>{{ track?.duration * 0.4 | secondsToMinutes }}</div>
-      <mat-progress-bar mode="determinate" value="40"></mat-progress-bar>
-      <div>{{ track?.duration | secondsToMinutes }}</div>
+      <div>{{ currentTime | secondsToMinutes }}</div>
+      <db-time-bar
+        (progressChangeStart)="onProgressChangeStart()"
+        (progressChangeEnd)="onProgressChangeEnd()"
+        [(currentTime)]="currentTime"
+        [duration]="track.duration"
+        style="width: 100%"
+      ></db-time-bar>
+      <div>{{ track.duration | secondsToMinutes }}</div>
       <button mat-icon-button dbLock (click)="onVolumeClick()">
         <mat-icon>{{ volumeIcon }}</mat-icon>
       </button>
