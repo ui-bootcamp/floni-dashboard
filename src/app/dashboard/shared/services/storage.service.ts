@@ -3,6 +3,7 @@ import { Album } from '../../media/models/album.model';
 import { Artist } from '../../media/models/artist.model';
 import { Track } from '../../media/models/track.model';
 import { Article } from '../../news/models/article.model';
+import PlaceResult = google.maps.places.PlaceResult;
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,9 @@ export class StorageService {
   private static readonly QUERY_KEY = 'lastDashboardQuery';
   private static readonly LOCK_KEY = 'lockMode';
 
-  public toggleFavorite(element: Artist | Album | Track | Article): void {
+  public toggleFavorite(
+    element: Artist | Album | Track | Article | PlaceResult
+  ): void {
     const key: string = this.getStorageKey(element);
     const valuesFromStorage = localStorage.getItem(key);
 
@@ -30,7 +33,9 @@ export class StorageService {
     }
   }
 
-  public isFavorite(element: Artist | Album | Track | Article): boolean {
+  public isFavorite(
+    element: Artist | Album | Track | Article | PlaceResult
+  ): boolean {
     const key: string = this.getStorageKey(element);
     const savedFavorites = localStorage.getItem(key);
     if (savedFavorites !== null) {
@@ -80,7 +85,9 @@ export class StorageService {
     return false;
   }
 
-  private getStorageKey(element: Artist | Album | Track | Article): string {
+  private getStorageKey(
+    element: Artist | Album | Track | Article | PlaceResult
+  ): string {
     if (Artist.isArtist(element)) {
       return 'ArtistFavorites';
     }
@@ -92,6 +99,9 @@ export class StorageService {
     }
     if (Article.isArticle(element)) {
       return 'ArticleFavorites';
+    }
+    if (element.geometry) {
+      return 'PlaceResultFavorites';
     }
     return '';
   }

@@ -22,6 +22,8 @@ import { Track } from '../../media/models/track.model';
 import { Artist } from '../../media/models/artist.model';
 import { Album } from '../../media/models/album.model';
 import { Article } from '../../news/models/article.model';
+import PlaceResult = google.maps.places.PlaceResult;
+import { MapService } from '../../map/shared/map.service';
 
 @Component({
   selector: 'db-search',
@@ -33,7 +35,7 @@ export class SearchComponent implements OnInit, OnDestroy {
   @Input() searchScope = 'global';
   public readonly searchField: FormControl = new FormControl();
   public searchResults$ = new Observable<
-    (Artist | Album | Track | Article)[]
+    (Artist | Album | Track | Article | PlaceResult)[]
   >();
   public lastUserSearches = '';
   private readonly subscriptions = new Subscription();
@@ -43,7 +45,8 @@ export class SearchComponent implements OnInit, OnDestroy {
     private readonly storageService: StorageService,
     private readonly cd: ChangeDetectorRef,
     private readonly mediaService: MediaService,
-    private readonly playlistService: PlaylistService
+    private readonly playlistService: PlaylistService,
+    private readonly mapService: MapService
   ) {}
 
   public ngOnInit(): void {
@@ -65,7 +68,7 @@ export class SearchComponent implements OnInit, OnDestroy {
   }
 
   public onSearchResultSelected(
-    result: Artist | Album | Track | Article
+    result: Artist | Album | Track | Article | PlaceResult
   ): void {
     this.storageService.saveLastQuery(this.searchField.value);
     this.lastUserSearches = this.storageService.getLastQueries().join(' | ');
@@ -74,7 +77,9 @@ export class SearchComponent implements OnInit, OnDestroy {
     this.displaySearchResult(result);
   }
 
-  private displaySearchResult(result: Artist | Album | Track | Article): void {
+  private displaySearchResult(
+    result: Artist | Album | Track | Article | PlaceResult
+  ): void {
     if (Article.isArticle(result)) {
       const element = document.getElementById('article' + result.id);
       if (element) {
@@ -99,6 +104,8 @@ export class SearchComponent implements OnInit, OnDestroy {
           this.playlistService.queueTrack(artist.albums[0].tracks[0]);
         })
       );
+    } else if (result.geometry) {
+      this.mapService.centerMap(result);
     }
   }
 }

@@ -1,0 +1,43 @@
+<div class="map">
+  <mat-toolbar class="toolbar">
+    <mat-toolbar-row>
+      <span>Map</span>
+      <span class="spacer"></span>
+      <db-search *ngIf="isFullscreen" searchScope="map"></db-search>
+      <button mat-button (click)="onToggleFullscreen()">
+        <mat-icon *ngIf="isFullscreen">fullscreen_exit</mat-icon>
+        <mat-icon *ngIf="!isFullscreen">fullscreen</mat-icon>
+      </button>
+    </mat-toolbar-row>
+  </mat-toolbar>
+  <div class="map-main">
+    <agm-map
+      id="map"
+      [latitude]="DEFAULT_LATITUDE"
+      [longitude]="DEFAULT_LONGITUDE"
+      [mapTypeId]="mapType"
+      [zoom]="zoom"
+      (mapReady)="onMapReady($event)"
+      (centerChange)="onCenterChange($event)"
+    >
+      <agm-marker
+        *ngFor="let result of results$ | async; let i = index"
+        [latitude]="result.geometry.location.lat()"
+        [longitude]="result.geometry.location.lng()"
+        [iconUrl]="
+          result.isFavorite
+            ? 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png'
+            : 'http://maps.google.com/mapfiles/ms/icons/red-dot.png'
+        "
+      >
+        <agm-info-window>
+          <strong>{{ result.name }}</strong>
+          <button mat-button (click)="toggleFavorite(result)">
+            <mat-icon *ngIf="result.isFavorite">favorite</mat-icon>
+            <mat-icon *ngIf="!result.isFavorite">favorite_border</mat-icon>
+          </button>
+        </agm-info-window>
+      </agm-marker>
+    </agm-map>
+  </div>
+</div>

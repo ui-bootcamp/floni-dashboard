@@ -3,24 +3,34 @@ import { MediaService } from '../../../media/shared/media.service';
 import { NewsService } from '../../../news/shared/news.service';
 import { SearchService } from './search.service';
 import { StorageService } from '../../services/storage.service';
-import { of } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { fakeAsync, tick } from '@angular/core/testing';
 import { Track } from '../../../media/models/track.model';
 import { Album } from '../../../media/models/album.model';
 import { Artist } from '../../../media/models/artist.model';
 import { Article } from '../../../news/models/article.model';
+import { MapService } from '../../../map/shared/map.service';
+import { MapMarkerService } from '../../../map/shared/mapMarker.service';
+import PlaceResult = google.maps.places.PlaceResult;
 
 describe('SearchService', () => {
   let mockMediaService: MediaService;
   let mockNewsService: NewsService;
   let mockStorageService: StorageService;
+  let mockMapService: MapService;
+  let mockMapMarkerService: MapMarkerService;
   let service: SearchService;
 
   beforeEach(() => {
     mockMediaService = mock(MediaService);
     mockNewsService = mock(NewsService);
     mockStorageService = mock(StorageService);
-    when(mockMediaService.getAllTracksWhichContain$(anything())).thenReturn(
+    mockMapService = mock(MapService);
+    mockMapMarkerService = mock(MapMarkerService);
+    when(mockMapMarkerService.nextMarker$).thenReturn(
+      new Observable<PlaceResult[]>()
+    );
+    when(mockMediaService.getAllTracksWhichContain(anything())).thenReturn(
       of([new Track(9, 9, 9, 'THE TRACK', 123, '', '')])
     );
     when(mockMediaService.getAllAlbumsWhichContain$(anything())).thenReturn(
@@ -36,7 +46,9 @@ describe('SearchService', () => {
     service = new SearchService(
       instance(mockMediaService),
       instance(mockNewsService),
-      instance(mockStorageService)
+      instance(mockStorageService),
+      instance(mockMapService),
+      instance(mockMapMarkerService)
     );
   });
 
