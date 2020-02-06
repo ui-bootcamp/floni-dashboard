@@ -1,6 +1,7 @@
 import { Track } from './track.model';
 import { Artist } from './artist.model';
 import { Article } from '../../news/models/article.model';
+import PlaceResult = google.maps.places.PlaceResult;
 
 export class Album {
   constructor(
@@ -18,7 +19,9 @@ export class Album {
     public isFavorite: boolean = false
   ) {}
 
-  static isAlbum(element: Artist | Album | Track | Article): element is Album {
+  static isAlbum(
+    element: Artist | Album | Track | Article | PlaceResult
+  ): element is Album {
     return (element as Album).tracks !== undefined;
   }
 }

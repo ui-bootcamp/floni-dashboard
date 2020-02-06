@@ -1,6 +1,7 @@
 import { Artist } from './artist.model';
 import { Album } from './album.model';
 import { Article } from '../../news/models/article.model';
+import PlaceResult = google.maps.places.PlaceResult;
 
 export class Track {
   constructor(
@@ -14,7 +15,9 @@ export class Track {
     public isFavorite: boolean = false
   ) {}
 
-  static isTrack(element: Artist | Album | Track | Article): element is Track {
+  static isTrack(
+    element: Artist | Album | Track | Article | PlaceResult
+  ): element is Track {
     return (element as Track).duration !== undefined;
   }
 }

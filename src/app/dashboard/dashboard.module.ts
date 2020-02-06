@@ -17,6 +17,7 @@ import { CoreModule } from './shared/core/core.module';
 import { SidebarComponent } from './sidebar/sidebar/sidebar.component';
 import { SidebarHostComponent } from './sidebar/sidebar-host/sidebar-host.component';
 import { WeatherModule } from './weather/weather.module';
+import { MapModule } from './map/map.module';
 
 @NgModule({
   declarations: [DashboardComponent, SidebarComponent, SidebarHostComponent],
@@ -30,6 +31,7 @@ import { WeatherModule } from './weather/weather.module';
     NewsModule,
     MediaModule,
     WeatherModule,
+    MapModule,
     SearchModule,
     MatSelectModule,
     CoreModule

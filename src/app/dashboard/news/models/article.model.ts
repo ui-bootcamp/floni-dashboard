@@ -1,6 +1,7 @@
 import { Artist } from '../../media/models/artist.model';
 import { Album } from '../../media/models/album.model';
 import { Track } from '../../media/models/track.model';
+import PlaceResult = google.maps.places.PlaceResult;
 
 export class Article {
   constructor(
@@ -14,7 +15,7 @@ export class Article {
   ) {}
 
   static isArticle(
-    element: Artist | Album | Track | Article
+    element: Artist | Album | Track | Article | PlaceResult
   ): element is Article {
     return (element as Article).link !== undefined;
   }

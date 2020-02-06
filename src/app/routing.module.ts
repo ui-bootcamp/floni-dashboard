@@ -4,6 +4,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { MediaComponent } from './dashboard/media/media.component';
 import { NewsComponent } from './dashboard/news/news.component';
 import { WeatherComponent } from './dashboard/weather/weather.component';
+import { MapComponent } from './dashboard/map/map.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
@@ -11,6 +12,7 @@ const routes: Routes = [
   { path: 'media', component: MediaComponent },
   { path: 'news', component: NewsComponent },
   { path: 'weather', component: WeatherComponent },
+  { path: 'map', component: MapComponent },
   { path: '**', redirectTo: '/dashboard', pathMatch: 'full' }
 ];
 
