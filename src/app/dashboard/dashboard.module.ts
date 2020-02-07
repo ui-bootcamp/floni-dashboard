@@ -16,6 +16,7 @@ import { SearchModule } from './shared/search/search.module';
 import { CoreModule } from './shared/core/core.module';
 import { SidebarComponent } from './sidebar/sidebar/sidebar.component';
 import { SidebarHostComponent } from './sidebar/sidebar-host/sidebar-host.component';
+import { WeatherModule } from './weather/weather.module';
 
 @NgModule({
   declarations: [DashboardComponent, SidebarComponent, SidebarHostComponent],
@@ -28,6 +29,7 @@ import { SidebarHostComponent } from './sidebar/sidebar-host/sidebar-host.compon
     MatButtonModule,
     NewsModule,
     MediaModule,
+    WeatherModule,
     SearchModule,
     MatSelectModule,
     CoreModule

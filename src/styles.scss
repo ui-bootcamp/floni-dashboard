@@ -22,6 +22,15 @@ body {
   background-color: mat-color($dark-primary, 700);
 }
 
+.error {
+  background-color: mat-color($warn);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  margin-right: 10px;
+}
+
 .toolbar {
   height: 90px;
   justify-content: center;

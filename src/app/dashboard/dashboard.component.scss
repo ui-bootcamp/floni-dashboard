@@ -11,7 +11,7 @@
   grid-template-columns: 1fr 1fr;
   grid-column-gap: 1em;
   grid-row-gap: 1em;
-  grid-auto-rows: minmax(500px, 50vh);
+  grid-auto-rows: minmax(450px, 49vh);
   padding: 1em;
 }
 
@@ -24,4 +24,8 @@
 .pipe {
   margin-right: 10px;
   margin-left: 10px;
+}
+
+.weather {
+  position: relative;
 }

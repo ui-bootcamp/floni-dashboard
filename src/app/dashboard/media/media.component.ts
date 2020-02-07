@@ -1,7 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { Track } from './models/track.model';
-import { PlaylistService } from '../shared/services/playlist.service';
 
 @Component({
   selector: 'db-media',
@@ -12,10 +10,7 @@ import { PlaylistService } from '../shared/services/playlist.service';
 export class MediaComponent {
   public isFullscreen: boolean;
 
-  constructor(
-    private router: Router,
-    private playlistService: PlaylistService
-  ) {
+  constructor(private router: Router) {
     this.isFullscreen = this.router.url.indexOf('/media') !== -1;
   }
 
@@ -25,9 +20,5 @@ export class MediaComponent {
     } else {
       this.router.navigate(['media']);
     }
-  }
-
-  public onSelectedTrackChanged(track: Track): void {
-    this.playlistService.queueTrack(track);
   }
 }

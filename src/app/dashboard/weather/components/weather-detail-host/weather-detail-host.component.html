@@ -1,0 +1,7 @@
+<db-weather-detail
+  [weather]="weatherForecast"
+  [errorMessage]="errorMessage"
+  (citySearch)="onCitySearch($event)"
+  (clearErrorMessage)="onClearErrorMessage()"
+>
+</db-weather-detail>
