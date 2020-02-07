@@ -3,8 +3,16 @@
   top: 60%;
   left: -24px;
   cursor: ew-resize;
+  display: flex;
+  height: 60px;
+  align-items: center;
+  border: 1px solid;
 }
 
 .non-selectable {
   user-select: none;
+}
+
+mat-toolbar {
+  border: 1px solid;
 }
