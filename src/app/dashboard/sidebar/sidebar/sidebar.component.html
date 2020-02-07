@@ -1,4 +1,4 @@
-<div id="dashboardSidebar" class="sidebar">
+<div #dashboardSidebar class="sidebar">
   <mat-toolbar>
     <div *ngIf="track && track.title; else showHint">{{ track.title }}</div>
     <img
@@ -9,7 +9,10 @@
       dbLock
     />
     <ng-template #showHint>Please play a track.</ng-template>
-    <div id="dashboardSidebarContainer" class="sidebar-button non-selectable">
+    <div
+      id="dashboardSidebarContainer"
+      class="sidebar-button mat-toolbar non-selectable"
+    >
       <mat-icon>settings_ethernet</mat-icon>
     </div>
   </mat-toolbar>
