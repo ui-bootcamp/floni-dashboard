@@ -12,16 +12,15 @@ import { StorageService } from './shared/services/storage.service';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DashboardComponent implements OnInit {
-  public isDarkTheme$: Observable<boolean>;
-  public isLockActive: boolean;
+  public readonly isDarkTheme$: Observable<boolean>;
+  public isLockActive = false;
 
   constructor(
-    private themeService: ThemeService,
-    private lockService: LockService,
-    private storageService: StorageService
+    private readonly themeService: ThemeService,
+    private readonly lockService: LockService,
+    private readonly storageService: StorageService
   ) {
     this.isDarkTheme$ = this.themeService.isDarkTheme$;
-    this.isLockActive = false;
   }
 
   public ngOnInit(): void {

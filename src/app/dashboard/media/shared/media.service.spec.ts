@@ -65,7 +65,7 @@ describe('MediaService', () => {
 
   describe('getAllArtists', () => {
     test('should return all artists', fakeAsync(() => {
-      service.getAllArtists().subscribe(x => {
+      service.getAllArtists$().subscribe(x => {
         expect(x).toEqual(dummyArtists);
       });
       const req = httpMock.expectOne(`${environment.baseUrl}artists/`);
@@ -76,7 +76,7 @@ describe('MediaService', () => {
 
   describe('getAllAlbums', () => {
     test('should return all albums', fakeAsync(() => {
-      service.getAllAlbums().subscribe(x => {
+      service.getAllAlbums$().subscribe(x => {
         expect(x).toEqual(dummyAlbums);
       });
       const req = httpMock.expectOne(`${environment.baseUrl}albums/`);
@@ -87,7 +87,7 @@ describe('MediaService', () => {
 
   describe('getAllTracks', () => {
     test('should return all tracks', fakeAsync(() => {
-      service.getAllTracks().subscribe(x => {
+      service.getAllTracks$().subscribe(x => {
         expect(x).toEqual(dummyTracks);
       });
       const req = httpMock.expectOne(`${environment.baseUrl}tracks/`);

@@ -23,21 +23,21 @@ export class SidebarHostComponent implements OnDestroy {
   public subscription: Subscription;
 
   constructor(
-    private playlistService: PlaylistService,
-    private mediaService: MediaService,
-    private cd: ChangeDetectorRef
+    private readonly playlistService: PlaylistService,
+    private readonly mediaService: MediaService,
+    private readonly cd: ChangeDetectorRef
   ) {
     this.albumCover$ = new Observable<string>();
     this.subscription = this.playlistService.nextTrack$.subscribe(nextTrack => {
       this.currentTrack = nextTrack;
       this.albumCover$ = this.mediaService
-        .getAlbum(nextTrack.albumId)
+        .getAlbum$(nextTrack.albumId)
         .pipe(map(album => album.coverBig));
       this.cd.detectChanges();
     });
   }
 
-  ngOnDestroy(): void {
+  public ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }
 }

@@ -12,56 +12,58 @@ import { StorageService } from '../../shared/services/storage.service';
   providedIn: 'root'
 })
 export class MediaService {
-  private artistsURL = `${environment.baseUrl}artists/`;
-  private albumsURL = `${environment.baseUrl}albums/`;
-  private tracksURL = `${environment.baseUrl}tracks/`;
+  private static readonly ARTIST_URL = `${environment.baseUrl}artists/`;
+  private static readonly ALBUMS_URL = `${environment.baseUrl}albums/`;
+  private static readonly TRACKS_URL = `${environment.baseUrl}tracks/`;
 
   constructor(
-    private http: HttpClient,
-    private storageService: StorageService
+    private readonly http: HttpClient,
+    private readonly storageService: StorageService
   ) {}
 
-  public getArtist(id: number): Observable<Artist> {
-    const artistURL = `${this.artistsURL}${id}`;
+  public getArtist$(id: number): Observable<Artist> {
+    const artistURL = `${MediaService.ARTIST_URL}${id}`;
     return this.http.get<Artist>(artistURL).pipe(
-      map(artist => {
+      map((artist: Artist) => {
         artist.isFavorite = this.storageService.isFavorite(artist);
         artist.albums.forEach(
-          album => (album.isFavorite = this.storageService.isFavorite(album))
+          (album: Album) =>
+            (album.isFavorite = this.storageService.isFavorite(album))
         );
         return artist;
       })
     );
   }
 
-  public getAlbum(id: number): Observable<Album> {
-    const albumURL = `${this.albumsURL}${id}`;
+  public getAlbum$(id: number): Observable<Album> {
+    const albumURL = `${MediaService.ALBUMS_URL}${id}`;
     return this.http.get<Album>(albumURL).pipe(
-      map(album => {
+      map((album: Album) => {
         album.isFavorite = this.storageService.isFavorite(album);
         album.tracks.forEach(
-          track => (track.isFavorite = this.storageService.isFavorite(track))
+          (track: Track) =>
+            (track.isFavorite = this.storageService.isFavorite(track))
         );
         return album;
       })
     );
   }
 
-  public getTrack(id: number): Observable<Track> {
-    const tracksURL = `${this.tracksURL}${id}`;
+  public getTrack$(id: number): Observable<Track> {
+    const tracksURL = `${MediaService.TRACKS_URL}${id}`;
     return this.http.get<Track[]>(tracksURL).pipe(
-      map(tracks => tracks[0]),
-      map(track => {
+      map((tracks: Track[]) => tracks[0]),
+      map((track: Track) => {
         track.isFavorite = this.storageService.isFavorite(track);
         return track;
       })
     );
   }
 
-  public getAllArtists(): Observable<Artist[]> {
-    return this.http.get<Artist[]>(this.artistsURL).pipe(
-      map(artists => {
-        return artists.map(artist => {
+  public getAllArtists$(): Observable<Artist[]> {
+    return this.http.get<Artist[]>(MediaService.ARTIST_URL).pipe(
+      map((artists: Artist[]) => {
+        return artists.map((artist: Artist) => {
           artist.isFavorite = this.storageService.isFavorite(artist);
           return artist;
         });
@@ -69,9 +71,9 @@ export class MediaService {
     );
   }
 
-  public getAllAlbums(): Observable<Album[]> {
-    return this.http.get<Album[]>(this.albumsURL).pipe(
-      map(albums => {
+  public getAllAlbums$(): Observable<Album[]> {
+    return this.http.get<Album[]>(MediaService.ALBUMS_URL).pipe(
+      map((albums: Album[]) => {
         return albums.map(album => {
           album.isFavorite = this.storageService.isFavorite(album);
           return album;
@@ -80,10 +82,10 @@ export class MediaService {
     );
   }
 
-  public getAllTracks(): Observable<Track[]> {
-    return this.http.get<Track[]>(this.tracksURL).pipe(
-      map(tracks => {
-        return tracks.map(track => {
+  public getAllTracks$(): Observable<Track[]> {
+    return this.http.get<Track[]>(MediaService.TRACKS_URL).pipe(
+      map((tracks: Track[]) => {
+        return tracks.map((track: Track) => {
           track.isFavorite = this.storageService.isFavorite(track);
           return track;
         });
@@ -91,9 +93,9 @@ export class MediaService {
     );
   }
 
-  public getAllArtistsWhichContain(artistName: string): Observable<Artist[]> {
-    return this.getAllArtists().pipe(
-      map(artists =>
+  public getAllArtistsWhichContain$(artistName: string): Observable<Artist[]> {
+    return this.getAllArtists$().pipe(
+      map((artists: Artist[]) =>
         artists.filter(x =>
           x.name.toUpperCase().includes(artistName.toUpperCase())
         )
@@ -101,9 +103,9 @@ export class MediaService {
     );
   }
 
-  public getAllAlbumsWhichContain(albumName: string): Observable<Album[]> {
-    return this.getAllAlbums().pipe(
-      map(albums =>
+  public getAllAlbumsWhichContain$(albumName: string): Observable<Album[]> {
+    return this.getAllAlbums$().pipe(
+      map((albums: Album[]) =>
         albums.filter(album =>
           album.name.toUpperCase().includes(albumName.toUpperCase())
         )
@@ -111,9 +113,9 @@ export class MediaService {
     );
   }
 
-  public getAllTracksWhichContain(trackName: string): Observable<Track[]> {
-    return this.getAllTracks().pipe(
-      map(tracks =>
+  public getAllTracksWhichContain$(trackName: string): Observable<Track[]> {
+    return this.getAllTracks$().pipe(
+      map((tracks: Track[]) =>
         tracks.filter(x =>
           x.title.toUpperCase().includes(trackName.toUpperCase())
         )

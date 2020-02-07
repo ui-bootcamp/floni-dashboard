@@ -14,17 +14,12 @@ import { WeatherForecast } from '../../models/weather-forecast.model';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class WeatherDetailComponent {
-  @Input() errorMessage: string;
+  @Input() errorMessage = '';
   @Input() weather: WeatherForecast | undefined;
   @Output() citySearch: EventEmitter<string> = new EventEmitter<string>();
   @Output() clearErrorMessage: EventEmitter<void> = new EventEmitter<void>();
 
-  public cityToSearch: string;
-
-  constructor() {
-    this.errorMessage = '';
-    this.cityToSearch = '';
-  }
+  public cityToSearch = '';
 
   public onKeyDownEnter(): void {
     this.citySearch.emit(this.cityToSearch);

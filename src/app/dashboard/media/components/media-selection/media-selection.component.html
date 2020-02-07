@@ -6,11 +6,11 @@
   >
     <mat-list-option
       *ngFor="let artist of artists"
-      [value]="artist"
       dbLongPress
-      (longPress)="onLongPress(artist)"
       dbFavorite
+      [value]="artist"
       [isFavorite]="artist.isFavorite"
+      (longPress)="onLongPress(artist)"
     >
       <div class="favorite-div">
         <div>{{ artist.name }}</div>
@@ -26,11 +26,11 @@
   >
     <mat-list-option
       *ngFor="let album of albums"
-      [value]="album"
-      dbLongPress
-      (longPress)="onLongPress(album)"
       dbFavorite
+      dbLongPress
+      [value]="album"
       [isFavorite]="album.isFavorite"
+      (longPress)="onLongPress(album)"
     >
       <div class="favorite-div">
         <div>{{ album.name }}</div>
@@ -46,11 +46,11 @@
   >
     <mat-list-option
       *ngFor="let track of tracks"
-      [value]="track"
-      dbLongPress
-      (longPress)="onLongPress(track)"
       dbFavorite
+      dbLongPress
+      [value]="track"
       [isFavorite]="track.isFavorite"
+      (longPress)="onLongPress(track)"
     >
       <div class="favorite-div">
         <div>{{ track.title }}</div>

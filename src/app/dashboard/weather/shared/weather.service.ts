@@ -9,29 +9,31 @@ import { WeatherForecast } from '../models/weather-forecast.model';
   providedIn: 'root'
 })
 export class WeatherService {
-  private readonly weatherUrl =
+  private static readonly WEATHER_URL =
     'http://api.openweathermap.org/data/2.5/forecast?';
-  private readonly apiKeyAndUnit =
+  private static readonly API_KEY_UNIT =
     '&APPID=871403311831b90480a82ab10f71d6a9&units=metric';
 
   constructor(private httpClient: HttpClient) {}
 
-  public getWeatherForLatitudeAndLongitude(
+  public getWeatherForLatitudeAndLongitude$(
     latitude: number,
     longitude: number
   ): Observable<WeatherForecast> {
     return this.httpClient
       .get(
-        `${this.weatherUrl}lat=${latitude}&lon=${longitude}${this.apiKeyAndUnit}`
+        `${WeatherService.WEATHER_URL}lat=${latitude}&lon=${longitude}${WeatherService.API_KEY_UNIT}`
       )
       .pipe(this.mapForecastObjects());
   }
 
-  public getWeatherForGermanCity(
+  public getWeatherForGermanCity$(
     cityName: string
   ): Observable<WeatherForecast> {
     return this.httpClient
-      .get(`${this.weatherUrl}q=${cityName},DE${this.apiKeyAndUnit}`)
+      .get(
+        `${WeatherService.WEATHER_URL}q=${cityName},DE${WeatherService.API_KEY_UNIT}`
+      )
       .pipe(this.mapForecastObjects());
   }
 
@@ -45,10 +47,10 @@ export class WeatherService {
       const stringForDayAfterTomorrow = `${new Date().getFullYear()}-${currentMonth}-${dayAfterTomorrow} 12:00:00`;
 
       const forecastObjectTomorrow = forecastObject.list.find(
-        (x: any) => x.dt_txt === stringForTomorrow
+        (forecastItem: any) => forecastItem.dt_txt === stringForTomorrow
       );
       const forecastObjectDayAfterTomorrow = forecastObject.list.find(
-        (x: any) => x.dt_txt === stringForDayAfterTomorrow
+        (forecastItem: any) => forecastItem.dt_txt === stringForDayAfterTomorrow
       );
 
       return new WeatherForecast(

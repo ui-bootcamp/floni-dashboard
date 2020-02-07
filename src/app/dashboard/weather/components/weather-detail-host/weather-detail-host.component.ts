@@ -17,15 +17,13 @@ import { WeatherForecast } from '../../models/weather-forecast.model';
 })
 export class WeatherDetailHostComponent implements OnInit, OnDestroy {
   public weatherForecast: WeatherForecast | undefined;
-  public errorMessage: string;
+  public errorMessage = '';
   private subscriptions: Subscription[] = [];
 
   constructor(
-    private weatherService: WeatherService,
-    private cd: ChangeDetectorRef
-  ) {
-    this.errorMessage = '';
-  }
+    private readonly weatherService: WeatherService,
+    private readonly cd: ChangeDetectorRef
+  ) {}
 
   public ngOnDestroy(): void {
     this.subscriptions.forEach(subscription => subscription.unsubscribe());
@@ -44,7 +42,7 @@ export class WeatherDetailHostComponent implements OnInit, OnDestroy {
     getPosition.then(() => {
       this.subscriptions.push(
         this.weatherService
-          .getWeatherForLatitudeAndLongitude(latitude, longitude)
+          .getWeatherForLatitudeAndLongitude$(latitude, longitude)
           .subscribe(
             (result: WeatherForecast) => {
               this.weatherForecast = result;
@@ -62,7 +60,7 @@ export class WeatherDetailHostComponent implements OnInit, OnDestroy {
 
   public onCitySearch(cityName: string): void {
     this.subscriptions.push(
-      this.weatherService.getWeatherForGermanCity(cityName).subscribe(
+      this.weatherService.getWeatherForGermanCity$(cityName).subscribe(
         (result: WeatherForecast) => {
           this.weatherForecast = result;
           this.errorMessage = '';

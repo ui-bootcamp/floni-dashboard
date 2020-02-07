@@ -1,18 +1,18 @@
 <mat-card
   dbLock
   dbFavorite
-  [isFavorite]="article.isFavorite"
   dbLongPress
-  (longPress)="onLongPress(article)"
+  [isFavorite]="article?.isFavorite"
+  (longPress)="toggleArticleFavorite.emit(article)"
 >
-  <mat-card-title [innerText]="article.title"></mat-card-title>
+  <mat-card-title [innerText]="article?.title"></mat-card-title>
   <mat-card-subtitle>
     <a
-      [href]="article.link"
       mat-menu-item
-      [innerText]="(article.link | slice: 0:30) + '...'"
+      [href]="article?.link"
+      [innerText]="(article?.link | slice: 0:30) + '...'"
     ></a>
-    <mat-icon [innerHTML]="article.isFavorite | favoriteIcon"></mat-icon>
+    <mat-icon [innerHTML]="article?.isFavorite | favoriteIcon"></mat-icon>
   </mat-card-subtitle>
-  <mat-card-content [innerHTML]="article.description"></mat-card-content>
+  <mat-card-content [innerHTML]="article?.description"></mat-card-content>
 </mat-card>

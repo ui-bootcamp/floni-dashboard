@@ -26,13 +26,13 @@ export class SidebarComponent implements AfterViewInit, OnInit {
   private minOffset = 6;
   private startPositionForDrag = -1;
 
-  constructor(private ngZone: NgZone) {}
+  constructor(private readonly ngZone: NgZone) {}
 
   public ngOnInit(): void {
     this.albumCover = '';
   }
 
-  public ngAfterViewInit() {
+  public ngAfterViewInit(): void {
     this.ngZone.runOutsideAngular(() => {
       this.dashboardSidebar.nativeElement.addEventListener(
         'pointerdown',
@@ -54,7 +54,7 @@ export class SidebarComponent implements AfterViewInit, OnInit {
     });
   }
 
-  private onPointerUp(event: PointerEvent) {
+  private onPointerUp(event: PointerEvent): void {
     const diffX = Math.abs(event.pageX - this.startPositionForDrag);
     if (diffX < this.minOffset) {
       this.dashboardSidebar.nativeElement.style.width = '0px';
@@ -75,7 +75,7 @@ export class SidebarComponent implements AfterViewInit, OnInit {
     }
   }
 
-  private onPointerMove(event: PointerEvent) {
+  private onPointerMove(event: PointerEvent): void {
     if (this.startPositionForDrag > 0) {
       if (event.clientX > 50) {
         this.dashboardSidebar.nativeElement.style.width = `calc(100% - ${Math.abs(

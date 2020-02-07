@@ -12,10 +12,10 @@ import { StorageService } from '../../services/storage.service';
 })
 export class LockDirective implements AfterContentChecked {
   constructor(
-    private el: ElementRef,
-    private lockService: LockService,
-    private renderer: Renderer2,
-    private storageService: StorageService
+    private readonly el: ElementRef,
+    private readonly lockService: LockService,
+    private readonly renderer: Renderer2,
+    private readonly storageService: StorageService
   ) {
     this.lockService.isLockActive$.subscribe((value: boolean) => {
       this.storageService.setLockMode(value);

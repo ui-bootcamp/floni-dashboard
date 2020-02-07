@@ -20,16 +20,16 @@ describe('SearchService', () => {
     mockMediaService = mock(MediaService);
     mockNewsService = mock(NewsService);
     mockStorageService = mock(StorageService);
-    when(mockMediaService.getAllTracksWhichContain(anything())).thenReturn(
+    when(mockMediaService.getAllTracksWhichContain$(anything())).thenReturn(
       of([new Track(9, 9, 9, 'THE TRACK', 123, '', '')])
     );
-    when(mockMediaService.getAllAlbumsWhichContain(anything())).thenReturn(
+    when(mockMediaService.getAllAlbumsWhichContain$(anything())).thenReturn(
       of([new Album(10, 10, 'THE ALBUM', '', '', '', '', '', '', '')])
     );
-    when(mockMediaService.getAllArtistsWhichContain(anything())).thenReturn(
+    when(mockMediaService.getAllArtistsWhichContain$(anything())).thenReturn(
       of([new Artist(11, 'THE ARTIST', '', '')])
     );
-    when(mockNewsService.getArticlesWhichContain(anything())).thenReturn(
+    when(mockNewsService.getArticlesWhichContain$(anything())).thenReturn(
       of([new Article(12, 'THE ARTICLE', '', '', '', '')])
     );
     when(mockStorageService.isFavorite(anything())).thenReturn(false);
@@ -41,33 +41,33 @@ describe('SearchService', () => {
   });
 
   test('should call getAllTracksWith from media service and getArticlesWhichContain from news service with scope global', fakeAsync(() => {
-    service.search('xxxxxxxx', 'global').subscribe();
+    service.search$('xxxxxxxx', 'global').subscribe();
     tick();
-    verify(mockMediaService.getAllTracksWhichContain(anything())).once();
-    verify(mockNewsService.getArticlesWhichContain(anything())).once();
+    verify(mockMediaService.getAllTracksWhichContain$(anything())).once();
+    verify(mockNewsService.getArticlesWhichContain$(anything())).once();
   }));
 
   test('should not call getArticlesWhichContain from news service with scope media', fakeAsync(() => {
-    service.search('xxxxxxxx', 'media').subscribe();
+    service.search$('xxxxxxxx', 'media').subscribe();
     tick();
-    verify(mockNewsService.getArticlesWhichContain(anything())).never();
+    verify(mockNewsService.getArticlesWhichContain$(anything())).never();
   }));
 
   test('should not call getAllTracksWith from media service with scope news', fakeAsync(() => {
-    service.search('xxxxxxxx', 'news').subscribe();
+    service.search$('xxxxxxxx', 'news').subscribe();
     tick();
-    verify(mockMediaService.getAllTracksWhichContain(anything())).never();
+    verify(mockMediaService.getAllTracksWhichContain$(anything())).never();
   }));
 
   test('should return results from media and news service', fakeAsync(() => {
-    service.search('the', 'global').subscribe(res => {
+    service.search$('the', 'global').subscribe(res => {
       expect(res.length).toBe(4);
     });
     tick();
   }));
 
   test('should only return results from media service with scope media', fakeAsync(() => {
-    service.search('the', 'media').subscribe(res => {
+    service.search$('the', 'media').subscribe(res => {
       expect(res.length).toBe(3);
     });
     tick();

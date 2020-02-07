@@ -12,20 +12,17 @@ import { StorageService } from '../shared/services/storage.service';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class NewsComponent implements OnInit {
-  public articles$: Observable<Article[]>;
-  public isFullscreen: boolean;
+  public articles$ = new Observable<Article[]>();
+  public isFullscreen = this.router.url.indexOf('/news') !== -1;
 
   constructor(
-    private newsService: NewsService,
-    private router: Router,
-    private storageService: StorageService
-  ) {
-    this.articles$ = new Observable<Article[]>();
-    this.isFullscreen = this.router.url.indexOf('/news') !== -1;
-  }
+    private readonly newsService: NewsService,
+    private readonly router: Router,
+    private readonly storageService: StorageService
+  ) {}
 
   public ngOnInit(): void {
-    this.articles$ = this.newsService.getAllArticles();
+    this.articles$ = this.newsService.getAllArticles$();
   }
   public onToggleFullscreen(): void {
     if (this.router.url.indexOf('/news') > -1) {

@@ -8,8 +8,8 @@ import { Article } from '../../news/models/article.model';
   providedIn: 'root'
 })
 export class StorageService {
-  private queryKey = 'lastDashboardQuery';
-  private lockKey = 'lockMode';
+  private static readonly QUERY_KEY = 'lastDashboardQuery';
+  private static readonly LOCK_KEY = 'lockMode';
 
   public toggleFavorite(element: Artist | Album | Track | Article): void {
     const key: string = this.getStorageKey(element);
@@ -42,7 +42,7 @@ export class StorageService {
   }
 
   public saveLastQuery(term: string): void {
-    const valueFromStorage = localStorage.getItem(this.queryKey);
+    const valueFromStorage = localStorage.getItem(StorageService.QUERY_KEY);
     let valueToSave = Array.of(term);
 
     if (valueFromStorage !== null) {
@@ -55,11 +55,11 @@ export class StorageService {
       valueToSave = storedArray;
     }
 
-    localStorage.setItem(this.queryKey, JSON.stringify(valueToSave));
+    localStorage.setItem(StorageService.QUERY_KEY, JSON.stringify(valueToSave));
   }
 
   public getLastQueries(): string[] {
-    const valueFromStorage = localStorage.getItem(this.queryKey);
+    const valueFromStorage = localStorage.getItem(StorageService.QUERY_KEY);
     if (valueFromStorage !== null) {
       return JSON.parse(valueFromStorage);
     } else {
@@ -68,11 +68,11 @@ export class StorageService {
   }
 
   public setLockMode(value: boolean): void {
-    localStorage.setItem(this.lockKey, JSON.stringify(value));
+    localStorage.setItem(StorageService.LOCK_KEY, JSON.stringify(value));
   }
 
   public getLockMode(): boolean {
-    const valueFromStorage = localStorage.getItem(this.lockKey);
+    const valueFromStorage = localStorage.getItem(StorageService.LOCK_KEY);
     if (valueFromStorage) {
       return JSON.parse(valueFromStorage);
     }

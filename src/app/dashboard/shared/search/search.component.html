@@ -14,8 +14,8 @@
   <mat-autocomplete #auto="matAutocomplete">
     <mat-option
       *ngFor="let result of searchResults$ | async"
-      [value]="searchField.value"
       dbFavorite
+      [value]="searchField.value"
       [isFavorite]="result.isFavorite"
       (onSelectionChange)="onSearchResultSelected(result)"
     >

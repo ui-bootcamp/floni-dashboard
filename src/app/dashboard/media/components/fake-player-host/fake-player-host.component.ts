@@ -9,6 +9,7 @@ import { map } from 'rxjs/operators';
 import { MediaService } from '../../shared/media.service';
 import { Track } from '../../models/track.model';
 import { PlaylistService } from '../../../shared/services/playlist.service';
+import { Album } from '../../models/album.model';
 
 @Component({
   selector: 'db-fake-player-host',
@@ -18,22 +19,23 @@ import { PlaylistService } from '../../../shared/services/playlist.service';
 })
 export class FakePlayerHostComponent implements OnDestroy {
   public track: Track | undefined;
-  public albumCover$: Observable<string>;
+  public albumCover$ = new Observable<string>();
   private subscription: Subscription;
 
   constructor(
-    private mediaService: MediaService,
-    private playlistService: PlaylistService,
-    private cd: ChangeDetectorRef
+    private readonly mediaService: MediaService,
+    private readonly playlistService: PlaylistService,
+    private readonly cd: ChangeDetectorRef
   ) {
-    this.albumCover$ = new Observable<string>();
-    this.subscription = this.playlistService.nextTrack$.subscribe(nextTrack => {
-      this.track = nextTrack;
-      this.albumCover$ = this.mediaService
-        .getAlbum(nextTrack.albumId)
-        .pipe(map(album => album.coverSmall));
-      this.cd.detectChanges();
-    });
+    this.subscription = this.playlistService.nextTrack$.subscribe(
+      (nextTrack: Track) => {
+        this.track = nextTrack;
+        this.albumCover$ = this.mediaService
+          .getAlbum$(nextTrack.albumId)
+          .pipe(map((album: Album) => album.coverSmall));
+        this.cd.detectChanges();
+      }
+    );
   }
 
   public ngOnDestroy(): void {

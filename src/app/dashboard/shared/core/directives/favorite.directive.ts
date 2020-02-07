@@ -10,13 +10,14 @@ import {
   selector: '[dbFavorite]'
 })
 export class FavoriteDirective implements AfterContentChecked {
-  @Input() isFavorite: boolean;
+  @Input() isFavorite = false;
 
-  constructor(private el: ElementRef, private renderer: Renderer2) {
-    this.isFavorite = false;
-  }
+  constructor(
+    private readonly el: ElementRef,
+    private readonly renderer: Renderer2
+  ) {}
 
-  ngAfterContentChecked(): void {
+  public ngAfterContentChecked(): void {
     if (this.isFavorite) {
       this.renderer.addClass(this.el.nativeElement, 'highlight-favorite');
     } else {

@@ -20,24 +20,24 @@ export class MediaSelectionHostComponent implements OnInit {
   public tracks$ = new Observable<Track[]>();
 
   constructor(
-    private mediaService: MediaService,
-    private storageService: StorageService,
-    private playlistService: PlaylistService
+    private readonly mediaService: MediaService,
+    private readonly storageService: StorageService,
+    private readonly playlistService: PlaylistService
   ) {}
 
   public ngOnInit(): void {
-    this.artists$ = this.mediaService.getAllArtists();
+    this.artists$ = this.mediaService.getAllArtists$();
   }
 
   public onSelectedArtistChanged(artist: Artist): void {
     this.albums$ = this.mediaService
-      .getArtist(artist.id)
+      .getArtist$(artist.id)
       .pipe(map(x => x.albums));
   }
 
   public onSelectedAlbumChanged(album: Album): void {
     this.tracks$ = this.mediaService
-      .getAlbum(album.id)
+      .getAlbum$(album.id)
       .pipe(map(x => x.tracks));
   }
 
