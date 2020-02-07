@@ -14,28 +14,28 @@ import { Article } from '../../../news/models/article.model';
 })
 export class SearchService {
   constructor(
-    private mediaService: MediaService,
-    private newsService: NewsService,
-    private storageService: StorageService
+    private readonly mediaService: MediaService,
+    private readonly newsService: NewsService,
+    private readonly storageService: StorageService
   ) {}
 
-  public search(
+  public search$(
     searchTerm: string,
     scope: string
   ): Observable<(Artist | Album | Track | Article)[]> {
-    const sources: Observable<Artist[] | Album[] | Track[] | Article[]>[] = [];
+    const sources$: Observable<Artist[] | Album[] | Track[] | Article[]>[] = [];
     if (scope === 'media' || scope === 'global') {
-      sources.push(
-        this.mediaService.getAllAlbumsWhichContain(searchTerm),
-        this.mediaService.getAllArtistsWhichContain(searchTerm),
-        this.mediaService.getAllTracksWhichContain(searchTerm)
+      sources$.push(
+        this.mediaService.getAllAlbumsWhichContain$(searchTerm),
+        this.mediaService.getAllArtistsWhichContain$(searchTerm),
+        this.mediaService.getAllTracksWhichContain$(searchTerm)
       );
     }
     if (scope === 'news' || scope === 'global') {
-      sources.push(this.newsService.getArticlesWhichContain(searchTerm));
+      sources$.push(this.newsService.getArticlesWhichContain$(searchTerm));
     }
 
-    return combineLatest(...sources).pipe(
+    return combineLatest(...sources$).pipe(
       map(arrays => {
         return [].concat.apply([], arrays);
       }),

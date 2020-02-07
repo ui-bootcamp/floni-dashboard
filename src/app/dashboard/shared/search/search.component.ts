@@ -31,19 +31,19 @@ import { Article } from '../../news/models/article.model';
 })
 export class SearchComponent implements OnInit, OnDestroy {
   @Input() searchScope = 'global';
-  public searchField: FormControl = new FormControl();
+  public readonly searchField: FormControl = new FormControl();
   public searchResults$ = new Observable<
     (Artist | Album | Track | Article)[]
   >();
   public lastUserSearches = '';
-  private subscriptions: Subscription[] = [];
+  private readonly subscriptions = new Subscription();
 
   constructor(
-    private searchService: SearchService,
-    private storageService: StorageService,
-    private cd: ChangeDetectorRef,
-    private mediaService: MediaService,
-    private playlistService: PlaylistService
+    private readonly searchService: SearchService,
+    private readonly storageService: StorageService,
+    private readonly cd: ChangeDetectorRef,
+    private readonly mediaService: MediaService,
+    private readonly playlistService: PlaylistService
   ) {}
 
   public ngOnInit(): void {
@@ -52,7 +52,7 @@ export class SearchComponent implements OnInit, OnDestroy {
       distinctUntilChanged(),
       switchMap((term: string) =>
         term.length > 0
-          ? this.searchService.search(term, this.searchScope)
+          ? this.searchService.search$(term, this.searchScope)
           : of([])
       )
     );
@@ -61,7 +61,7 @@ export class SearchComponent implements OnInit, OnDestroy {
   }
 
   public ngOnDestroy(): void {
-    this.subscriptions.forEach(subscription => subscription.unsubscribe());
+    this.subscriptions.unsubscribe();
   }
 
   public onSearchResultSelected(
@@ -81,25 +81,23 @@ export class SearchComponent implements OnInit, OnDestroy {
         element.scrollIntoView();
       }
     } else if (Track.isTrack(result)) {
-      this.subscriptions.push(
+      this.subscriptions.add(
         this.mediaService
-          .getTrack(result.id)
+          .getTrack$(result.id)
           .subscribe((track: Track) => this.playlistService.queueTrack(track))
       );
     } else if (Album.isAlbum(result)) {
-      this.subscriptions.push(
+      this.subscriptions.add(
         this.mediaService
-          .getAlbum(result.id)
+          .getAlbum$(result.id)
           .pipe(map(album => album.tracks[0]))
           .subscribe((res: Track) => this.playlistService.queueTrack(res))
       );
     } else if (Artist.isArtist(result)) {
-      this.subscriptions.push(
-        this.mediaService
-          .getArtist(result.id)
-          .subscribe((artist: Artist) =>
-            this.playlistService.queueTrack(artist.albums[0].tracks[0])
-          )
+      this.subscriptions.add(
+        this.mediaService.getArtist$(result.id).subscribe((artist: Artist) => {
+          this.playlistService.queueTrack(artist.albums[0].tracks[0]);
+        })
       );
     }
   }

@@ -7,7 +7,7 @@ import { Article } from '../../../news/models/article.model';
   name: 'resultToIcon'
 })
 export class ResultToIconPipe implements PipeTransform {
-  transform(value: Artist | Track | Article): string {
+  public transform(value: Artist | Track | Article): string {
     if (Artist.isArtist(value)) {
       return 'face';
     } else if (Track.isTrack(value)) {

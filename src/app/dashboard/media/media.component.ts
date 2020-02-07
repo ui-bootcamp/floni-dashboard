@@ -8,11 +8,9 @@ import { Router } from '@angular/router';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MediaComponent {
-  public isFullscreen: boolean;
+  public readonly isFullscreen = this.router.url.indexOf('/media') !== -1;
 
-  constructor(private router: Router) {
-    this.isFullscreen = this.router.url.indexOf('/media') !== -1;
-  }
+  constructor(private readonly router: Router) {}
 
   public onToggleFullscreen(): void {
     if (this.router.url.indexOf('/media') > -1) {

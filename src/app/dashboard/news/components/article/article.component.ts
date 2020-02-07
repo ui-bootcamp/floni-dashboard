@@ -16,8 +16,4 @@ import { Article } from '../../models/article.model';
 export class ArticleComponent {
   @Input() public article!: Article;
   @Output() public readonly toggleArticleFavorite = new EventEmitter<Article>();
-
-  public onLongPress(article: Article): void {
-    this.toggleArticleFavorite.emit(article);
-  }
 }

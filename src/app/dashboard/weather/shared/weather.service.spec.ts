@@ -516,7 +516,7 @@ describe('WeatherService', () => {
   describe('getWeatherForLatitudeAndLongitude', () => {
     test('should return a forecast object with 3 weather information objects for valid coordinates', fakeAsync(() => {
       service
-        .getWeatherForLatitudeAndLongitude(49.1897, 11.0167)
+        .getWeatherForLatitudeAndLongitude$(49.1897, 11.0167)
         .subscribe(result => {
           expect(result.weatherInformation.length).toEqual(3);
         });
@@ -528,7 +528,7 @@ describe('WeatherService', () => {
     }));
 
     test('should throw a error for invalid coordinates', fakeAsync(() => {
-      service.getWeatherForLatitudeAndLongitude(99.197, 99.0167).subscribe(
+      service.getWeatherForLatitudeAndLongitude$(99.197, 99.0167).subscribe(
         result => expect(result).toEqual(0),
         err => expect(err).not.toBeUndefined()
       );
@@ -542,7 +542,7 @@ describe('WeatherService', () => {
 
   describe('getWeatherForCity', () => {
     test('should return a forecast object with 3 weather information objects for valid city name', fakeAsync(() => {
-      service.getWeatherForGermanCity('Georgensgmuend').subscribe(result => {
+      service.getWeatherForGermanCity$('Georgensgmuend').subscribe(result => {
         expect(result.weatherInformation.length).toEqual(3);
       });
       const req = httpMock.expectOne(
@@ -553,7 +553,7 @@ describe('WeatherService', () => {
     }));
 
     test('should throw a error for invalid cityName', fakeAsync(() => {
-      service.getWeatherForGermanCity('G-Town').subscribe(
+      service.getWeatherForGermanCity$('G-Town').subscribe(
         result => expect(result).toEqual(0),
         err => expect(err).not.toBeUndefined()
       );

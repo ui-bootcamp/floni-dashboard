@@ -7,11 +7,11 @@ import { Observable } from 'rxjs';
   name: 'idToArtist'
 })
 export class IdToArtistPipe implements PipeTransform {
-  constructor(private mediaService: MediaService) {}
+  constructor(private readonly mediaService: MediaService) {}
 
-  transform(artistID: number): Observable<string> {
+  public transform(artistID: number): Observable<string> {
     return this.mediaService
-      .getArtist(artistID)
+      .getArtist$(artistID)
       .pipe(map(artist => `- ${artist.name}`));
   }
 }

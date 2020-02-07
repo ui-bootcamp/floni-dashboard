@@ -51,7 +51,7 @@ describe('NewsService', () => {
 
   describe('getAllArticles', () => {
     test('should return all articles', fakeAsync(() => {
-      service.getAllArticles().subscribe(articles => {
+      service.getAllArticles$().subscribe(articles => {
         expect(articles).toEqual(dummyArticles);
       });
       const req = httpMock.expectOne(`${environment.baseUrl}news`);
@@ -62,7 +62,7 @@ describe('NewsService', () => {
 
   describe('getArticlesWhichContain', () => {
     test('should only return entries which match the search', fakeAsync(() => {
-      service.getArticlesWhichContain('thick').subscribe(articles => {
+      service.getArticlesWhichContain$('thick').subscribe(articles => {
         expect(articles.length).toEqual(1);
       });
       const req = httpMock.expectOne(`${environment.baseUrl}news`);
@@ -71,7 +71,7 @@ describe('NewsService', () => {
     }));
 
     test('should return empty array if there are no hits', fakeAsync(() => {
-      service.getArticlesWhichContain('thickkkkk').subscribe(articles => {
+      service.getArticlesWhichContain$('thickkkkk').subscribe(articles => {
         expect(articles.length).toEqual(0);
       });
       const req = httpMock.expectOne(`${environment.baseUrl}news`);

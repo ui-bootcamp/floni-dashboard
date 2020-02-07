@@ -10,17 +10,17 @@ import { StorageService } from '../../shared/services/storage.service';
   providedIn: 'root'
 })
 export class NewsService {
-  private URL = `${environment.baseUrl}news`;
+  private static readonly URL = `${environment.baseUrl}news`;
 
   constructor(
-    private httpClient: HttpClient,
-    private storageService: StorageService
+    private readonly httpClient: HttpClient,
+    private readonly storageService: StorageService
   ) {}
 
-  public getAllArticles(): Observable<Article[]> {
-    return this.httpClient.get<Article[]>(this.URL).pipe(
-      map(articles => {
-        return articles.map(article => {
+  public getAllArticles$(): Observable<Article[]> {
+    return this.httpClient.get<Article[]>(NewsService.URL).pipe(
+      map((articles: Article[]) => {
+        return articles.map((article: Article) => {
           article.isFavorite = this.storageService.isFavorite(article);
           return article;
         });
@@ -28,13 +28,15 @@ export class NewsService {
     );
   }
 
-  public getArticlesWhichContain(searchString: string): Observable<Article[]> {
-    return this.getAllArticles().pipe(
-      map(articles =>
+  public getArticlesWhichContain$(searchString: string): Observable<Article[]> {
+    return this.getAllArticles$().pipe(
+      map((articles: Article[]) =>
         articles.filter(
-          x =>
-            x.title.toUpperCase().includes(searchString.toUpperCase()) ||
-            x.description.toUpperCase().includes(searchString.toUpperCase())
+          (article: Article) =>
+            article.title.toUpperCase().includes(searchString.toUpperCase()) ||
+            article.description
+              .toUpperCase()
+              .includes(searchString.toUpperCase())
         )
       )
     );
