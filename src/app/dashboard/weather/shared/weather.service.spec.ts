@@ -437,7 +437,7 @@ describe('WeatherService', () => {
         sys: {
           pod: 'd'
         },
-        dt_txt: '2020-02-09 09:00:00'
+        dt_txt: '2020-02-09 12:00:00'
       },
       {
         dt: 1581066000,
@@ -508,6 +508,9 @@ describe('WeatherService', () => {
     injector = getTestBed();
     service = injector.get(WeatherService);
     httpMock = injector.get(HttpTestingController);
+
+    // @ts-ignore
+    spyOn(window, 'Date').and.returnValue(new Date('2020-02-07'));
   });
 
   describe('getWeatherForLatitudeAndLongitude', () => {
@@ -560,23 +563,5 @@ describe('WeatherService', () => {
       req.flush({ cod: 404, message: 'city not found' });
       tick();
     }));
-
-    test('test filter', () => {
-      const result = dummyWeatherResponse.list.filter(
-        x =>
-          x.dt_txt ===
-          `${new Date().getFullYear()}-${(
-            '0' +
-            (new Date().getMonth() + 1)
-          ).slice(-2)}-${('0' + (new Date().getDate() + 1)).slice(-2)} 12:00:00`
-      );
-      console.log(
-        `${new Date().getFullYear()}-${(
-          '0' +
-          (new Date().getMonth() + 1)
-        ).slice(-2)}-${('0' + (new Date().getDate() + 1)).slice(-2)} 12:00:00`
-      );
-      expect(result[0].main.temp).toBe(-1.09);
-    });
   });
 });
