@@ -1,0 +1,26 @@
+.weather-content {
+  margin-left: 10px;
+}
+
+.weather-header-area {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.city-search {
+  position: absolute;
+  bottom: 5px;
+  right: 16px;
+  font-size: smaller;
+}
+
+.weather-information-area {
+  margin-top: 30px;
+  display: grid;
+  grid-template-columns: 130px 1fr 1fr 1fr;
+}
+
+.day-block {
+  display: inline-block;
+}

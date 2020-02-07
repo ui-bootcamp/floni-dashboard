@@ -1,0 +1,46 @@
+<div class="weather-content">
+  <div *ngIf="errorMessage !== ''" class="error">
+    <mat-icon>error_outline</mat-icon>
+    {{ errorMessage }}
+    <span class="spacer"></span>
+    <button mat-icon-button (click)="onClickError()">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+  <h3>
+    The weather for {{ weather?.cityName }} {{ weather?.coordinatesAsString }}
+  </h3>
+  <div class="weather-information-area">
+    <div>Date</div>
+    <div *ngFor="let singleForecast of weather?.weatherInformation">
+      {{ singleForecast.date | date }}
+    </div>
+    <div></div>
+    <div *ngFor="let singleForecast of weather?.weatherInformation">
+      <img
+        [src]="singleForecast.getIconUrl()"
+        [alt]="singleForecast.description"
+      />
+    </div>
+    <div>Weather</div>
+    <div *ngFor="let singleForecast of weather?.weatherInformation">
+      {{ singleForecast.description }}
+    </div>
+    <div>Temperature</div>
+    <div *ngFor="let singleForecast of weather?.weatherInformation">
+      {{ singleForecast.temperature }} ° C
+    </div>
+  </div>
+
+  <mat-form-field class="city-search">
+    <input
+      dbLock
+      matInput
+      placeholder="Cityname"
+      [(ngModel)]="cityToSearch"
+      (keydown.enter)="onKeyDownEnter()"
+    />
+    <mat-hint align="start">Only german cities</mat-hint>
+    <mat-icon matSuffix>search</mat-icon>
+  </mat-form-field>
+</div>
