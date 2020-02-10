@@ -1,0 +1,10 @@
+.media {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.media-main {
+  overflow: hidden;
+  flex: 1;
+}

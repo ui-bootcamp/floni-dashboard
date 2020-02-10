@@ -1,0 +1,23 @@
+<div class="news">
+  <mat-toolbar class="toolbar">
+    <mat-toolbar-row>
+      <span>News</span>
+      <span class="spacer"></span>
+      <db-search *ngIf="isFullscreen" searchScope="news"></db-search>
+      <button mat-button (click)="onToggleFullscreen()">
+        <mat-icon *ngIf="isFullscreen">fullscreen_exit</mat-icon>
+        <mat-icon *ngIf="!isFullscreen">fullscreen</mat-icon>
+      </button>
+    </mat-toolbar-row>
+  </mat-toolbar>
+  <div class="news-main">
+    <mat-list dbLock>
+      <db-article
+        [id]="'article' + article.id"
+        *ngFor="let article of articles$ | async"
+        [article]="article"
+        (toggleArticleFavorite)="onToggleArticleFavorite($event)"
+      ></db-article>
+    </mat-list>
+  </div>
+</div>

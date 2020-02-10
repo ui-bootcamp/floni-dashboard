@@ -1,0 +1,34 @@
+<mat-form-field>
+  <input
+    matInput
+    dbLock
+    placeholder="Search"
+    type="text"
+    minlength="3"
+    [formControl]="searchField"
+    [matAutocomplete]="auto"
+  />
+  <mat-hint align="start" *ngIf="lastUserSearches.length > 0"
+    >You searched previously for: {{ lastUserSearches }}</mat-hint
+  >
+  <mat-autocomplete #auto="matAutocomplete">
+    <mat-option
+      *ngFor="let result of searchResults$ | async"
+      dbFavorite
+      [value]="searchField.value"
+      [isFavorite]="result.isFavorite"
+      (onSelectionChange)="onSearchResultSelected(result)"
+    >
+      <mat-icon *ngIf="!result.tracks; else image">{{
+        result | resultToIcon
+      }}</mat-icon>
+      <ng-template #image>
+        <img src="{{ result.coverSmall }}" alt="Album cover" />
+      </ng-template>
+      {{ result.name }} {{ result.title }}
+      <em *ngIf="result.artistId">{{
+        result.artistId | idToArtist | async
+      }}</em>
+    </mat-option>
+  </mat-autocomplete>
+</mat-form-field>

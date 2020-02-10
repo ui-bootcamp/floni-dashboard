@@ -1,0 +1,13 @@
+.map {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.map-main {
+  flex: 1;
+}
+
+agm-map {
+  height: calc(100%);
+}

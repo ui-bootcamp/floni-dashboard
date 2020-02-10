@@ -1,0 +1,17 @@
+<div class="media">
+  <mat-toolbar class="toolbar">
+    <mat-toolbar-row>
+      <span>Media</span>
+      <span class="spacer"></span>
+      <db-search *ngIf="isFullscreen" searchScope="media"></db-search>
+      <button mat-button (click)="onToggleFullscreen()">
+        <mat-icon *ngIf="isFullscreen">fullscreen_exit</mat-icon>
+        <mat-icon *ngIf="!isFullscreen">fullscreen</mat-icon>
+      </button>
+    </mat-toolbar-row>
+  </mat-toolbar>
+  <div class="media-main">
+    <db-media-selection-host></db-media-selection-host>
+  </div>
+  <db-fake-player-host></db-fake-player-host>
+</div>

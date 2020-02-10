@@ -1,0 +1,19 @@
+<div #dashboardSidebar class="sidebar">
+  <mat-toolbar>
+    <div *ngIf="track && track.title; else showHint">{{ track.title }}</div>
+    <img
+      *ngIf="albumCover !== ''"
+      dbLock
+      [src]="albumCover"
+      alt="Album Cover"
+      class="non-selectable"
+    />
+    <ng-template #showHint>Please play a track.</ng-template>
+    <div
+      id="dashboardSidebarContainer"
+      class="sidebar-button mat-toolbar non-selectable"
+    >
+      <mat-icon>settings_ethernet</mat-icon>
+    </div>
+  </mat-toolbar>
+</div>

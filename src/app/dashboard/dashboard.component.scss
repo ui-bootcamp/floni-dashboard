@@ -1,0 +1,31 @@
+.dashboard {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.dashboard-main {
+  overflow: auto;
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-column-gap: 1em;
+  grid-row-gap: 1em;
+  grid-auto-rows: minmax(450px, 49vh);
+  padding: 1em;
+}
+
+.dashboard-app {
+  border-color: dimgrey;
+  border-style: solid;
+  border-width: 1px;
+}
+
+.pipe {
+  margin-right: 10px;
+  margin-left: 10px;
+}
+
+.weather {
+  position: relative;
+}

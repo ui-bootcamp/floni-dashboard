@@ -1,0 +1,13 @@
+<div>
+  <mat-toolbar class="toolbar">
+    <mat-toolbar-row>
+      <span>Weather</span>
+      <span class="spacer"></span>
+      <button mat-button (click)="onToggleFullscreen()">
+        <mat-icon *ngIf="isFullscreen">fullscreen_exit</mat-icon>
+        <mat-icon *ngIf="!isFullscreen">fullscreen</mat-icon>
+      </button>
+    </mat-toolbar-row>
+  </mat-toolbar>
+  <db-weather-detail-host></db-weather-detail-host>
+</div>

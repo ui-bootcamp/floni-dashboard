@@ -1,0 +1,61 @@
+<div class="selection-container">
+  <mat-selection-list
+    dense
+    dbLock
+    (selectionChange)="onSelectedArtistChanged($event.option)"
+  >
+    <mat-list-option
+      *ngFor="let artist of artists"
+      dbLongPress
+      dbFavorite
+      [value]="artist"
+      [isFavorite]="artist.isFavorite"
+      (longPress)="onLongPress(artist)"
+    >
+      <div class="favorite-div">
+        <div>{{ artist.name }}</div>
+        <mat-icon [innerHTML]="artist.isFavorite | favoriteIcon"></mat-icon>
+      </div>
+    </mat-list-option>
+  </mat-selection-list>
+
+  <mat-selection-list
+    dense
+    dbLock
+    (selectionChange)="onSelectedAlbumChanged($event.option)"
+  >
+    <mat-list-option
+      *ngFor="let album of albums"
+      dbFavorite
+      dbLongPress
+      [value]="album"
+      [isFavorite]="album.isFavorite"
+      (longPress)="onLongPress(album)"
+    >
+      <div class="favorite-div">
+        <div>{{ album.name }}</div>
+        <mat-icon [innerHTML]="album.isFavorite | favoriteIcon"></mat-icon>
+      </div>
+    </mat-list-option>
+  </mat-selection-list>
+
+  <mat-selection-list
+    dense
+    dbLock
+    (selectionChange)="onSelectedTrackChanged($event.option)"
+  >
+    <mat-list-option
+      *ngFor="let track of tracks"
+      dbFavorite
+      dbLongPress
+      [value]="track"
+      [isFavorite]="track.isFavorite"
+      (longPress)="onLongPress(track)"
+    >
+      <div class="favorite-div">
+        <div>{{ track.title }}</div>
+        <mat-icon [innerHTML]="track.isFavorite | favoriteIcon"></mat-icon>
+      </div>
+    </mat-list-option>
+  </mat-selection-list>
+</div>

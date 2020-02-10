@@ -1,1 +1,67 @@
-/* You can add global styles to this file, and also import other style files */
+@import 'Styles/material-theme';
+
+html,
+body,
+db-root {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, 'Helvetica Neue', sans-serif;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+.highlight-favorite {
+  background-color: mat-color($primary, lighter);
+}
+
+.dark-theme .highlight-favorite {
+  background-color: mat-color($dark-primary, 700);
+}
+
+.error {
+  background-color: mat-color($warn);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  margin-right: 10px;
+}
+
+.toolbar {
+  height: 90px;
+  justify-content: center;
+}
+
+.lock {
+  overflow-y: hidden !important;
+
+  a img {
+    display: none;
+  }
+}
+
+.lock-hide {
+  display: none;
+}
+
+.sidebar {
+  height: 100%;
+  width: 0px;
+  right: 0;
+  position: fixed;
+  touch-action: none;
+  mat-toolbar {
+    height: 95%;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+}
+
+.sidebar-animation {
+  transition: all 0.5s ease-out;
+}
