@@ -508,13 +508,13 @@ describe('WeatherService', () => {
     injector = getTestBed();
     service = injector.get(WeatherService);
     httpMock = injector.get(HttpTestingController);
-
-    // @ts-ignore
-    spyOn(window, 'Date').and.returnValue(new Date('2020-02-07'));
   });
 
   describe('getWeatherForLatitudeAndLongitude', () => {
     test('should return a forecast object with 3 weather information objects for valid coordinates', fakeAsync(() => {
+      const mockDate = new Date('2020-02-07');
+      // @ts-ignore
+      jest.spyOn(global, 'Date').mockImplementation(() => mockDate);
       service
         .getWeatherForLatitudeAndLongitude$(49.1897, 11.0167)
         .subscribe(result => {
@@ -528,6 +528,9 @@ describe('WeatherService', () => {
     }));
 
     test('should throw a error for invalid coordinates', fakeAsync(() => {
+      const mockDate = new Date('2020-02-07');
+      // @ts-ignore
+      jest.spyOn(global, 'Date').mockImplementation(() => mockDate);
       service.getWeatherForLatitudeAndLongitude$(99.197, 99.0167).subscribe(
         result => expect(result).toEqual(0),
         err => expect(err).not.toBeUndefined()
@@ -542,6 +545,9 @@ describe('WeatherService', () => {
 
   describe('getWeatherForCity', () => {
     test('should return a forecast object with 3 weather information objects for valid city name', fakeAsync(() => {
+      const mockDate = new Date('2020-02-07');
+      // @ts-ignore
+      jest.spyOn(global, 'Date').mockImplementation(() => mockDate);
       service.getWeatherForGermanCity$('Georgensgmuend').subscribe(result => {
         expect(result.weatherInformation.length).toEqual(3);
       });
@@ -553,6 +559,9 @@ describe('WeatherService', () => {
     }));
 
     test('should throw a error for invalid cityName', fakeAsync(() => {
+      const mockDate = new Date('2020-02-07');
+      // @ts-ignore
+      jest.spyOn(global, 'Date').mockImplementation(() => mockDate);
       service.getWeatherForGermanCity$('G-Town').subscribe(
         result => expect(result).toEqual(0),
         err => expect(err).not.toBeUndefined()
