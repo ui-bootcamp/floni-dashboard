@@ -30,7 +30,7 @@ describe('SearchService', () => {
     when(mockMapMarkerService.nextMarker$).thenReturn(
       new Observable<PlaceResult[]>()
     );
-    when(mockMediaService.getAllTracksWhichContain(anything())).thenReturn(
+    when(mockMediaService.getAllTracksWhichContain$(anything())).thenReturn(
       of([new Track(9, 9, 9, 'THE TRACK', 123, '', '')])
     );
     when(mockMediaService.getAllAlbumsWhichContain$(anything())).thenReturn(
